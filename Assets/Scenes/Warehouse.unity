@@ -56,7 +56,7 @@ LightmapSettings:
   m_LightmapEditorSettings:
     serializedVersion: 12
     m_Resolution: 2
-    m_BakeResolution: 40
+    m_BakeResolution: 64
     m_AtlasSize: 2048
     m_AO: 1
     m_AOMaxDistance: 2
@@ -75,9 +75,9 @@ LightmapSettings:
     m_BakeBackend: 2
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
-    m_PVRSampleCount: 64
+    m_PVRSampleCount: 100
     m_PVRBounces: 2
-    m_PVREnvironmentSampleCount: 64
+    m_PVREnvironmentSampleCount: 100
     m_PVREnvironmentReferencePointCount: 2048
     m_PVRFilteringMode: 1
     m_PVRDenoiserTypeDirect: 1
@@ -3833,6 +3833,46 @@ PrefabInstance:
     - target: {fileID: -8554122972341877852, guid: d889b98bd93a27d44b6daa85adf75382,
         type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.17364825
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0016898612
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5166
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3648
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5894251793315714205, guid: d889b98bd93a27d44b6daa85adf75382,
+        type: 3}
+      propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5102530947620581811, guid: d889b98bd93a27d44b6daa85adf75382,
