@@ -87,8 +87,8 @@ namespace OculusSampleFramework
             // OVRPlayerController, and also players have arms.
             // Note that there's no major downside to making this value too high, as objects
             // outside the player's grabbable trigger volume will not be eligible targets regardless.
-            SphereCollider sc = m_player.GetComponentInChildren<SphereCollider>();
-            m_maxGrabDistance = sc.radius + 3.0f;
+            //SphereCollider sc = m_player.GetComponentInChildren<SphereCollider>();
+            m_maxGrabDistance = 5.0f;
 
             if(m_parentHeldObject == true)
             {
