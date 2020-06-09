@@ -4,10 +4,18 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum PoseName
+{
+    None,
+    ThumbsUp,
+    Fist
+};
+
 [System.Serializable]
 public struct Gesture
 {
     public string name;
+    public PoseName poseName;
     public List<Vector3> fingerData;
     public UnityEvent onRecognized;
 }
@@ -21,28 +29,42 @@ public class GestureDetector : MonoBehaviour
 
     private List<OVRBone> fingerBones;
     private Gesture previousGesture;
+    private Gesture currentGesture;
+
+    public bool IsGestureActive(PoseName poseName)
+    {
+        return currentGesture.poseName == poseName;
+    }
 
     void Start()
     {
-        fingerBones = new List<OVRBone>(skeleton.Bones);
+        StartCoroutine(GetFingerBones());
         previousGesture = new Gesture();
+
+        // Detects if the gesture list has several entries using the same PoseName
+        if (gestures.GroupBy(g => g.poseName).Any(gg => gg.Count() > 1))
+        {
+            throw new DuplicatePoseNameException("A PoseName can only be used for one gesture at a time, please remove any duplicates");
+        }
     }
 
     void Update()
     {
-        if (allowGestureCreation && Input.GetKeyDown(KeyCode.Space))
+        if (allowGestureCreation && fingerBones.Count > 0 && Input.GetKeyDown(KeyCode.Space))
         {
             SaveGesture();
         }
 
-        Gesture currentGesture = DetectGesture();
-        bool gestureDetected = !currentGesture.Equals(new Gesture());
+        currentGesture = DetectGesture();
+        bool gestureDetected = currentGesture.poseName != PoseName.None;
 
-        if (gestureDetected && !currentGesture.Equals(previousGesture))
+        if (gestureDetected && currentGesture.poseName != previousGesture.poseName)
         {
-            previousGesture = currentGesture;
+            Debug.Log("Detected new Gesture: " + currentGesture.name);
             currentGesture.onRecognized.Invoke();
         }
+
+        previousGesture = currentGesture;
     }
 
     // Saves the current fingerpositions as a new Gesture in gestures list
@@ -50,6 +72,7 @@ public class GestureDetector : MonoBehaviour
     {
         Gesture gesture = new Gesture();
         gesture.name = "New Gesture";
+        gesture.poseName = PoseName.None;
         List<Vector3> data = new List<Vector3>();
 
         foreach (var bone in fingerBones)
@@ -95,5 +118,14 @@ public class GestureDetector : MonoBehaviour
         }
 
         return currentGesture;
+    }
+
+    IEnumerator GetFingerBones()
+    {
+        do
+        {
+            fingerBones = new List<OVRBone>(skeleton.Bones);
+            yield return null;
+        } while (fingerBones.Count <= 0);
     }
 }
