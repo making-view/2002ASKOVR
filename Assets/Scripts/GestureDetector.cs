@@ -8,6 +8,7 @@ public enum PoseName
 {
     None,
     ThumbsUp,
+    JazzHand,
     Fist
 };
 
@@ -34,6 +35,11 @@ public class GestureDetector : MonoBehaviour
     public bool IsGestureActive(PoseName poseName)
     {
         return currentGesture.poseName == poseName;
+    }
+
+    public bool IsGestureActive(string name)
+    {
+        return currentGesture.name == name;
     }
 
     void Start()
