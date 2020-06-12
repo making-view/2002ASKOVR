@@ -66,7 +66,6 @@ public class GestureDetector : MonoBehaviour
 
         if (gestureDetected && currentGesture.poseName != previousGesture.poseName)
         {
-            Debug.Log("Detected new Gesture: " + currentGesture.name);
             currentGesture.onRecognized.Invoke();
         }
 
