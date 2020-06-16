@@ -47,7 +47,9 @@ public class GestureDetector : MonoBehaviour
         StartCoroutine(GetFingerBones());
         previousGesture = new Gesture();
 
+        //
         // Detects if the gesture list has several entries using the same PoseName
+        //
         if (gestures.GroupBy(g => g.poseName).Any(gg => gg.Count() > 1))
         {
             throw new DuplicatePoseNameException("A PoseName can only be used for one gesture at a time, please remove any duplicates");
@@ -72,7 +74,9 @@ public class GestureDetector : MonoBehaviour
         previousGesture = currentGesture;
     }
 
+    //
     // Saves the current fingerpositions as a new Gesture in gestures list
+    //
     void SaveGesture()
     {
         Gesture gesture = new Gesture();
@@ -82,7 +86,9 @@ public class GestureDetector : MonoBehaviour
 
         foreach (var bone in fingerBones)
         {
-            // Finger position relative to root
+            //
+            // Finger position relative to root (ie localPosition only, rotation is ignored)
+            //
             data.Add(skeleton.transform.InverseTransformPoint(bone.Transform.position));
         }
 
@@ -90,7 +96,9 @@ public class GestureDetector : MonoBehaviour
         gestures.Add(gesture);
     }
 
+    //
     // If there are any saved gestures similar to current hand pose, returns the most similar one
+    //
     Gesture DetectGesture()
     {
         Gesture currentGesture = new Gesture();
@@ -99,8 +107,12 @@ public class GestureDetector : MonoBehaviour
         foreach (var gesture in gestures)
         {
             float sumDistance = 0;
-            bool discarded = false;
+            bool skipped = false;
 
+            //
+            // Calculates and sums up the difference between current bone position and gesture bone position
+            // Skips this gesture if any bone position is too different to that of the gesture
+            //
             for (int boneNo = 0; boneNo < fingerBones.Count; boneNo++)
             {
                 Vector3 thisBonePos = skeleton.transform.InverseTransformPoint(fingerBones[boneNo].Transform.position);
@@ -108,14 +120,14 @@ public class GestureDetector : MonoBehaviour
 
                 if (distance > threshold)
                 {
-                    discarded = true;
+                    skipped = true;
                     break;
                 }
 
                 sumDistance += distance;
             }
 
-            if(!discarded && sumDistance < currentMin)
+            if(!skipped && sumDistance < currentMin)
             {
                 currentMin = sumDistance;
                 currentGesture = gesture;
@@ -125,6 +137,9 @@ public class GestureDetector : MonoBehaviour
         return currentGesture;
     }
 
+    //
+    // Populates fingerbones list, happens first time the Quest detects hands in-game
+    //
     IEnumerator GetFingerBones()
     {
         do

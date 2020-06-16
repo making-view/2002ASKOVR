@@ -10,6 +10,7 @@ language governing permissions and limitations under the license.
 ************************************************************************************/
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -29,6 +30,8 @@ namespace OculusSampleFramework
 		[SerializeField] private RayToolView _rayToolView = null;
 		[Range(0.0f, 45.0f)] [SerializeField] private float _coneAngleDegrees = 20.0f;
 		[SerializeField] private float _farFieldMaxDistance = 5f;
+
+		private GestureDetector gestureDetector;
 
 		public override InteractableToolTags ToolTags
 		{
@@ -95,6 +98,14 @@ namespace OculusSampleFramework
 			_rayToolView.InteractableTool = this;
 			_coneAngleReleaseDegrees = _coneAngleDegrees * 1.2f;
 			_initialized = true;
+
+			var toolComp = GetComponent<InteractableTool>();
+			var skelType = toolComp.IsRightHandedTool
+				? OVRSkeleton.SkeletonType.HandRight
+				: OVRSkeleton.SkeletonType.HandLeft;
+
+			FindObjectsOfType<GestureDetector>().ToList()
+				.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == skelType);
 		}
 
 		private void OnDestroy()
@@ -114,8 +125,9 @@ namespace OculusSampleFramework
 
 			var hand = IsRightHandedTool ? HandsManager.Instance.RightHand : HandsManager.Instance.LeftHand;
 			var pointer = hand.PointerPose;
-			transform.position = pointer.position;
-			transform.rotation = pointer.rotation;
+			var cameraRigTransform = hand.gameObject.transform.parent.parent.parent;
+			transform.position = cameraRigTransform.position + pointer.position;
+			transform.rotation = Quaternion.Euler((cameraRigTransform.rotation.eulerAngles + pointer.rotation.eulerAngles));
 
 			var prevPosition = InteractionPosition;
 			var currPosition = transform.position;
@@ -123,6 +135,7 @@ namespace OculusSampleFramework
 			InteractionPosition = currPosition;
 
 			_pinchStateModule.UpdateState(hand, _focusedInteractable);
+			_rayToolView.EnableState = gestureDetector.IsGestureActive(PoseName.None);
 			_rayToolView.ToolActivateState = _pinchStateModule.PinchSteadyOnFocusedObject ||
 				_pinchStateModule.PinchDownOnFocusedObject;
 		}

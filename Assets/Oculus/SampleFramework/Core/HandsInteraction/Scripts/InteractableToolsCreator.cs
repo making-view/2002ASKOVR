@@ -21,7 +21,7 @@ namespace OculusSampleFramework
 	public class InteractableToolsCreator : MonoBehaviour
 	{
 		[SerializeField] private Transform[] LeftHandTools = null;
-		[SerializeField] private Transform[] RightHandTools = null;
+		[SerializeField] private Transform[] RightHandTools = null; 
 
 		private void Awake()
 		{
@@ -67,7 +67,7 @@ namespace OculusSampleFramework
 		private void AttachToolToHandTransform(Transform tool, bool isRightHanded)
 		{
 			var newTool = Instantiate(tool).transform;
-			newTool.localPosition = Vector3.zero;
+			newTool.localPosition = Vector3.zero; 
 			var toolComp = newTool.GetComponent<InteractableTool>();
 			toolComp.IsRightHandedTool = isRightHanded;
 			// Initialize only AFTER settings have been applied!
