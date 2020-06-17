@@ -135,7 +135,6 @@ namespace OculusSampleFramework
 			InteractionPosition = currPosition;
 
 			_pinchStateModule.UpdateState(hand, _focusedInteractable);
-			_rayToolView.EnableState = gestureDetector.IsGestureActive(PoseName.None);
 			_rayToolView.ToolActivateState = _pinchStateModule.PinchSteadyOnFocusedObject ||
 				_pinchStateModule.PinchDownOnFocusedObject;
 		}
