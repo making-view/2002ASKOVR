@@ -23,7 +23,7 @@ public struct Gesture
 
 public class GestureDetector : MonoBehaviour
 {
-    public OVRSkeleton skeleton;
+    public OVRSkeleton skeleton = null;
     public float threshold = 0.1f;
     public bool allowGestureCreation = false;
     public List<Gesture> gestures;
@@ -31,6 +31,15 @@ public class GestureDetector : MonoBehaviour
     private List<OVRBone> fingerBones;
     private Gesture previousGesture;
     private Gesture currentGesture;
+
+    public bool IsAnyGestureActive
+    {
+        get
+        {
+            return skeleton.gameObject.GetComponent<SkinnedMeshRenderer>().enabled
+                && currentGesture.poseName != PoseName.None;
+        }
+    }
 
     public bool IsGestureActive(PoseName poseName)
     {

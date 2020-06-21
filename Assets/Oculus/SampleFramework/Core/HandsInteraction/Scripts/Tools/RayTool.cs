@@ -32,6 +32,7 @@ namespace OculusSampleFramework
 		[SerializeField] private float _farFieldMaxDistance = 5f;
 
 		private GestureDetector gestureDetector;
+        private SlideGrabber slideGrabber;
 
 		public override InteractableToolTags ToolTags
 		{
@@ -78,7 +79,12 @@ namespace OculusSampleFramework
 			}
 			set
 			{
-				_rayToolView.EnableState = value;
+                if (gestureDetector != null && gestureDetector.IsAnyGestureActive)
+                {
+                    _rayToolView.EnableState = false;
+                }
+                else
+                    _rayToolView.EnableState = value;
 			}
 		}
 
@@ -104,8 +110,11 @@ namespace OculusSampleFramework
 				? OVRSkeleton.SkeletonType.HandRight
 				: OVRSkeleton.SkeletonType.HandLeft;
 
-			FindObjectsOfType<GestureDetector>().ToList()
+			gestureDetector = FindObjectsOfType<GestureDetector>().ToList()
 				.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == skelType);
+
+            slideGrabber = FindObjectsOfType<SlideGrabber>().ToList()
+                .FirstOrDefault(sg => sg.Skeleton.GetSkeletonType() == skelType);
 		}
 
 		private void OnDestroy()
@@ -134,10 +143,10 @@ namespace OculusSampleFramework
 			Velocity = (currPosition - prevPosition) / Time.deltaTime;
 			InteractionPosition = currPosition;
 
-			_pinchStateModule.UpdateState(hand, _focusedInteractable);
-			_rayToolView.ToolActivateState = _pinchStateModule.PinchSteadyOnFocusedObject ||
-				_pinchStateModule.PinchDownOnFocusedObject;
-		}
+            _pinchStateModule.UpdateState(hand, _focusedInteractable);
+            _rayToolView.ToolActivateState = _pinchStateModule.PinchSteadyOnFocusedObject ||
+                _pinchStateModule.PinchDownOnFocusedObject;
+        }
 
 		/// <summary>
 		/// Avoid hand collider during raycasts so move origin some distance away from where tool is.
@@ -349,6 +358,8 @@ namespace OculusSampleFramework
 		{
 			_rayToolView.SetFocusedInteractable(focusedInteractable);
 			_focusedInteractable = focusedInteractable;
+
+            // TODO: grab stuff if colliderZone is Action
 		}
 
 		public override void DeFocus()

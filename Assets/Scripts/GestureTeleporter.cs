@@ -6,24 +6,27 @@ using UnityEngine;
 public class GestureTeleporter : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private GestureDetector gestureDetector;
-    [SerializeField] private OVRCameraRig cameraRig;
-    [SerializeField] private GameObject targetMarkerPrefab;
+    [SerializeField] private GestureDetector gestureDetector = null;
+    [SerializeField] private OVRCameraRig cameraRig = null;
+    [SerializeField] private GameObject targetMarkerPrefab = null;
 
     [Header("Settings")]
     public float rayLength = 10f;
     public float reqGestureChangeSpeed = 0.4f;
 
-    private OVRSkeleton skeleton;
-    private GameObject targetMarker;
+    private OVRSkeleton skeleton = null;
+    private GameObject targetMarker = null;
+    private Vector3 targetMarkerInitScale;
 
     private float teleportActivationTimer = 0;
+    private float targetMarkerScaleFactor = 10;
 
     void Start()
     {
         skeleton = GetComponent<OVRSkeleton>();
         targetMarker = Instantiate(targetMarkerPrefab);
         targetMarker.SetActive(false);
+        targetMarkerInitScale = targetMarker.transform.localScale;
     }
 
     void Update()
@@ -64,6 +67,7 @@ public class GestureTeleporter : MonoBehaviour
             {
                 //
                 // Reset timer, activate target marker and move marker to where the ray hit the floor
+                // Also scales and rotates target marker relative to camera position
                 //
                 if (rayHit.collider.gameObject.tag == "Floor")
                 {
@@ -71,6 +75,12 @@ public class GestureTeleporter : MonoBehaviour
 
                     Vector3 direction = rayHit.point - targetMarker.transform.position;
                     targetMarker.transform.position += direction * Mathf.Clamp(direction.magnitude, 0.0f, 1.0f);
+
+                    Vector3 cameraDistance = targetMarker.transform.position - cameraRig.transform.position;
+                    Vector3 newScale = targetMarkerInitScale + (Vector3.one * cameraDistance.magnitude / targetMarkerScaleFactor);
+                    Vector3 newForward = new Vector3(cameraDistance.z, 0, -cameraDistance.x).normalized;
+                    targetMarker.transform.localScale = newScale;
+                    targetMarker.transform.forward = newForward;
 
                     targetMarker.SetActive(true);
                 }
