@@ -1,11 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using OculusSampleFramework;
 
-[RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(ButtonController))]
-public class Slidable : MonoBehaviour
+public class Stock : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

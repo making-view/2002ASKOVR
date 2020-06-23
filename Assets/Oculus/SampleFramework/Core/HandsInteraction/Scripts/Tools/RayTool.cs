@@ -32,7 +32,6 @@ namespace OculusSampleFramework
 		[SerializeField] private float _farFieldMaxDistance = 5f;
 
 		private GestureDetector gestureDetector;
-        private SlideGrabber slideGrabber;
 
 		public override InteractableToolTags ToolTags
 		{
@@ -112,9 +111,6 @@ namespace OculusSampleFramework
 
 			gestureDetector = FindObjectsOfType<GestureDetector>().ToList()
 				.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == skelType);
-
-            slideGrabber = FindObjectsOfType<SlideGrabber>().ToList()
-                .FirstOrDefault(sg => sg.Skeleton.GetSkeletonType() == skelType);
 		}
 
 		private void OnDestroy()

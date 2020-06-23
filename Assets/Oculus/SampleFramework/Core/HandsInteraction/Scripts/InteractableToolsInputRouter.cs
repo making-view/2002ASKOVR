@@ -110,6 +110,8 @@ namespace OculusSampleFramework
 				return;
 			}
 
+            Debug.Log("InputRouter update");
+
 			bool leftHandIsReliable = HandsManager.Instance.LeftHand.IsTracked &&
 				HandsManager.Instance.LeftHand.HandConfidence == OVRHand.TrackingConfidence.High;
 			bool rightHandIsReliable = HandsManager.Instance.RightHand.IsTracked &&
@@ -197,10 +199,7 @@ namespace OculusSampleFramework
 		{
 			foreach (InteractableTool tool in tools)
 			{
-				if (tool.EnableState != enableState)
-				{
-					tool.EnableState = enableState;
-				}
+				tool.EnableState = enableState;
 			}
 		}
 	}
