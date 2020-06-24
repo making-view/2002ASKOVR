@@ -36,6 +36,8 @@ namespace OculusSampleFramework
         private GestureDetector _rightGestureDetector = null;
         private GestureTeleporter _leftGestureTeleporter = null;
         private GestureTeleporter _rightGestureTeleporter = null;
+        private StockGrabber _leftStockGrabber = null;
+        private StockGrabber _rightStockGrabber = null;
         private GameObject _leftSkeletonVisual = null;
 		private GameObject _rightSkeletonVisual = null;
 		private float _currentHandAlpha = 1.0f;
@@ -205,6 +207,7 @@ namespace OculusSampleFramework
 
             var detectors = FindObjectsOfType<GestureDetector>().ToList();
             var teleporters = FindObjectsOfType<GestureTeleporter>().ToList();
+            var grabbers = FindObjectsOfType<StockGrabber>().ToList();
             var leftSkelType = OVRSkeleton.SkeletonType.HandLeft;
             var rightSkelType = OVRSkeleton.SkeletonType.HandRight;
 
@@ -218,6 +221,9 @@ namespace OculusSampleFramework
 
             _leftGestureTeleporter = teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == leftSkelType);
             _rightGestureTeleporter = teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == rightSkelType);
+
+            _leftStockGrabber = grabbers.FirstOrDefault(sg => sg.SkeletonType == leftSkelType);
+            _rightStockGrabber = grabbers.FirstOrDefault(sg => sg.SkeletonType == rightSkelType);
         }
 
 		private void Update()
@@ -238,6 +244,22 @@ namespace OculusSampleFramework
 			_rightMeshRenderer.sharedMaterial.SetFloat(HandAlphaId, _currentHandAlpha);
 			_leftMeshRenderer.sharedMaterial.SetFloat(HandAlphaId, _currentHandAlpha);
 		}
+
+        public void SetFocusOnStock(OVRHand.Hand handType, Stock stock)
+        {
+            if (handType == OVRHand.Hand.HandLeft)
+                _leftStockGrabber.SetFocusOnStock(stock);
+            else
+                _rightStockGrabber.SetFocusOnStock(stock);
+        }
+
+        public void DeFocusStock(OVRHand.Hand handType)
+        {
+            if (handType == OVRHand.Hand.HandLeft)
+                _leftStockGrabber.DeFocus();
+            else
+                _rightStockGrabber.DeFocus();
+        }
 
 		private IEnumerator FindSkeletonVisualGameObjects()
 		{

@@ -16,6 +16,8 @@ public class GestureTeleporter : MonoBehaviour
 
     private GameObject targetMarker = null;
     private Vector3 targetMarkerInitScale;
+    private Color targetMarkerInitColor;
+    private Material targetMarkerMaterial;
 
     private float teleportActivationTimer = 0;
     private float targetMarkerScaleFactor = 10;
@@ -33,8 +35,11 @@ public class GestureTeleporter : MonoBehaviour
     {
         Skeleton = GetComponent<OVRSkeleton>();
         targetMarker = Instantiate(targetMarkerPrefab);
-        targetMarker.SetActive(false);
+        targetMarkerMaterial = targetMarker.GetComponent<MeshRenderer>().material;
         targetMarkerInitScale = targetMarker.transform.localScale;
+        targetMarkerInitColor = targetMarkerMaterial.GetColor("_EmissionColor");
+
+        targetMarker.SetActive(false);
     }
 
     void Update()
@@ -44,6 +49,14 @@ public class GestureTeleporter : MonoBehaviour
         if (teleportActivationTimer <= 0.0f)
         {
             targetMarker.SetActive(false);
+        }
+
+        //
+        // Sets makrer color to white, will remain this color until user aims at a teleportable location on the floor
+        //
+        if (targetMarker.activeSelf)
+        {
+            targetMarkerMaterial.SetColor("_EmissionColor", Color.white);
         }
 
         //
@@ -75,7 +88,7 @@ public class GestureTeleporter : MonoBehaviour
             {
                 //
                 // Reset timer, activate target marker and move marker to where the ray hit the floor
-                // Also scales and rotates target marker relative to camera position
+                // Also scales and rotates target marker relative to camera position and changes its color
                 //
                 if (rayHit.collider.gameObject.tag == "Floor")
                 {
@@ -89,6 +102,7 @@ public class GestureTeleporter : MonoBehaviour
                     Vector3 newForward = new Vector3(cameraDistance.z, 0, -cameraDistance.x).normalized;
                     targetMarker.transform.localScale = newScale;
                     targetMarker.transform.forward = newForward;
+                    targetMarkerMaterial.SetColor("_EmissionColor", targetMarkerInitColor);
 
                     targetMarker.SetActive(true);
                 }

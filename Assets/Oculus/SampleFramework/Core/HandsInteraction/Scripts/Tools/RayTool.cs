@@ -136,10 +136,6 @@ namespace OculusSampleFramework
 			var currPosition = transform.position;
 			Velocity = (currPosition - prevPosition) / Time.deltaTime;
 			InteractionPosition = currPosition;
-
-            _pinchStateModule.UpdateState(hand, _focusedInteractable);
-            _rayToolView.ToolActivateState = _pinchStateModule.PinchSteadyOnFocusedObject ||
-                _pinchStateModule.PinchDownOnFocusedObject;
         }
 
 		/// <summary>
@@ -353,13 +349,20 @@ namespace OculusSampleFramework
 			_rayToolView.SetFocusedInteractable(focusedInteractable);
 			_focusedInteractable = focusedInteractable;
 
-            // TODO: grab stuff if colliderZone is Action
+            var stockComp = focusedInteractable.GetComponent<Stock>();
+
+            if (stockComp != null)
+            {
+                HandsManager.Instance.SetFocusOnStock(_handType, stockComp);
+            }
 		}
 
 		public override void DeFocus()
 		{
 			_rayToolView.SetFocusedInteractable(null);
 			_focusedInteractable = null;
+
+            HandsManager.Instance.DeFocusStock(_handType);
 		}
 	}
 }

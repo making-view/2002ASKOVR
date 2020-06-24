@@ -32,6 +32,9 @@ public class GestureDetector : MonoBehaviour
     private Gesture previousGesture;
     private Gesture currentGesture;
 
+    private float gestureChangeThreshold = 0.15f;
+    private float timeSinceGestureChange = 0.0f;
+
     public bool IsAnyGestureActive
     {
         get
@@ -75,12 +78,25 @@ public class GestureDetector : MonoBehaviour
         currentGesture = DetectGesture();
         bool gestureDetected = currentGesture.poseName != PoseName.None;
 
-        if (gestureDetected && currentGesture.poseName != previousGesture.poseName)
+        //
+        // Counts up while the current gesture is different from the previously activated one
+        // Resets when they're the same
+        //
+        if (currentGesture.poseName != previousGesture.poseName)
+            timeSinceGestureChange += Time.deltaTime;
+        else
+            timeSinceGestureChange = 0.0f;
+
+        //
+        // Invoke and change gesture if previous one was None or if current gesture has been
+        // different from previous gesture for longer than gestureChangeThreshold
+        //
+        if ((gestureDetected && previousGesture.poseName == PoseName.None)
+            || (timeSinceGestureChange > gestureChangeThreshold))
         {
             currentGesture.onRecognized.Invoke();
+            previousGesture = currentGesture;
         }
-
-        previousGesture = currentGesture;
     }
 
     //
