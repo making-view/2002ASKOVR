@@ -32,7 +32,11 @@ namespace OculusSampleFramework
 		private OVRMeshRenderer[] _handMeshRenderer = new OVRMeshRenderer[(int)OVRHand.Hand.HandRight + 1];
 		private SkinnedMeshRenderer _leftMeshRenderer = null;
 		private SkinnedMeshRenderer _rightMeshRenderer = null;
-		private GameObject _leftSkeletonVisual = null;
+        private GestureDetector _leftGestureDetector = null;
+        private GestureDetector _rightGestureDetector = null;
+        private GestureTeleporter _leftGestureTeleporter = null;
+        private GestureTeleporter _rightGestureTeleporter = null;
+        private GameObject _leftSkeletonVisual = null;
 		private GameObject _rightSkeletonVisual = null;
 		private float _currentHandAlpha = 1.0f;
 		private int HandAlphaId = Shader.PropertyToID("_HandAlpha");
@@ -162,6 +166,14 @@ namespace OculusSampleFramework
 			}
 		}
 
+        public bool IsHandNeutral(OVRHand.Hand handType)
+        {
+            var gestureDector = handType == OVRHand.Hand.HandLeft ? _leftGestureDetector : _rightGestureDetector;
+            var gestureTeleporter = handType == OVRHand.Hand.HandLeft ? _leftGestureTeleporter : _rightGestureTeleporter;
+
+            return !gestureDector.IsAnyGestureActive && !gestureTeleporter.IsTargetMarkerActive;
+        }
+
 		public static HandsManager Instance { get; private set; }
 
 		private void Awake()
@@ -190,7 +202,23 @@ namespace OculusSampleFramework
 			_leftMeshRenderer = LeftHand.GetComponent<SkinnedMeshRenderer>();
 			_rightMeshRenderer = RightHand.GetComponent<SkinnedMeshRenderer>();
 			StartCoroutine(FindSkeletonVisualGameObjects());
-		}
+
+            var detectors = FindObjectsOfType<GestureDetector>().ToList();
+            var teleporters = FindObjectsOfType<GestureTeleporter>().ToList();
+            var leftSkelType = OVRSkeleton.SkeletonType.HandLeft;
+            var rightSkelType = OVRSkeleton.SkeletonType.HandRight;
+
+            foreach (var teleporter in teleporters)
+            {
+                teleporter.Initialize();
+            }
+
+            _leftGestureDetector = detectors.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == leftSkelType);
+            _rightGestureDetector = detectors.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == rightSkelType);
+
+            _leftGestureTeleporter = teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == leftSkelType);
+            _rightGestureTeleporter = teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == rightSkelType);
+        }
 
 		private void Update()
 		{

@@ -31,8 +31,6 @@ namespace OculusSampleFramework
 		[Range(0.0f, 45.0f)] [SerializeField] private float _coneAngleDegrees = 20.0f;
 		[SerializeField] private float _farFieldMaxDistance = 5f;
 
-		private GestureDetector gestureDetector;
-
 		public override InteractableToolTags ToolTags
 		{
 			get
@@ -43,6 +41,8 @@ namespace OculusSampleFramework
 
 		private PinchStateModule _pinchStateModule = new PinchStateModule();
 		private Interactable _focusedInteractable;
+
+        private OVRHand.Hand _handType;
 
 		public override ToolInputState ToolInputState
 		{
@@ -78,8 +78,9 @@ namespace OculusSampleFramework
 			}
 			set
 			{
-                if (gestureDetector != null && gestureDetector.IsAnyGestureActive)
+                if (!HandsManager.Instance.IsHandNeutral(_handType))
                 {
+                    Debug.Log("RayTool enablestate overriden");
                     _rayToolView.EnableState = false;
                 }
                 else
@@ -105,12 +106,9 @@ namespace OculusSampleFramework
 			_initialized = true;
 
 			var toolComp = GetComponent<InteractableTool>();
-			var skelType = toolComp.IsRightHandedTool
-				? OVRSkeleton.SkeletonType.HandRight
-				: OVRSkeleton.SkeletonType.HandLeft;
-
-			gestureDetector = FindObjectsOfType<GestureDetector>().ToList()
-				.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == skelType);
+			_handType = toolComp.IsRightHandedTool
+				? OVRHand.Hand.HandRight
+				: OVRHand.Hand.HandLeft;
 		}
 
 		private void OnDestroy()

@@ -36,8 +36,6 @@ public class GestureDetector : MonoBehaviour
     {
         get
         {
-            Debug.Log(skeleton.gameObject.GetComponent<SkinnedMeshRenderer>().enabled
-                && currentGesture.poseName != PoseName.None);
             return skeleton.gameObject.GetComponent<SkinnedMeshRenderer>().enabled
                 && currentGesture.poseName != PoseName.None;
         }

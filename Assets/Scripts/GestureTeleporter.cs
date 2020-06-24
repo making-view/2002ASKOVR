@@ -14,16 +14,24 @@ public class GestureTeleporter : MonoBehaviour
     public float rayLength = 10f;
     public float reqGestureChangeSpeed = 0.4f;
 
-    private OVRSkeleton skeleton = null;
     private GameObject targetMarker = null;
     private Vector3 targetMarkerInitScale;
 
     private float teleportActivationTimer = 0;
     private float targetMarkerScaleFactor = 10;
 
-    void Start()
+    public OVRSkeleton Skeleton { get; private set; }
+    public bool IsTargetMarkerActive
     {
-        skeleton = GetComponent<OVRSkeleton>();
+        get
+        {
+            return targetMarker.activeSelf;
+        }
+    }
+
+    public void Initialize()
+    {
+        Skeleton = GetComponent<OVRSkeleton>();
         targetMarker = Instantiate(targetMarkerPrefab);
         targetMarker.SetActive(false);
         targetMarkerInitScale = targetMarker.transform.localScale;
@@ -41,7 +49,7 @@ public class GestureTeleporter : MonoBehaviour
         //
         // Stops loop execution if hand is not visible to prevent accidental activation while hand is not tracking
         //
-        if (!skeleton.gameObject.GetComponent<SkinnedMeshRenderer>().enabled)
+        if (!Skeleton.gameObject.GetComponent<SkinnedMeshRenderer>().enabled)
         {
             return;
         }
@@ -55,8 +63,8 @@ public class GestureTeleporter : MonoBehaviour
             // Calculates the start and end point of the aiming ray
             // Both points contain a small upward adjustment to match where it intuitively feels like one is aiming
             //
-            Vector3 fingerDirection = skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.right : transform.right;
-            Vector3 forwardDirection = skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.up : transform.up;
+            Vector3 fingerDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.right : transform.right;
+            Vector3 forwardDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.up : transform.up;
             Vector3 start = transform.position + fingerDirection * 0.08f;
             Vector3 end = start + (forwardDirection * rayLength) + (fingerDirection * (rayLength / 2)); 
 
