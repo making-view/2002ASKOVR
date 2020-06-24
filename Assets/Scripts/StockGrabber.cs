@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class StockGrabber : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private GestureDetector gestureDetector;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
