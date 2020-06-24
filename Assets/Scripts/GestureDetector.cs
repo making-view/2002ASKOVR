@@ -94,7 +94,9 @@ public class GestureDetector : MonoBehaviour
         if ((gestureDetected && previousGesture.poseName == PoseName.None)
             || (timeSinceGestureChange > gestureChangeThreshold))
         {
-            currentGesture.onRecognized.Invoke();
+            if (gestureDetected)
+                currentGesture.onRecognized.Invoke();
+
             previousGesture = currentGesture;
         }
     }

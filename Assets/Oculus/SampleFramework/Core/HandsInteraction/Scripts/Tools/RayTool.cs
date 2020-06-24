@@ -79,10 +79,7 @@ namespace OculusSampleFramework
 			set
 			{
                 if (!HandsManager.Instance.IsHandNeutral(_handType))
-                {
-                    Debug.Log("RayTool enablestate overriden");
                     _rayToolView.EnableState = false;
-                }
                 else
                     _rayToolView.EnableState = value;
 			}
@@ -346,14 +343,17 @@ namespace OculusSampleFramework
 		public override void FocusOnInteractable(Interactable focusedInteractable,
 		  ColliderZone colliderZone)
 		{
-			_rayToolView.SetFocusedInteractable(focusedInteractable);
-			_focusedInteractable = focusedInteractable;
-
-            var stockComp = focusedInteractable.GetComponent<Stock>();
-
-            if (stockComp != null)
+            if (EnableState)
             {
-                HandsManager.Instance.SetFocusOnStock(_handType, stockComp);
+                _rayToolView.SetFocusedInteractable(focusedInteractable);
+                _focusedInteractable = focusedInteractable;
+
+                var stockComp = focusedInteractable.GetComponent<Stock>();
+
+                if (stockComp != null)
+                {
+                    HandsManager.Instance.SetFocusOnStock(_handType, stockComp);
+                }
             }
 		}
 

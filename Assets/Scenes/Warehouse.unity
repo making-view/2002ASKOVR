@@ -1026,7 +1026,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gestureDetector: {fileID: 1418826799}
-  grabHandle: {fileID: 769093741}
+  grabHandle: {fileID: 769093743}
+  snatchTime: 0.4
 --- !u!1001 &90064186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4531,7 +4532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gestureDetector: {fileID: 232012692}
-  grabHandle: {fileID: 1717468400}
+  grabHandle: {fileID: 1717468402}
+  snatchTime: 0.4
 --- !u!4 &425256371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112,
@@ -7238,12 +7240,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.2039747, y: 0.21341729, z: 9.857029}
   m_Center: {x: -0.04453516, y: -0.043393254, z: 0.040955544}
---- !u!1 &769093741 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3316189027840728659, guid: cd576c6006229294aa350a75e2c11186,
+--- !u!114 &769093743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4948682859694583497, guid: cd576c6006229294aa350a75e2c11186,
     type: 3}
   m_PrefabInstance: {fileID: 2070386144}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf185e827a19db649aa60b54abab6602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &771181311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15958,12 +15966,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1681239870}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1717468400 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3316189027840728659, guid: cd576c6006229294aa350a75e2c11186,
+--- !u!114 &1717468402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4948682859694583497, guid: cd576c6006229294aa350a75e2c11186,
     type: 3}
   m_PrefabInstance: {fileID: 1493239812}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf185e827a19db649aa60b54abab6602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1718202401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20813,7 +20827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3072135520560432352}
   m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: -0.29, y: 0.1, z: 2.315}
+  m_LocalPosition: {x: -0.45, y: 0.1, z: 2.315}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 26999756}
