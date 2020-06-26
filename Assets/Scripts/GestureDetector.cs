@@ -9,7 +9,8 @@ public enum PoseName
     None,
     ThumbsUp,
     JazzHand,
-    Fist
+    Fist,
+    OK
 };
 
 [System.Serializable]

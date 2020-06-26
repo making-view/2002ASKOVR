@@ -70,33 +70,44 @@ public class GestureTeleporter : MonoBehaviour
         //
         // Detects if the aiming direction intersects with the floor
         //
-        if (gestureDetector.IsGestureActive(PoseName.JazzHand))
+        if (gestureDetector.IsGestureActive(PoseName.OK))
         {
             //
             // Calculates the start and end point of the aiming ray
-            // Both points contain a small upward adjustment to match where it intuitively feels like one is aiming
             //
+            Vector3 handRightDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? transform.forward : -transform.forward;
             Vector3 fingerDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.right : transform.right;
-            Vector3 forwardDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.up : transform.up;
-            Vector3 start = transform.position + fingerDirection * 0.08f;
-            Vector3 end = start + (forwardDirection * rayLength) + (fingerDirection * (rayLength / 2)); 
+            Vector3 palmForwardDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.up : transform.up;
+            Vector3 start = transform.position + (fingerDirection * 0.08f) + (palmForwardDirection * 0.045f);
+            Vector3 end = handRightDirection * rayLength;
 
-            Ray ray = new Ray(start, (end - start).normalized);
             RaycastHit rayHit;
 
-            if (Physics.Raycast(ray, out rayHit, rayLength))
+            if (Physics.Linecast(start, end, out rayHit))
             {
-                //
-                // Reset timer, activate target marker and move marker to where the ray hit the floor
-                // Also scales and rotates target marker relative to camera position and changes its color
-                //
                 if (rayHit.collider.gameObject.tag == "Floor")
                 {
                     teleportActivationTimer = reqGestureChangeSpeed;
 
-                    Vector3 direction = rayHit.point - targetMarker.transform.position;
-                    targetMarker.transform.position += direction * Mathf.Clamp(direction.magnitude, 0.0f, 1.0f);
+                    if (targetMarker.activeSelf)
+                    {
+                        //
+                        // Nudges marker partially or completely toward new ray hit point depending on distance from camera
+                        // and distance from previous marker location. This smooths out the jittery nature of hand-tracking
+                        //
+                        Vector3 direction = rayHit.point - targetMarker.transform.position;
+                        Vector3 distance = rayHit.point - cameraRig.transform.position;
+                        targetMarker.transform.position += direction * Mathf.Clamp(direction.magnitude / (distance.magnitude * 4.0f), 0.0f, 1.0f);
+                    }
+                    else
+                    {
+                        targetMarker.transform.position = rayHit.point;
+                    }
 
+                    //
+                    // Rotates and scales marker depending on where it is relative to the user, 
+                    // also sets it to its active aiming color
+                    //
                     Vector3 cameraDistance = targetMarker.transform.position - cameraRig.transform.position;
                     Vector3 newScale = targetMarkerInitScale + (Vector3.one * cameraDistance.magnitude / targetMarkerScaleFactor);
                     Vector3 newForward = new Vector3(cameraDistance.z, 0, -cameraDistance.x).normalized;
