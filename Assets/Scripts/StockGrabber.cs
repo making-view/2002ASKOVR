@@ -14,11 +14,6 @@ public class StockGrabber : MonoBehaviour
     private Stock focusedStock = null;
     private Stock grabbedStock = null;
 
-    private bool stockGrabbed = false;
-    private float stockGrabbedRot = 0.0f;
-    private float handleGrabbedRot = 0.0f;
-    private float grabHeight = 0.0f;
-
     public OVRSkeleton.SkeletonType SkeletonType
     {
         get
@@ -34,47 +29,56 @@ public class StockGrabber : MonoBehaviour
 
         if (grabbedStock != null && !gestureDetector.IsGestureActive(PoseName.Fist))
             GrabEnd();
-
-        if (stockGrabbed)
-        {
-            var newRot = stockGrabbedRot + (grabHandle.transform.rotation.eulerAngles.y - handleGrabbedRot);
-
-            grabbedStock.transform.position = grabHandle.stockHolder.transform.position - (Vector3.up * grabHeight);
-            grabbedStock.transform.rotation = Quaternion.Euler(new Vector3(0, newRot, 0));
-        }
     }
 
+    //
+    // Called by RayTool through HandsManager when it targets an object of Stock type
+    //
     public void SetFocusOnStock(Stock stock)
     {
         if (grabbedStock == null)
             focusedStock = stock;
     }
 
+    //
+    // Called by RayTool through HandsManager when it defocuses an object of any type
+    //
     public void DeFocus()
     {
         focusedStock = null;
     }
 
+    //
+    // Prepares attachment between Stock and StockGrabber, starts displaying handle
+    //
     private void GrabBegin()
     {
         grabbedStock = focusedStock;
-        grabHeight = grabbedStock.GetComponent<BoxCollider>().size.y / 1.6f;
+
+        var grabHeight = grabbedStock.GetComponent<BoxCollider>().size.y / 1.6f;
 
         grabHandle.gameObject.SetActive(true);
 
-        StartCoroutine(SnatchStock());
+        StartCoroutine(SnatchStock(grabHeight));
         DeFocus();
     }
 
+    //
+    // Severs attachment by droping the grabbed Stock and hiding the handle
+    //
     private void GrabEnd()
     {
+        grabbedStock.Drop();
         grabbedStock = null;
-        stockGrabbed = false;
 
         grabHandle.gameObject.SetActive(false);
     }
 
-    private IEnumerator SnatchStock()
+    //
+    // Summons Stock from its position to line up with GrabHandle, 
+    // then grabs it if StockGrabber hasn't already been told to drop it
+    //
+    private IEnumerator SnatchStock(float grabHeight)
     {
         var timer = 0.0f;
         var initialPos = grabbedStock.transform.position;
@@ -91,10 +95,6 @@ public class StockGrabber : MonoBehaviour
         }
 
         if (grabbedStock != null)
-        {
-            stockGrabbed = true;
-            stockGrabbedRot = grabbedStock.transform.rotation.eulerAngles.y;
-            handleGrabbedRot = grabHandle.transform.rotation.eulerAngles.y;
-        }
+            grabbedStock.Grab(grabHandle, grabHeight);
     }
 }
