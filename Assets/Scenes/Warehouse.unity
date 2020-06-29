@@ -3212,6 +3212,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: edd8cfcb04d0b6d4b9349136c4904879,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edd8cfcb04d0b6d4b9349136c4904879, type: 3}
 --- !u!1001 &307485817
@@ -7546,6 +7551,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1999999, y: 0.14245225, z: 0.79999995}
   m_Center: {x: 0, y: 0.07172079, z: 0}
+--- !u!54 &826083531
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826083526}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &842185326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17215,7 +17236,7 @@ GameObject:
   - component: {fileID: 1823292639}
   - component: {fileID: 1823292638}
   - component: {fileID: 1823292637}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -18705,7 +18726,7 @@ PrefabInstance:
     - target: {fileID: 2129030862282300143, guid: c46c3c76f0f69fe4d859d8acb7184f46,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.069
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2129030862282300143, guid: c46c3c76f0f69fe4d859d8acb7184f46,
         type: 3}
@@ -18761,6 +18782,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stock (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924479, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46c3c76f0f69fe4d859d8acb7184f46, type: 3}
@@ -20741,7 +20767,7 @@ PrefabInstance:
     - target: {fileID: 2129030862282300143, guid: c46c3c76f0f69fe4d859d8acb7184f46,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.45
+      value: -0.009
       objectReference: {fileID: 0}
     - target: {fileID: 2129030862282300143, guid: c46c3c76f0f69fe4d859d8acb7184f46,
         type: 3}
@@ -20797,6 +20823,61 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stock
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[6]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[7]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924478, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: dots.Array.data[8]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157181199935924479, guid: c46c3c76f0f69fe4d859d8acb7184f46,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c46c3c76f0f69fe4d859d8acb7184f46, type: 3}

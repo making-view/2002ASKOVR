@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 104397976598304367}
   - component: {fileID: 104397976598304366}
   - component: {fileID: 104397976598304365}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Contact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 104397977204319708}
   - component: {fileID: 104397977204319651}
   - component: {fileID: 104397977204319650}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Action
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 104397977514039248}
   - component: {fileID: 104397977514039255}
   - component: {fileID: 104397977514039254}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Proximity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 3157181199935924477}
   - component: {fileID: 3157181199935924478}
   - component: {fileID: 3157181199935924479}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
