@@ -215,6 +215,7 @@ public class OVRHand : MonoBehaviour,
 		if (IsDataValid)
 		{
 			data.IsDataHighConfidence = IsTracked && HandConfidence == TrackingConfidence.High;
+            data.IsDataLowConfidence = IsTracked && HandConfidence == TrackingConfidence.Low;
 			data.ShouldUseSystemGestureMaterial = IsSystemGestureInProgress;
 		}
 

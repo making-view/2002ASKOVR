@@ -29,6 +29,7 @@ public class OVRMeshRenderer : MonoBehaviour
 	{
 		public bool IsDataValid { get; set; }
 		public bool IsDataHighConfidence { get; set; }
+        public bool IsDataLowConfidence { get; set; }
 		public bool ShouldUseSystemGestureMaterial { get; set; }
 	}
 
@@ -147,7 +148,7 @@ public class OVRMeshRenderer : MonoBehaviour
 				IsDataHighConfidence = data.IsDataHighConfidence;
 				ShouldUseSystemGestureMaterial = data.ShouldUseSystemGestureMaterial;
 
-				shouldRender = data.IsDataValid && data.IsDataHighConfidence;
+				shouldRender = data.IsDataValid && (data.IsDataHighConfidence || data.IsDataLowConfidence);
 			}
 
 			if (_confidenceBehavior == ConfidenceBehavior.ToggleRenderer)
