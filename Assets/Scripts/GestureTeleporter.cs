@@ -52,7 +52,7 @@ public class GestureTeleporter : MonoBehaviour
         }
 
         //
-        // Sets makrer color to white, will remain this color until user aims at a teleportable location on the floor
+        // Sets marker color to white, will remain this color until user aims at a teleportable location on the floor
         //
         if (targetMarker.activeSelf)
         {
