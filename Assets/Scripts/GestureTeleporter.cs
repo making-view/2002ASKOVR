@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(OVRSkeleton))]
@@ -15,6 +16,7 @@ public class GestureTeleporter : MonoBehaviour
     public float reqGestureChangeSpeed = 0.4f;
 
     private GameObject targetMarker = null;
+    private Camera centerEyeAnchor = null;
     private Vector3 targetMarkerInitScale;
     private Color targetMarkerInitColor;
     private Material targetMarkerMaterial;
@@ -34,6 +36,8 @@ public class GestureTeleporter : MonoBehaviour
     public void Initialize()
     {
         Skeleton = GetComponent<OVRSkeleton>();
+        centerEyeAnchor = cameraRig.GetComponentsInChildren<Camera>().ToList().FirstOrDefault(c => c.name == "CenterEyeAnchor");
+
         targetMarker = Instantiate(targetMarkerPrefab);
         targetMarkerMaterial = targetMarker.GetComponent<MeshRenderer>().material;
         targetMarkerInitScale = targetMarker.transform.localScale;
@@ -97,7 +101,7 @@ public class GestureTeleporter : MonoBehaviour
                         // and distance from previous marker location. This smooths out the jittery nature of hand-tracking
                         //
                         Vector3 direction = rayHit.point - targetMarker.transform.position;
-                        Vector3 distance = rayHit.point - cameraRig.transform.position;
+                        Vector3 distance = rayHit.point - centerEyeAnchor.transform.position;
                         targetMarker.transform.position += direction * Mathf.Clamp(direction.magnitude / (distance.magnitude * 4.0f), 0.0f, 1.0f);
                     }
                     else
@@ -109,7 +113,7 @@ public class GestureTeleporter : MonoBehaviour
                     // Rotates and scales marker depending on where it is relative to the user, 
                     // also sets it to its active aiming color
                     //
-                    Vector3 cameraDistance = targetMarker.transform.position - cameraRig.transform.position;
+                    Vector3 cameraDistance = targetMarker.transform.position - centerEyeAnchor.transform.position;
                     Vector3 newScale = targetMarkerInitScale + (Vector3.one * cameraDistance.magnitude / targetMarkerScaleFactor);
                     Vector3 newForward = new Vector3(cameraDistance.z, 0, -cameraDistance.x).normalized;
                     targetMarker.transform.localScale = newScale;
@@ -126,7 +130,11 @@ public class GestureTeleporter : MonoBehaviour
         //
         if (gestureDetector.IsGestureActive(PoseName.Fist) && teleportActivationTimer > 0.0f)
         {
-            cameraRig.transform.position = targetMarker.transform.position;
+            Vector3 userLocalPos = centerEyeAnchor.transform.localPosition;
+            Vector3 xzPlaneOffset = new Vector3(userLocalPos.x, 0, userLocalPos.z);
+
+            cameraRig.transform.position = targetMarker.transform.position - xzPlaneOffset;
+
             teleportActivationTimer = 0.0f;
         }
     }
