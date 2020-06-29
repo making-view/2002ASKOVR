@@ -148,7 +148,7 @@ public class OVRMeshRenderer : MonoBehaviour
 				IsDataHighConfidence = data.IsDataHighConfidence;
 				ShouldUseSystemGestureMaterial = data.ShouldUseSystemGestureMaterial;
 
-				shouldRender = data.IsDataValid && (data.IsDataHighConfidence || data.IsDataLowConfidence);
+				shouldRender = data.IsDataValid && data.IsDataHighConfidence;
 			}
 
 			if (_confidenceBehavior == ConfidenceBehavior.ToggleRenderer)

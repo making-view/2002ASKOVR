@@ -111,11 +111,9 @@ namespace OculusSampleFramework
 			}
 
 			bool leftHandIsReliable = HandsManager.Instance.LeftHand.IsTracked &&
-				(HandsManager.Instance.LeftHand.HandConfidence == OVRHand.TrackingConfidence.High
-                || HandsManager.Instance.LeftHand.HandConfidence == OVRHand.TrackingConfidence.Low);
+				HandsManager.Instance.LeftHand.HandConfidence == OVRHand.TrackingConfidence.High;
 			bool rightHandIsReliable = HandsManager.Instance.RightHand.IsTracked &&
-				(HandsManager.Instance.RightHand.HandConfidence == OVRHand.TrackingConfidence.High
-                || HandsManager.Instance.RightHand.HandConfidence == OVRHand.TrackingConfidence.Low);
+				HandsManager.Instance.RightHand.HandConfidence == OVRHand.TrackingConfidence.High;
 			bool leftHandProperlyTracked = HandsManager.Instance.LeftHand.IsPointerPoseValid;
 			bool rightHandProperlyTracked = HandsManager.Instance.RightHand.IsPointerPoseValid;
 
