@@ -45,7 +45,7 @@ public class Stock : MonoBehaviour
     //
     public void Grab(GrabHandle handle, float height)
     {
-        rigidBody.isKinematic = false;
+        rigidBody.isKinematic = true;
 
         grabHandle = handle;
         grabHeight = height;
@@ -67,6 +67,8 @@ public class Stock : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         var stock = collision.gameObject.GetComponent<Stock>();
+
+
     }
 
     private void OnCollisionExit(Collision collision)
