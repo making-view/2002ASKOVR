@@ -257,23 +257,6 @@ class OVREngineConfigurationUpdater
 		// Don't warn if the project may be set up for submission or global signing.
 		if (File.Exists(androidManifestPath))
 			return;
-
-		bool foundPossibleOsig = false;
-		if (Directory.Exists(androidAssetsPath))
-		{
-			var files = Directory.GetFiles(androidAssetsPath);
-			for (int i = 0; i < files.Length; ++i)
-			{
-				if (!files[i].Contains(".txt"))
-				{
-					foundPossibleOsig = true;
-					break;
-				}
-			}
-		}
-
-		if (!foundPossibleOsig)
-			Debug.LogWarning("Missing Gear VR OSIG at " + androidAssetsPath + ". Please see https://dashboard.oculus.com/tools/osig-generator");
 	}
 
 	private class Axis

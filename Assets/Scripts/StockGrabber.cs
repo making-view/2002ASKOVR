@@ -5,8 +5,8 @@ using UnityEngine;
 public class StockGrabber : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private GestureDetector gestureDetector;
-    [SerializeField] private GrabHandle grabHandle;
+    [SerializeField] private GestureDetector gestureDetector = null;
+    [SerializeField] private GrabHandle grabHandle = null;
 
     [Header("Settings")]
     [SerializeField] private float snatchTime = 0.3f;

@@ -74,12 +74,13 @@ public class GestureTeleporter : MonoBehaviour
         {
             //
             // Calculates the start and end point of the aiming ray
+            // Magic numbers are eyeball-adjustments to make ray point more closer to where aim feels like it should point
             //
             Vector3 handRightDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? transform.forward : -transform.forward;
             Vector3 fingerDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.right : transform.right;
             Vector3 palmForwardDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.up : transform.up;
             Vector3 start = transform.position + (fingerDirection * 0.08f) + (palmForwardDirection * 0.045f);
-            Vector3 end = handRightDirection * rayLength;
+            Vector3 end = start + (handRightDirection * rayLength) - (fingerDirection * rayLength * 0.25f);
 
             RaycastHit rayHit;
 
