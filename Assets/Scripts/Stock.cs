@@ -11,7 +11,7 @@ public class Stock : MonoBehaviour
     // How long the object has to be stationary before its physics are turned off
     [SerializeField] private float stationaryTime = 1.0f;
 
-    private BoxCollider boxCollider;
+    private BoxCollider ownCollider;
     private Rigidbody rigidBody;
 
     private GrabHandle grabHandle;
@@ -20,10 +20,14 @@ public class Stock : MonoBehaviour
     private float grabHeight = 0.0f;
     private float movementSensitivity = 0.01f;
 
+    private List<BoxCollider> otherColliders;
+
     void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();
+        ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
+
+        otherColliders = new List<BoxCollider>();
     }
 
     void Update()
@@ -31,12 +35,27 @@ public class Stock : MonoBehaviour
         //
         // If attached to a grabHandle, move along with it
         //
-        if (grabHandle != null)
+        if (grabHandle)
         {
-            var newRot = stockGrabbedRot + (grabHandle.transform.rotation.eulerAngles.y - handleGrabbedRot);
+            var newYAngle = stockGrabbedRot + (grabHandle.transform.rotation.eulerAngles.y - handleGrabbedRot);
+            var newRot = Quaternion.Euler(new Vector3(0, newYAngle, 0));
+            var newPos = grabHandle.stockHolder.transform.position - (Vector3.up * grabHeight);
 
-            transform.position = grabHandle.stockHolder.transform.position - (Vector3.up * grabHeight);
-            transform.rotation = Quaternion.Euler(new Vector3(0, newRot, 0));
+            Vector3 direction = Vector3.zero;
+            float distance = 0.0f;
+
+            foreach (var collider in otherColliders)
+            {
+                if (Physics.ComputePenetration(ownCollider, newPos, newRot, collider,
+                    collider.gameObject.transform.position, collider.gameObject.transform.rotation,
+                    out direction, out distance))
+                {
+                    newPos += direction * distance;
+                }
+            }
+
+            transform.position = newPos;
+            transform.rotation = newRot;
         }
     }
 
@@ -66,14 +85,18 @@ public class Stock : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var stock = collision.gameObject.GetComponent<Stock>();
-
-
+        if (grabHandle && collision.collider is BoxCollider)
+        {
+            otherColliders.Add(collision.collider as BoxCollider);
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-
+        if (collision.collider is BoxCollider && otherColliders.Contains(collision.collider as BoxCollider))
+        {
+            otherColliders.Remove(collision.collider as BoxCollider);
+        }
     }
 
     //
