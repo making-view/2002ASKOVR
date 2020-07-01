@@ -55,7 +55,7 @@ public class StockGrabber : MonoBehaviour
     {
         grabbedStock = focusedStock;
 
-        var grabHeight = grabbedStock.GetComponent<BoxCollider>().size.y / 1.6f;
+        var grabHeight = grabbedStock.GetComponent<BoxCollider>().size.y;
 
         grabHandle.gameObject.SetActive(true);
 
@@ -82,12 +82,16 @@ public class StockGrabber : MonoBehaviour
     {
         var timer = 0.0f;
         var initialPos = grabbedStock.transform.position;
+        var initialRot = grabbedStock.transform.rotation;
+        var targetRot = Quaternion.Euler(new Vector3(0, initialRot.eulerAngles.y, 0));
 
         while (grabbedStock != null && timer <= snatchTime)
         {
+            var percent = timer / snatchTime;
             var targetPos = grabHandle.stockHolder.transform.position - (Vector3.up * grabHeight);
 
-            grabbedStock.transform.position = Vector3.Lerp(initialPos, targetPos, timer / snatchTime);
+            grabbedStock.transform.position = Vector3.Lerp(initialPos, targetPos, percent);
+            grabbedStock.transform.rotation = Quaternion.Lerp(initialRot, targetRot, percent);
 
             yield return null;
 
