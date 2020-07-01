@@ -30,10 +30,15 @@ public class GestureDetector : MonoBehaviour
     public List<Gesture> gestures;
 
     private List<OVRBone> fingerBones;
-    private Gesture previousGesture;
-    private Gesture currentGesture;
+    private Gesture activeGesture;
 
-    private float gestureChangeThreshold = 0.15f;
+    //
+    // Small time adjustment to give a few frames of margin before detector switches the active gesture
+    //
+    // Smoothes out the experience of trying to hold the same pose by reducing 
+    // accidental changes due to twitchy movement or jittery tracking
+    //
+    private float gestureChangeThreshold = 0.075f;
     private float timeSinceGestureChange = 0.0f;
 
     public bool IsAnyGestureActive
@@ -41,24 +46,24 @@ public class GestureDetector : MonoBehaviour
         get
         {
             return skeleton.gameObject.GetComponent<SkinnedMeshRenderer>().enabled
-                && currentGesture.poseName != PoseName.None;
+                && activeGesture.poseName != PoseName.None;
         }
     }
 
     public bool IsGestureActive(PoseName poseName)
     {
-        return currentGesture.poseName == poseName;
+        return activeGesture.poseName == poseName;
     }
 
     public bool IsGestureActive(string name)
     {
-        return currentGesture.name == name;
+        return activeGesture.name == name;
     }
 
     void Start()
     {
         StartCoroutine(GetFingerBones());
-        previousGesture = new Gesture();
+        activeGesture = new Gesture();
 
         //
         // Detects if the gesture list has several entries using the same PoseName
@@ -76,14 +81,14 @@ public class GestureDetector : MonoBehaviour
             SaveGesture();
         }
 
-        currentGesture = DetectGesture();
-        bool gestureDetected = currentGesture.poseName != PoseName.None;
+        var newGesture = DetectGesture();
+        bool gestureDetected = newGesture.poseName != PoseName.None;
 
         //
         // Counts up while the current gesture is different from the previously activated one
         // Resets when they're the same
         //
-        if (currentGesture.poseName != previousGesture.poseName)
+        if (newGesture.poseName != activeGesture.poseName)
             timeSinceGestureChange += Time.deltaTime;
         else
             timeSinceGestureChange = 0.0f;
@@ -92,13 +97,13 @@ public class GestureDetector : MonoBehaviour
         // Invoke and change gesture if previous one was None or if current gesture has been
         // different from previous gesture for longer than gestureChangeThreshold
         //
-        if ((gestureDetected && previousGesture.poseName == PoseName.None)
+        if ((gestureDetected && activeGesture.poseName == PoseName.None)
             || (timeSinceGestureChange > gestureChangeThreshold))
         {
             if (gestureDetected)
-                currentGesture.onRecognized.Invoke();
+                newGesture.onRecognized.Invoke();
 
-            previousGesture = currentGesture;
+            activeGesture = newGesture;
         }
     }
 
