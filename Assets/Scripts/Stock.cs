@@ -37,7 +37,10 @@ public class Stock : MonoBehaviour
         //
         if (grabHandle)
         {
-            var newYAngle = stockGrabbedRot + (grabHandle.transform.rotation.eulerAngles.y - handleGrabbedRot);
+            var handleRotDifference = grabHandle.transform.rotation.eulerAngles.y - handleGrabbedRot;
+            var rotationIncrement = Mathf.Round(handleRotDifference / 90) * 90;
+            var newYAngle = stockGrabbedRot + rotationIncrement;
+
             var newRot = Quaternion.Euler(new Vector3(0, newYAngle, 0));
             var newPos = grabHandle.stockHolder.transform.position - (Vector3.up * grabHeight);
 

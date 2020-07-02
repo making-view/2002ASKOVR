@@ -83,7 +83,9 @@ public class StockGrabber : MonoBehaviour
         var timer = 0.0f;
         var initialPos = grabbedStock.transform.position;
         var initialRot = grabbedStock.transform.rotation;
-        var targetRot = Quaternion.Euler(new Vector3(0, initialRot.eulerAngles.y, 0));
+
+        var closestRightAngle = Mathf.Round(initialRot.eulerAngles.y / 90) * 90;
+        var targetRot = Quaternion.Euler(new Vector3(0, closestRightAngle, 0));
 
         while (grabbedStock != null && timer <= snatchTime)
         {
