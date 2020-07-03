@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Truck : MonoBehaviour
 {
-    [SerializeField] private GameObject destinationPoint;
-    [SerializeField] private Camera playerCamera;
+    [SerializeField] private GameObject destinationPoint = null;
+    [SerializeField] private Camera playerCamera = null;
     [SerializeField] private float moveThreshold = 1.5f;
     [SerializeField] private float moveTime = 3f;
 
