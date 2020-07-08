@@ -9,7 +9,9 @@ public class StockHolderBender : MonoBehaviour
 
     void Update()
     {
+        var bottomRot = new Vector3(0, firstPart.transform.rotation.eulerAngles.y, 0);
         transform.up = Vector3.up;
+        transform.rotation = Quaternion.Euler(bottomRot);
 
         var nonBendyParts = 2; // First and last
         var partCount = bendyParts.Length + nonBendyParts;
