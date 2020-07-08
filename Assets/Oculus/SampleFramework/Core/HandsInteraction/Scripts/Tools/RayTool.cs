@@ -21,7 +21,7 @@ namespace OculusSampleFramework
 	/// </summary>
 	public class RayTool : InteractableTool
 	{
-		private const float MINIMUM_RAY_CAST_DISTANCE = 0.8f;
+		private const float MINIMUM_RAY_CAST_DISTANCE = 0.05f;
 		private const float COLLIDER_RADIUS = 0.01f;
 		private const int NUM_MAX_PRIMARY_HITS = 10;
 		private const int NUM_MAX_SECONDARY_HITS = 25;
