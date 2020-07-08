@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 867558559140114443}
   - component: {fileID: 7428429145477446932}
   - component: {fileID: 7428429145477446935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Truck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,6 +389,7 @@ Transform:
   - {fileID: 5484975944670084098}
   - {fileID: 7428429145795725908}
   - {fileID: 2480815156886616061}
+  - {fileID: 8711943563320710027}
   - {fileID: 7428429146370650221}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -452,8 +453,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0720024, y: 1.6259223, z: 2.163928}
-  m_Center: {x: 0.01085596, y: 0.77318364, z: -0.39913988}
+  m_Size: {x: 0.9948758, y: 1.2095016, z: 2.0999594}
+  m_Center: {x: -0.0127560105, y: 0.5649733, z: -0.3480072}
 --- !u!114 &7428429145477446935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +467,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666775f413887a645aa221ecac2a3cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destinationPoint: {fileID: 7428429146370650218}
+  carryingArea: {fileID: 8166227405646189022}
+  truckLanes: {fileID: 0}
+  localOffset: {fileID: 7428429146370650221}
   playerCamera: {fileID: 0}
   moveThreshold: 1.5
   moveTime: 1.5
@@ -736,6 +739,63 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &6390140905174670856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8711943563320710027}
+  - component: {fileID: 2464628297060443068}
+  - component: {fileID: 8166227405646189022}
+  m_Layer: 10
+  m_Name: CarryingArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8711943563320710027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390140905174670856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2480815157385737924}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2464628297060443068
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390140905174670856}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.68289864, y: 2.4177065, z: 1.6852775}
+  m_Center: {x: 0.009002321, y: 1.1681364, z: 0.11531997}
+--- !u!114 &8166227405646189022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6390140905174670856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283fe1d5b252e524ca4fa0036ef5ba95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7428429145694126237
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,7 +992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7428429146370650221}
   m_Layer: 0
-  m_Name: DestinationPoint
+  m_Name: OffsetPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -950,7 +1010,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2480815157385737924}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7952990293806407290
 GameObject:
@@ -963,7 +1023,8 @@ GameObject:
   - component: {fileID: 5960202354213279504}
   - component: {fileID: 4993999408056366260}
   - component: {fileID: 722335465696887529}
-  m_Layer: 0
+  - component: {fileID: 3923532164717488672}
+  m_Layer: 8
   m_Name: PalletFork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1031,6 +1092,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3923532164717488672
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952990293806407290}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5721748, y: 0.08417784, z: 1.9719442}
+  m_Center: {x: -0.010170322, y: 0.04208892, z: 0.8442715}
 --- !u!1 &8843523039969547417
 GameObject:
   m_ObjectHideFlags: 0
