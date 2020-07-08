@@ -130,40 +130,43 @@ public class GestureDetector : MonoBehaviour
     }
 
     //
-    // If there are any saved gestures similar to current hand pose, returns the most similar one
+    // If there are any saved gestures similar to current visible hand pose, returns the most similar one
     //
     Gesture DetectGesture()
     {
         Gesture currentGesture = new Gesture();
         float currentMin = Mathf.Infinity;
 
-        foreach (var gesture in gestures)
+        if (skeleton.IsMeshVisible)
         {
-            float sumDistance = 0;
-            bool skipped = false;
-
-            //
-            // Calculates and sums up the difference between current bone position and gesture bone position
-            // Skips this gesture if any bone position is too different to that of the gesture
-            //
-            for (int boneNo = 0; boneNo < fingerBones.Count; boneNo++)
+            foreach (var gesture in gestures)
             {
-                Vector3 thisBonePos = skeleton.transform.InverseTransformPoint(fingerBones[boneNo].Transform.position);
-                float distance = Vector3.Distance(thisBonePos, gesture.fingerData[boneNo]);
+                float sumDistance = 0;
+                bool skipped = false;
 
-                if (distance > threshold)
+                //
+                // Calculates and sums up the difference between current bone position and gesture bone position
+                // Skips this gesture if any bone position is too different to that of the gesture
+                //
+                for (int boneNo = 0; boneNo < fingerBones.Count; boneNo++)
                 {
-                    skipped = true;
-                    break;
+                    Vector3 thisBonePos = skeleton.transform.InverseTransformPoint(fingerBones[boneNo].Transform.position);
+                    float distance = Vector3.Distance(thisBonePos, gesture.fingerData[boneNo]);
+
+                    if (distance > threshold)
+                    {
+                        skipped = true;
+                        break;
+                    }
+
+                    sumDistance += distance;
                 }
 
-                sumDistance += distance;
-            }
-
-            if(!skipped && sumDistance < currentMin)
-            {
-                currentMin = sumDistance;
-                currentGesture = gesture;
+                if(!skipped && sumDistance < currentMin)
+                {
+                    currentMin = sumDistance;
+                    currentGesture = gesture;
+                }
             }
         }
 

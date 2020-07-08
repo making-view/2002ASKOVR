@@ -111,6 +111,14 @@ public class OVRSkeleton : MonoBehaviour
 	public IList<OVRBoneCapsule> Capsules { get; private set; }
 	public SkeletonType GetSkeletonType() { return _skeletonType; }
 
+    public bool IsMeshVisible
+    {
+        get
+        {
+            return GetComponent<SkinnedMeshRenderer>().enabled;
+        }
+    }
+
 #if UNITY_EDITOR
 	public bool ShouldUpdateBonePoses = false;
 #endif

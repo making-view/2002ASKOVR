@@ -66,8 +66,10 @@ public class GestureTeleporter : MonoBehaviour
         //
         // Stops loop execution if hand is not visible to prevent accidental activation while hand is not tracking
         //
-        if (!Skeleton.gameObject.GetComponent<SkinnedMeshRenderer>().enabled)
+        if (!Skeleton.IsMeshVisible)
         {
+            teleportActivationTimer = 0.0f;
+            targetMarker.SetActive(false);
             return;
         }
 
