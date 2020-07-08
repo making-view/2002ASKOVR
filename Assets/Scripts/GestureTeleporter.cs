@@ -23,6 +23,7 @@ public class GestureTeleporter : MonoBehaviour
 
     private float teleportActivationTimer = 0;
     private float targetMarkerScaleFactor = 10;
+    private int rayLayerMask = 0;
 
     public OVRSkeleton Skeleton { get; private set; }
     public bool IsTargetMarkerActive
@@ -42,6 +43,11 @@ public class GestureTeleporter : MonoBehaviour
         targetMarkerMaterial = targetMarker.GetComponent<MeshRenderer>().material;
         targetMarkerInitScale = targetMarker.transform.localScale;
         targetMarkerInitColor = targetMarkerMaterial.GetColor("_EmissionColor");
+
+        int collidableLayerMask = 1 << 8;
+        int stockLayerMask = 1 << 9;
+        int teleportBlockerLayerMask = 1 << 11;
+        rayLayerMask = collidableLayerMask | stockLayerMask | teleportBlockerLayerMask;
 
         targetMarker.SetActive(false);
     }
@@ -90,7 +96,7 @@ public class GestureTeleporter : MonoBehaviour
 
             RaycastHit rayHit;
 
-            if (Physics.Linecast(start, end, out rayHit))
+            if (Physics.Linecast(start, end, out rayHit, rayLayerMask)) 
             {
                 if (rayHit.collider.gameObject.tag == "Floor")
                 {
