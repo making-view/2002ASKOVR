@@ -42,7 +42,7 @@ public class Stock : MonoBehaviour
             var newYAngle = stockGrabbedRot + rotationIncrement;
 
             var newRot = Quaternion.Euler(new Vector3(0, newYAngle, 0));
-            var newPos = grabHandle.stockHolder.transform.position - (Vector3.up * grabHeight);
+            var newPos = grabHandle.lastSpringCoil.transform.position - (Vector3.up * grabHeight);
 
             Vector3 direction = Vector3.zero;
             float distance = 0.0f;

@@ -90,7 +90,7 @@ public class StockGrabber : MonoBehaviour
         while (grabbedStock != null && timer <= snatchTime)
         {
             var percent = timer / snatchTime;
-            var targetPos = grabHandle.stockHolder.transform.position - (Vector3.up * grabHeight);
+            var targetPos = grabHandle.lastSpringCoil.transform.position - (Vector3.up * grabHeight);
 
             grabbedStock.transform.position = Vector3.Lerp(initialPos, targetPos, percent);
             grabbedStock.transform.rotation = Quaternion.Lerp(initialRot, targetRot, percent);

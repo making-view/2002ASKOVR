@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class GrabHandle : MonoBehaviour
 {
-    public GameObject stockHolder;
+    public GameObject lastSpringCoil;
 }
