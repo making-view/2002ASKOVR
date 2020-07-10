@@ -127,7 +127,7 @@ namespace OculusSampleFramework
 			var pointer = hand.PointerPose;
 			var cameraRigTransform = hand.gameObject.transform.parent.parent.parent;
 			transform.position = cameraRigTransform.position + pointer.position;
-			transform.rotation = Quaternion.Euler((cameraRigTransform.rotation.eulerAngles + pointer.rotation.eulerAngles));
+            transform.rotation = pointer.rotation;
 
 			var prevPosition = InteractionPosition;
 			var currPosition = transform.position;
