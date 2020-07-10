@@ -133,6 +133,13 @@ namespace OculusSampleFramework
 			var currPosition = transform.position;
 			Velocity = (currPosition - prevPosition) / Time.deltaTime;
 			InteractionPosition = currPosition;
+
+            if (HandsManager.Instance.IsPinchEnabled)
+            {
+                _pinchStateModule.UpdateState(hand, _focusedInteractable);
+                _rayToolView.ToolActivateState = _pinchStateModule.PinchSteadyOnFocusedObject ||
+                    _pinchStateModule.PinchDownOnFocusedObject;
+            }
         }
 
 		/// <summary>

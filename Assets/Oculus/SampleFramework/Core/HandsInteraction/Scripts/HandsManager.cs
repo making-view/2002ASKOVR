@@ -168,6 +168,16 @@ namespace OculusSampleFramework
 			}
 		}
 
+        public bool IsPinchEnabled
+        {
+            get
+            {
+                return _leftGestureDetector && _rightGestureDetector
+                    && _leftGestureTeleporter && _rightGestureTeleporter
+                    && _leftStockGrabber && _rightStockGrabber;
+            }
+        }
+
         public bool IsHandNeutral(OVRHand.Hand handType)
         {
             var result = true;
