@@ -170,10 +170,17 @@ namespace OculusSampleFramework
 
         public bool IsHandNeutral(OVRHand.Hand handType)
         {
-            var gestureDector = handType == OVRHand.Hand.HandLeft ? _leftGestureDetector : _rightGestureDetector;
-            var gestureTeleporter = handType == OVRHand.Hand.HandLeft ? _leftGestureTeleporter : _rightGestureTeleporter;
+            var result = true;
 
-            return !gestureDector.IsAnyGestureActive && !gestureTeleporter.IsTargetMarkerActive;
+            if (_leftGestureDetector && _rightGestureDetector)
+            {
+                var gestureDector = handType == OVRHand.Hand.HandLeft ? _leftGestureDetector : _rightGestureDetector;
+                var gestureTeleporter = handType == OVRHand.Hand.HandLeft ? _leftGestureTeleporter : _rightGestureTeleporter;
+
+                result = !gestureDector.IsAnyGestureActive && !gestureTeleporter.IsTargetMarkerActive;
+            }
+
+            return result;
         }
 
 		public static HandsManager Instance { get; private set; }
@@ -247,18 +254,24 @@ namespace OculusSampleFramework
 
         public void SetFocusOnStock(OVRHand.Hand handType, Stock stock)
         {
-            if (handType == OVRHand.Hand.HandLeft)
-                _leftStockGrabber.SetFocusOnStock(stock);
-            else
-                _rightStockGrabber.SetFocusOnStock(stock);
+            if (_leftStockGrabber && _rightStockGrabber)
+            {
+                if (handType == OVRHand.Hand.HandLeft)
+                    _leftStockGrabber.SetFocusOnStock(stock);
+                else
+                    _rightStockGrabber.SetFocusOnStock(stock);
+            }
         }
 
         public void DeFocusStock(OVRHand.Hand handType)
         {
-            if (handType == OVRHand.Hand.HandLeft)
-                _leftStockGrabber.DeFocus();
-            else
-                _rightStockGrabber.DeFocus();
+            if (_leftStockGrabber && _rightStockGrabber)
+            {
+                if (handType == OVRHand.Hand.HandLeft)
+                    _leftStockGrabber.DeFocus();
+                else
+                    _rightStockGrabber.DeFocus();
+            }
         }
 
 		private IEnumerator FindSkeletonVisualGameObjects()
