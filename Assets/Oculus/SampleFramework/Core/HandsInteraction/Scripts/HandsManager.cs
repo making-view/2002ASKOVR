@@ -172,9 +172,9 @@ namespace OculusSampleFramework
         {
             get
             {
-                return _leftGestureDetector && _rightGestureDetector
+                return !(_leftGestureDetector && _rightGestureDetector
                     && _leftGestureTeleporter && _rightGestureTeleporter
-                    && _leftStockGrabber && _rightStockGrabber;
+                    && _leftStockGrabber && _rightStockGrabber);
             }
         }
 

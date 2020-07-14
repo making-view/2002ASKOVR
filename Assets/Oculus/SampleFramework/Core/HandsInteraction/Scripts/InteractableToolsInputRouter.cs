@@ -165,7 +165,7 @@ namespace OculusSampleFramework
 					{
 						var firstInteractable = currentInteractableTool.GetFirstCurrentCollisionInfo();
 						// if our tool is activated, make sure depth is set to "action"
-						if (currentInteractableTool.ToolInputState == ToolInputState.PrimaryInputUp)
+						if (currentInteractableTool.ToolInputState == ToolInputState.PrimaryInputDownStay)
 						{
 							firstInteractable.Value.InteractableCollider = firstInteractable.Key.ActionCollider;
 							firstInteractable.Value.CollisionDepth = InteractableCollisionDepth.Action;

@@ -19,6 +19,8 @@ public class InteractableButton : MonoBehaviour
     private ButtonController controller;
     private Image buttonImage;
 
+    private bool isPressed = false;
+
     void Start()
     {
         controller = GetComponent<ButtonController>();
@@ -32,17 +34,41 @@ public class InteractableButton : MonoBehaviour
         switch (state.NewInteractableState)
         {
             case InteractableState.ProximityState:
-                buttonImage.color = highlightedColor;
-                break;
             case InteractableState.ContactState:
-                buttonImage.color = highlightedColor;
+                OnHighlighted();
                 break;
             case InteractableState.ActionState:
-                buttonImage.color = pressedColor;
+                OnPressed();
                 break;
             case InteractableState.Default:
-                buttonImage.color = normalColor;
+                OnLostFocus();
                 break;
         }
+    }
+
+    private void OnHighlighted()
+    {
+        buttonImage.color = highlightedColor;
+
+        if (isPressed)
+        {
+            OnClick.Invoke();
+        }
+
+        isPressed = false;
+    }
+
+    private void OnPressed()
+    {
+        buttonImage.color = pressedColor;
+
+        isPressed = true;
+    }
+
+    private void OnLostFocus()
+    {
+        buttonImage.color = normalColor;
+
+        isPressed = false;
     }
 }
