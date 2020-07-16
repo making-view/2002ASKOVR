@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TruckLanes : MonoBehaviour
 {
-    [SerializeField] private Transform[] lanes;
+    [SerializeField] private Transform[] lanes = null;
 
     //
     // Finds which lane has the shortest X-axis distance to the given point

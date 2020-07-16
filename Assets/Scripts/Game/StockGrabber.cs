@@ -101,6 +101,6 @@ public class StockGrabber : MonoBehaviour
         }
 
         if (grabbedStock != null)
-            grabbedStock.Grab(grabHandle, grabHeight);
+            grabbedStock.Grab(grabHandle, grabHeight, closestRightAngle);
     }
 }

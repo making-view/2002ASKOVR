@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0332f1f8db4ac544c9f717a71010d9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handle: {fileID: 4948682859694583497}
   firstCoil: {fileID: 8712809889947113424}
   curvedCoils:
   - {fileID: 3608652910548313494}

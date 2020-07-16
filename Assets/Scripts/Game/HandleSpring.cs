@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class HandleSpring : MonoBehaviour
 {
+    [SerializeField] private GrabHandle handle = null;
     [SerializeField] private GameObject firstCoil = null;
     [SerializeField] private GameObject[] curvedCoils = null;
     [SerializeField] private GameObject lastCoil = null;
 
     void Update()
     {
-        var bottomRot = new Vector3(0, firstCoil.transform.rotation.eulerAngles.y, 0);
         lastCoil.transform.up = Vector3.up;
-        lastCoil.transform.rotation = Quaternion.Euler(bottomRot);
+
+        var handleForwardAngle = Vector3.SignedAngle(Vector3.up, handle.transform.forward, handle.transform.right);
+
+        lastCoil.transform.Rotate(handle.transform.right, handleForwardAngle - 90, Space.World);
 
         var nonCurvedCoils = 2; // First and last
         var partCount = curvedCoils.Length + nonCurvedCoils;
         var firstToLastDistance = (firstCoil.transform.position - lastCoil.transform.position).magnitude;
 
         var p0 = firstCoil.transform.position;
-        var p1 = lastCoil.transform.position + (Vector3.up * (firstToLastDistance / 2));
+        var p1 = lastCoil.transform.position + (lastCoil.transform.up * (firstToLastDistance / 2));
         var p2 = lastCoil.transform.position;
 
         var firstRotation = firstCoil.transform.rotation;

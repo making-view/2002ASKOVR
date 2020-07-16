@@ -9,9 +9,9 @@ using OculusSampleFramework;
 [RequireComponent(typeof(Image))]
 public class InteractableButton : MonoBehaviour
 {
-    [SerializeField] private Color normalColor;
-    [SerializeField] private Color highlightedColor;
-    [SerializeField] private Color pressedColor;
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color highlightedColor = Color.white;
+    [SerializeField] private Color pressedColor = Color.white;
 
     [Space]
     public UnityEvent OnClick;
