@@ -11,7 +11,7 @@ public class Stock : MonoBehaviour
     // How long the object has to be stationary before its physics are turned off
     [SerializeField] private float stationaryTime = 1.0f;
     private float angleAdjustCooldownTime = 0.75f;
-    private float angleAdjustVelocity = 1000;
+    private float angleAdjustVelocity = 550;
 
     private BoxCollider ownCollider;
     private Rigidbody rigidBody;
@@ -46,8 +46,9 @@ public class Stock : MonoBehaviour
         //
         if (grabHandle)
         {
-            var handleRoll = Vector3.SignedAngle(-Vector3.up, grabHandle.transform.right, grabHandle.transform.forward);
-            var handleYaw = Vector3.SignedAngle(Vector3.forward, grabHandle.transform.forward, Vector3.up);
+            var handleForward = new Vector3(grabHandle.transform.forward.x, 0, grabHandle.transform.forward.z);
+            var handleRoll = Vector3.SignedAngle(Vector3.up, grabHandle.transform.right, handleForward);
+            var handleYaw = Vector3.SignedAngle(Vector3.forward, handleForward, Vector3.up);
 
             var forwardUpAngle = Vector3.Angle(Vector3.up, grabHandle.transform.forward);
             var canAdjustAngles = angleAdjustCooldownTimer <= 0.0f 
@@ -107,8 +108,9 @@ public class Stock : MonoBehaviour
         grabHeight = height;
         stockHorizontalAngle = yAngle;
 
-        previousHandleRoll = Vector3.SignedAngle(Vector3.up, handle.transform.right, handle.transform.forward);
-        previousHandleYaw = Vector3.SignedAngle(Vector3.forward, handle.transform.forward, Vector3.up);
+        var handleForward = new Vector3(grabHandle.transform.forward.x, 0, grabHandle.transform.forward.z);
+        previousHandleRoll = Vector3.SignedAngle(Vector3.up, handle.transform.right, handleForward);
+        previousHandleYaw = Vector3.SignedAngle(Vector3.forward, handleForward, Vector3.up);
     }
 
     //
