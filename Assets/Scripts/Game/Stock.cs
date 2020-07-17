@@ -11,7 +11,7 @@ public class Stock : MonoBehaviour
     // How long the object has to be stationary before its physics are turned off
     [SerializeField] private float stationaryTime = 1.0f;
     private float angleAdjustCooldownTime = 0.75f;
-    private float angleAdjustVelocity = 550;
+    private float angleAdjustVelocity = 500;
 
     private BoxCollider ownCollider;
     private Rigidbody rigidBody;
@@ -19,10 +19,11 @@ public class Stock : MonoBehaviour
     private GrabHandle grabHandle;
     private float grabHeight = 0.0f;
     private float movementSensitivity = 0.01f;
-    private float angleAdjustThreshold = 15.0f;
+    private float angleAdjustThreshold = 30.0f;
     private float angleAdjustCooldownTimer = 0.0f;
-    private float stockHorizontalAngle = 0;
-
+    private int stockXAngle = 0;
+    private int stockYAngle = 0;
+    private int stockZAngle = 0;
 
     private float previousHandleRoll = 0.0f;
     private float previousHandleYaw = 0.0f;
@@ -67,13 +68,33 @@ public class Stock : MonoBehaviour
 
                 if (Mathf.Abs(handleYawVelocity) >= angleAdjustVelocity)
                 {
-                    stockHorizontalAngle += Mathf.Sign(handleYawVelocity) * 90;
+                    stockYAngle += (int)Mathf.Sign(handleYawVelocity) * 90;
+                    stockYAngle = WrapAngle(stockYAngle);
+                    angleAdjustCooldownTimer = angleAdjustCooldownTime;
+                }
+                else if (Mathf.Abs(handleRollVelocity) >= angleAdjustVelocity)
+                {
+                    var flipRotationAxes = stockYAngle == 90 || stockYAngle == 270;
+                    var isClosestToZAxis = (handleYaw < 45 && handleYaw > -45) || (handleYaw > 135 && handleYaw < -135);
+                    var shouldRotateAroundZ = (isClosestToZAxis && !flipRotationAxes) || (!isClosestToZAxis && flipRotationAxes);
+
+                    if (shouldRotateAroundZ)
+                    {
+                        stockZAngle += (int)Mathf.Sign(handleRollVelocity) * 90;
+                        stockZAngle = WrapAngle(stockZAngle);
+                    }
+                    else
+                    {
+                        stockXAngle += (int)Mathf.Sign(handleRollVelocity) * 90;
+                        stockXAngle = WrapAngle(stockXAngle);
+                    }
+
                     angleAdjustCooldownTimer = angleAdjustCooldownTime;
                 }
             }
 
             var lastCoilTrans = grabHandle.lastSpringCoil.transform;
-            var newRot = Quaternion.Euler(new Vector3(0, stockHorizontalAngle, 0));
+            var newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
             var newPos = lastCoilTrans.position - (lastCoilTrans.up * grabHeight);
 
             Vector3 direction = Vector3.zero;
@@ -100,13 +121,15 @@ public class Stock : MonoBehaviour
     //
     // Set up attachment of self to the handle of the StockGrabber grabbing this object
     //
-    public void Grab(GrabHandle handle, float height, float yAngle)
+    public void Grab(GrabHandle handle, float height, int xAngle, int yAngle, int zAngle)
     {
         rigidBody.isKinematic = true;
 
         grabHandle = handle;
         grabHeight = height;
-        stockHorizontalAngle = yAngle;
+        stockXAngle = xAngle;
+        stockYAngle = yAngle;
+        stockZAngle = zAngle;
 
         var handleForward = new Vector3(grabHandle.transform.forward.x, 0, grabHandle.transform.forward.z);
         previousHandleRoll = Vector3.SignedAngle(Vector3.up, handle.transform.right, handleForward);
@@ -163,5 +186,15 @@ public class Stock : MonoBehaviour
         }
 
         rigidBody.isKinematic = true;
+    }
+
+    private int WrapAngle(int angle)
+    {
+        if (angle >= 360)
+            angle %= 360;
+        else if (angle < 0)
+            angle += 360;
+
+        return angle;
     }
 }

@@ -84,8 +84,10 @@ public class StockGrabber : MonoBehaviour
         var initialPos = grabbedStock.transform.position;
         var initialRot = grabbedStock.transform.rotation;
 
-        var closestRightAngle = Mathf.Round(initialRot.eulerAngles.y / 90) * 90;
-        var targetRot = Quaternion.Euler(new Vector3(0, closestRightAngle, 0));
+        var closestXRightAngle = Mathf.Round(initialRot.eulerAngles.x / 90) * 90;
+        var closestYRightAngle = Mathf.Round(initialRot.eulerAngles.y / 90) * 90;
+        var closestZRightAngle = Mathf.Round(initialRot.eulerAngles.z / 90) * 90;
+        var targetRot = Quaternion.Euler(new Vector3(closestXRightAngle, closestYRightAngle, closestZRightAngle));
 
         while (grabbedStock != null && timer <= snatchTime)
         {
@@ -101,6 +103,6 @@ public class StockGrabber : MonoBehaviour
         }
 
         if (grabbedStock != null)
-            grabbedStock.Grab(grabHandle, grabHeight, closestRightAngle);
+            grabbedStock.Grab(grabHandle, grabHeight, (int)closestXRightAngle, (int)closestYRightAngle, (int)closestZRightAngle);
     }
 }
