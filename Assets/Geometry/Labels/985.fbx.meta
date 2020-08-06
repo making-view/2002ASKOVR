@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: fdb48272225cde5438455ad4f5e388ea
+guid: 2b8ba0cbb0d660149829bf62758a3084
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: CardboardBox_mat
-    second: {fileID: 2100000, guid: 745e8b8e86f8e774b8fde9338bb1d286, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -48,7 +43,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    fileIdsGeneration: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
