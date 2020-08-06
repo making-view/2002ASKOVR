@@ -71,6 +71,8 @@ public class Stock : MonoBehaviour
                     stockYAngle += (int)Mathf.Sign(handleYawVelocity) * 90;
                     stockYAngle = WrapAngle(stockYAngle);
                     angleAdjustCooldownTimer = angleAdjustCooldownTime;
+
+                    DebugHelper.Instance.Log("X: " + stockXAngle + ", Y: " + stockYAngle + ", Z: " + stockZAngle);
                 }
                 else if (Mathf.Abs(handleRollVelocity) >= angleAdjustVelocity)
                 {
@@ -88,6 +90,8 @@ public class Stock : MonoBehaviour
                         stockXAngle += (int)Mathf.Sign(handleRollVelocity) * 90;
                         stockXAngle = WrapAngle(stockXAngle);
                     }
+
+                    DebugHelper.Instance.Log("X: " + stockXAngle + ", Y: " + stockYAngle + ", Z: " + stockZAngle);
 
                     angleAdjustCooldownTimer = angleAdjustCooldownTime;
                 }
