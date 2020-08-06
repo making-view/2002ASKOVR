@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using OculusSampleFramework;
 
 [RequireComponent(typeof(ButtonController))]
@@ -10,6 +11,7 @@ public class Stock : MonoBehaviour
 {
     // How long the object has to be stationary before its physics are turned off
     [SerializeField] private float stationaryTime = 1.0f;
+    [SerializeField] private Text massDisplay = null;
     private float angleAdjustCooldownTime = 0.75f;
     private float angleAdjustVelocity = 500;
 
@@ -34,6 +36,11 @@ public class Stock : MonoBehaviour
     {
         ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
+
+        if (massDisplay != null)
+        {
+            massDisplay.text = rigidBody.mass + " KG";
+        }
 
         otherColliders = new List<BoxCollider>();
     }
