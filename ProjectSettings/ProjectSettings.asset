@@ -666,7 +666,7 @@ PlayerSettings:
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
     1: SUBSTANCE_PLUGIN_ENABLED
-    7: SUBSTANCE_PLUGIN_ENABLED
+    7: SUBSTANCE_PLUGIN_ENABLED;AMPLIFY_SHADER_EDITOR
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
