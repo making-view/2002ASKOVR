@@ -13,6 +13,8 @@ public class Truck : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float moveThreshold = 1.5f;
     [SerializeField] private float moveTime = 3f;
+    [SerializeField] private float minZ = 0.0f;
+    [SerializeField] private float maxZ = 0.0f;
 
     private bool moving = false;
     private int currentLane = 0;
@@ -38,29 +40,32 @@ public class Truck : MonoBehaviour
             var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
 
             //
-            // Places truck and its stock in center of new lane
+            // Places truck and its stock in center of mid lane
             //
-            if (closestLane != currentLane)
+            //if (closestLane != currentLane)
+            //{
+            //    currentLane = closestLane;
+
+            //    var newLane = truckLanes.GetLanePosition(currentLane);
+            //    var newPosition = new Vector3(newLane.x, transform.position.y, 0);
+            //    var posChange = newPosition - transform.position;
+
+            //    transform.position = newPosition;
+            //    MoveStock(posChange);
+            //}
+
+            if (closestLane == 1)
             {
-                currentLane = closestLane;
+                var currentZPos = transform.position.z + localOffset.localPosition.z;
+                var zDiff = Mathf.Abs(currentZPos - playerCamera.transform.position.z);
 
-                var newLane = truckLanes.GetLanePosition(currentLane);
-                var newPosition = new Vector3(newLane.x, transform.position.y, 0);
-                var posChange = newPosition - transform.position;
-
-                transform.position = newPosition;
-                MoveStock(posChange);
-            }
-
-            var currentZPos = transform.position.z + localOffset.localPosition.z;
-            var zDiff = Mathf.Abs(currentZPos - playerCamera.transform.position.z);
-
-            //
-            // Starts moving truck towards user if distance between self and user exceeds treshold
-            //
-            if (zDiff > moveThreshold)
-            {
-                StartCoroutine(MoveToZPoint(playerCamera.transform.position.z));
+                //
+                // Starts moving truck towards user if distance between self and user exceeds treshold
+                //
+                if (zDiff > moveThreshold)
+                {
+                    StartCoroutine(MoveToZPoint(playerCamera.transform.position.z));
+                }
             }
         }
     }
@@ -75,6 +80,7 @@ public class Truck : MonoBehaviour
         var timer = 0.0f;
         var initalPos = transform.position;
         var destinationZ = targetZ - localOffset.localPosition.z;
+        destinationZ = Mathf.Clamp(destinationZ, minZ - localOffset.localPosition.z, maxZ - localOffset.localPosition.z);
         var targetPos = new Vector3(initalPos.x, initalPos.y, destinationZ);
 
         while (timer <= moveTime)
