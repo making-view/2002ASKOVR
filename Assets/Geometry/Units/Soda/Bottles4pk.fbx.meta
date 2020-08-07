@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 8aca478a05df0aa4999c60a720106674
 ModelImporter:
-  serializedVersion: 19300
+  serializedVersion: 19301
   internalIDToNameTable: []
   externalObjects:
   - first:
@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: phong4
-    second: {fileID: 2100000, guid: 46602ba377fe5cb49869bb687408b8b2, type: 2}
+    second: {fileID: 2100000, guid: 01db7629729ae7e49aa48a4cfb865faa, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -53,6 +53,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
