@@ -41622,12 +41622,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1838240534}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1840232626 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5287604726976585242, guid: 4fb0a7019b2924740a668da2c1998cf2,
-    type: 3}
-  m_PrefabInstance: {fileID: 5287604725810255424}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1842956155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46546,7 +46540,6 @@ MonoBehaviour:
   handObjects:
   - {fileID: 82019523}
   - {fileID: 425256365}
-  - {fileID: 1840232626}
   controllerObjects:
   - {fileID: 628261422}
   - {fileID: 8866552}
