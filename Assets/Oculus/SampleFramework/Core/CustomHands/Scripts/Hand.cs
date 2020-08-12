@@ -20,7 +20,6 @@ using UnityEngine.SceneManagement;
 namespace OVRTouchSample
 {
     // Animated hand visuals for a user of a Touch controller.
-    [RequireComponent(typeof(OVRGrabber))]
     public class Hand : MonoBehaviour
     {
         public const string ANIM_LAYER_NAME_POINT = "Point Layer";
@@ -47,7 +46,6 @@ namespace OVRTouchSample
 
         private Collider[] m_colliders = null;
         private bool m_collisionEnabled = true;
-        private OVRGrabber m_grabber;
 
         List<Renderer> m_showAfterInputFocusAcquired;
 
@@ -62,11 +60,6 @@ namespace OVRTouchSample
         private float m_thumbsUpBlend = 0.0f;
 
         private bool m_restoreOnInputAcquired = false;
-
-        private void Awake()
-        {
-            m_grabber = GetComponent<OVRGrabber>();
-        }
 
         private void Start()
         {
@@ -104,7 +97,7 @@ namespace OVRTouchSample
 
             float flex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
 
-            bool collisionEnabled = m_grabber.grabbedObject == null && flex >= THRESH_COLLISION_FLEX;
+            bool collisionEnabled = flex >= THRESH_COLLISION_FLEX;
             CollisionEnable(collisionEnabled);
 
             UpdateAnimStates();
@@ -183,13 +176,7 @@ namespace OVRTouchSample
 
         private void UpdateAnimStates()
         {
-            bool grabbing = m_grabber.grabbedObject != null;
             HandPose grabPose = m_defaultGrabPose;
-            if (grabbing)
-            {
-                HandPose customPose = m_grabber.grabbedObject.GetComponent<HandPose>();
-                if (customPose != null) grabPose = customPose;
-            }
             // Pose
             HandPoseId handPoseId = grabPose.PoseId;
             m_animator.SetInteger(m_animParamIndexPose, (int)handPoseId);
@@ -200,12 +187,12 @@ namespace OVRTouchSample
             m_animator.SetFloat(m_animParamIndexFlex, flex);
 
             // Point
-            bool canPoint = !grabbing || grabPose.AllowPointing;
+            bool canPoint = grabPose.AllowPointing;
             float point = canPoint ? m_pointBlend : 0.0f;
             m_animator.SetLayerWeight(m_animLayerIndexPoint, point);
 
             // Thumbs up
-            bool canThumbsUp = !grabbing || grabPose.AllowThumbsUp;
+            bool canThumbsUp = grabPose.AllowThumbsUp;
             float thumbsUp = canThumbsUp ? m_thumbsUpBlend : 0.0f;
             m_animator.SetLayerWeight(m_animLayerIndexThumb, thumbsUp);
 
