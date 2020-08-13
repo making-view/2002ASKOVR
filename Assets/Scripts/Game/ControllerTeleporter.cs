@@ -1,19 +1,20 @@
-﻿using System.Collections;
+﻿using OVRTouchSample;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(OVRSkeleton))]
-public class GestureTeleporter : MonoBehaviour
+public class ControllerTeleporter : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private GestureDetector gestureDetector = null;
+    [SerializeField] private OVRInput.Controller controller = OVRInput.Controller.None;
     [SerializeField] private OVRCameraRig cameraRig = null;
+    [SerializeField] private GameObject raycastPoint = null;
     [SerializeField] private GameObject targetMarkerPrefab = null;
 
     [Header("Settings")]
     public float rayLength = 10f;
-    public float reqGestureChangeSpeed = 0.4f;
+    public float buttonReleaseBuffer = 0.4f;
 
     private GameObject targetMarker = null;
     private Camera centerEyeAnchor = null;
@@ -25,7 +26,8 @@ public class GestureTeleporter : MonoBehaviour
     private float targetMarkerScaleFactor = 10;
     private int rayLayerMask = 0;
 
-    public OVRSkeleton Skeleton { get; private set; }
+    private LineRenderer line;
+
     public bool IsTargetMarkerActive
     {
         get
@@ -34,10 +36,10 @@ public class GestureTeleporter : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    public void Start()
     {
-        Skeleton = GetComponent<OVRSkeleton>();
         centerEyeAnchor = cameraRig.GetComponentsInChildren<Camera>().ToList().FirstOrDefault(c => c.name == "CenterEyeAnchor");
+        line = GetComponent<LineRenderer>();
 
         targetMarker = Instantiate(targetMarkerPrefab);
         targetMarkerMaterial = targetMarker.GetComponent<MeshRenderer>().material;
@@ -70,43 +72,31 @@ public class GestureTeleporter : MonoBehaviour
         }
 
         //
-        // Stops loop execution if hand is not visible to prevent accidental activation while hand is not tracking
-        //
-        if (!Skeleton.IsMeshVisible)
-        {
-            teleportActivationTimer = 0.0f;
-            targetMarker.SetActive(false);
-            return;
-        }
-
-        //
         // Detects if the aiming direction intersects with the floor
         //
-        if (gestureDetector.IsGestureActive(PoseName.OK))
+        if (OVRInput.Get(OVRInput.Button.One, controller))
         {
             //
             // Calculates the start and end point of the aiming ray
             // Magic numbers are eyeball-adjustments to make ray point more closer to where aim feels like it should point
             //
-            Vector3 handRightDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? transform.forward : -transform.forward;
-            Vector3 fingerDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.right : transform.right;
-            Vector3 palmForwardDirection = Skeleton.GetSkeletonType() == OVRSkeleton.SkeletonType.HandRight ? -transform.up : transform.up;
-            Vector3 start = transform.position + (fingerDirection * 0.08f) + (palmForwardDirection * 0.045f);
-            Vector3 end = start + (handRightDirection * rayLength) - (fingerDirection * rayLength * 0.25f);
+            Vector3 handForwardDirection = controller == OVRInput.Controller.LTouch ? raycastPoint.transform.right : -raycastPoint.transform.right;
+            Vector3 start = raycastPoint.transform.position;
+            Vector3 end = start + handForwardDirection * rayLength;
 
             RaycastHit rayHit;
 
-            if (Physics.Linecast(start, end, out rayHit, rayLayerMask)) 
+            if (Physics.Linecast(start, end, out rayHit, rayLayerMask))
             {
                 if (rayHit.collider.gameObject.tag == "Floor")
                 {
-                    teleportActivationTimer = reqGestureChangeSpeed;
+                    teleportActivationTimer = buttonReleaseBuffer;
 
                     if (targetMarker.activeSelf)
                     {
                         //
                         // Nudges marker partially or completely toward new ray hit point depending on distance from camera
-                        // and distance from previous marker location. This smooths out the jittery nature of hand-tracking
+                        // and distance from previous marker location. This smooths out the jittery nature of hand-tracking, no wait, controller-tracking
                         //
                         Vector3 direction = rayHit.point - targetMarker.transform.position;
                         Vector3 distance = rayHit.point - centerEyeAnchor.transform.position;
@@ -136,7 +126,7 @@ public class GestureTeleporter : MonoBehaviour
         //
         // Move player to target location
         //
-        if (gestureDetector.IsGestureActive(PoseName.Fist) && teleportActivationTimer > 0.0f)
+        if (!OVRInput.Get(OVRInput.Button.One, controller) && teleportActivationTimer > 0.0f)
         {
             Vector3 userLocalPos = centerEyeAnchor.transform.localPosition;
             Vector3 xzPlaneOffset = new Vector3(userLocalPos.x, 0, userLocalPos.z);
