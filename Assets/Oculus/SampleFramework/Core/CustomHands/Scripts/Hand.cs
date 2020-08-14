@@ -44,6 +44,8 @@ namespace OVRTouchSample
         [SerializeField]
         private HandPose m_defaultGrabPose = null;
 
+        private GameObject m_pointerOrigin = null;
+        private GameObject m_pointerPoseGO = null;
         private Collider[] m_colliders = null;
         private bool m_collisionEnabled = true;
 
@@ -61,9 +63,25 @@ namespace OVRTouchSample
 
         private bool m_restoreOnInputAcquired = false;
 
+        public Transform PointerPose
+        {
+            get
+            {
+                m_pointerPoseGO.transform.position = m_pointerOrigin.transform.position;
+                m_pointerPoseGO.transform.forward = m_controller == OVRInput.Controller.LTouch ?
+                    m_pointerOrigin.transform.right : -m_pointerOrigin.transform.right;
+
+                return m_pointerPoseGO.transform;
+            }
+        }
+
         private void Start()
         {
             m_showAfterInputFocusAcquired = new List<Renderer>();
+
+            var tag = (m_controller == OVRInput.Controller.LTouch ? "Left" : "Right") + "PointerOrigin";
+            m_pointerOrigin = GameObject.FindGameObjectWithTag(tag);
+            m_pointerPoseGO = new GameObject();
 
             // Collision starts disabled. We'll enable it for certain cases such as making a fist.
             m_colliders = this.GetComponentsInChildren<Collider>().Where(childCollider => !childCollider.isTrigger).ToArray();

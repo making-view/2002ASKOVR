@@ -4,18 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Hand))]
 public class ControllerTeleporter : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private OVRInput.Controller controller = OVRInput.Controller.None;
     [SerializeField] private OVRCameraRig cameraRig = null;
-    [SerializeField] private GameObject raycastPoint = null;
     [SerializeField] private GameObject targetMarkerPrefab = null;
 
     [Header("Settings")]
     public float rayLength = 10f;
     public float buttonReleaseBuffer = 0.4f;
 
+    private Hand hand = null;
     private GameObject targetMarker = null;
     private Camera centerEyeAnchor = null;
     private Vector3 targetMarkerInitScale;
@@ -25,8 +26,6 @@ public class ControllerTeleporter : MonoBehaviour
     private float teleportActivationTimer = 0;
     private float targetMarkerScaleFactor = 10;
     private int rayLayerMask = 0;
-
-    private LineRenderer line;
 
     public bool IsTargetMarkerActive
     {
@@ -39,7 +38,7 @@ public class ControllerTeleporter : MonoBehaviour
     public void Start()
     {
         centerEyeAnchor = cameraRig.GetComponentsInChildren<Camera>().ToList().FirstOrDefault(c => c.name == "CenterEyeAnchor");
-        line = GetComponent<LineRenderer>();
+        hand = GetComponent<Hand>();
 
         targetMarker = Instantiate(targetMarkerPrefab);
         targetMarkerMaterial = targetMarker.GetComponent<MeshRenderer>().material;
@@ -80,9 +79,8 @@ public class ControllerTeleporter : MonoBehaviour
             // Calculates the start and end point of the aiming ray
             // Magic numbers are eyeball-adjustments to make ray point more closer to where aim feels like it should point
             //
-            Vector3 handForwardDirection = controller == OVRInput.Controller.LTouch ? raycastPoint.transform.right : -raycastPoint.transform.right;
-            Vector3 start = raycastPoint.transform.position;
-            Vector3 end = start + handForwardDirection * rayLength;
+            Vector3 start = hand.PointerPose.position;
+            Vector3 end = start + hand.PointerPose.forward * rayLength;
 
             RaycastHit rayHit;
 
