@@ -30972,6 +30972,16 @@ PrefabInstance:
       propertyPath: _rightHand
       value: 
       objectReference: {fileID: 425256365}
+    - target: {fileID: 114346469421508108, guid: cbdf09e3b0f1ac246914a74904002cb6,
+        type: 3}
+      propertyPath: _leftController
+      value: 
+      objectReference: {fileID: 628261422}
+    - target: {fileID: 114346469421508108, guid: cbdf09e3b0f1ac246914a74904002cb6,
+        type: 3}
+      propertyPath: _rightController
+      value: 
+      objectReference: {fileID: 8866552}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbdf09e3b0f1ac246914a74904002cb6, type: 3}
 --- !u!1001 &1385770855
