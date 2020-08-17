@@ -62,10 +62,11 @@ namespace OculusSampleFramework
 	/// </summary>
 	public abstract class InteractableTool : MonoBehaviour
 	{
-		public Transform ToolTransform { get { return this.transform; } }
+		public Transform ToolTransform { get { return transform; } }
 		public bool IsRightHandedTool { get; set; }
+        public bool IsHandTool { get; set; }
 
-		public abstract InteractableToolTags ToolTags { get; }
+        public abstract InteractableToolTags ToolTags { get; }
 
 		public abstract ToolInputState ToolInputState { get; }
 

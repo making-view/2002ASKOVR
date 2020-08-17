@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
+using OVRTouchSample;
 
 namespace OculusSampleFramework
 {
@@ -23,9 +24,12 @@ namespace OculusSampleFramework
 
 		[SerializeField] GameObject _leftHand = null;
 		[SerializeField] GameObject _rightHand = null;
+        [SerializeField] GameObject _leftController = null;
+        [SerializeField] GameObject _rightController = null;
 
-		public HandsVisualMode VisualMode = HandsVisualMode.Mesh;
+        public HandsVisualMode VisualMode = HandsVisualMode.Mesh;
 		private OVRHand[] _hand = new OVRHand[(int)OVRHand.Hand.HandRight + 1];
+        private Hand[] _controller = new Hand[2];
 		private OVRSkeleton[] _handSkeleton = new OVRSkeleton[(int)OVRHand.Hand.HandRight + 1];
 		private OVRSkeletonRenderer[] _handSkeletonRenderer = new OVRSkeletonRenderer[(int)OVRHand.Hand.HandRight + 1];
 		private OVRMesh[] _handMesh = new OVRMesh[(int)OVRHand.Hand.HandRight + 1];
@@ -60,7 +64,19 @@ namespace OculusSampleFramework
 			}
 		}
 
-		public OVRSkeleton RightHandSkeleton
+        public Hand RightController
+        {
+            get
+            {
+                return _controller[1];
+            }
+            private set
+            {
+                _controller[1] = value;
+            }
+        }
+
+        public OVRSkeleton RightHandSkeleton
 		{
 			get
 			{
@@ -120,7 +136,19 @@ namespace OculusSampleFramework
 			}
 		}
 
-		public OVRSkeleton LeftHandSkeleton
+        public Hand LeftController
+        {
+            get
+            {
+                return _controller[0];
+            }
+            private set
+            {
+                _controller[0] = value;
+            }
+        }
+
+        public OVRSkeleton LeftHandSkeleton
 		{
 			get
 			{
@@ -172,7 +200,8 @@ namespace OculusSampleFramework
         {
             get
             {
-                return !(_leftGestureDetector && _rightGestureDetector
+                return !_leftController.activeSelf && !_rightController.activeSelf 
+                    &&!(_leftGestureDetector && _rightGestureDetector
                     && _leftGestureTeleporter && _rightGestureTeleporter
                     && _leftStockGrabber && _rightStockGrabber);
             }
@@ -208,12 +237,14 @@ namespace OculusSampleFramework
 			Assert.IsNotNull(_rightHand);
 
 			LeftHand = _leftHand.GetComponent<OVRHand>();
+            LeftController = _leftController.GetComponent<Hand>();
 			LeftHandSkeleton = _leftHand.GetComponent<OVRSkeleton>();
 			LeftHandSkeletonRenderer = _leftHand.GetComponent<OVRSkeletonRenderer>();
 			LeftHandMesh = _leftHand.GetComponent<OVRMesh>();
 			LeftHandMeshRenderer = _leftHand.GetComponent<OVRMeshRenderer>();
 
 			RightHand = _rightHand.GetComponent<OVRHand>();
+            RightController = _rightController.GetComponent<Hand>();
 			RightHandSkeleton = _rightHand.GetComponent<OVRSkeleton>();
 			RightHandSkeletonRenderer = _rightHand.GetComponent<OVRSkeletonRenderer>();
 			RightHandMesh = _rightHand.GetComponent<OVRMesh>();
