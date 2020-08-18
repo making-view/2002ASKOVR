@@ -137,7 +137,7 @@ public class GestureDetector : MonoBehaviour
         Gesture currentGesture = new Gesture();
         float currentMin = Mathf.Infinity;
 
-        if (skeleton.IsMeshVisible)
+        if (skeleton.IsMeshVisible && fingerBones.Count > 0)
         {
             foreach (var gesture in gestures)
             {

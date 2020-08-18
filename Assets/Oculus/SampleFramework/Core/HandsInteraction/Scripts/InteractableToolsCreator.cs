@@ -27,16 +27,18 @@ namespace OculusSampleFramework
 		{
 			if (LeftHandTools != null && LeftHandTools.Length > 0)
 			{
-				StartCoroutine(AttachToolsToHands(LeftHandTools, false));
+                StartCoroutine(AttachToolsToHands(LeftHandTools, false, false));
+                StartCoroutine(AttachToolsToHands(LeftHandTools, false, true));
 			}
 
 			if (RightHandTools != null && RightHandTools.Length > 0)
 			{
-				StartCoroutine(AttachToolsToHands(RightHandTools, true));
+                StartCoroutine(AttachToolsToHands(RightHandTools, true, false));
+                StartCoroutine(AttachToolsToHands(RightHandTools, true, true));
 			}
 		}
 
-		private IEnumerator AttachToolsToHands(Transform[] toolObjects, bool isRightHand)
+		private IEnumerator AttachToolsToHands(Transform[] toolObjects, bool isRightHand, bool isHand)
 		{
 			HandsManager handsManagerObj = null;
 			while ((handsManagerObj = HandsManager.Instance) == null || !handsManagerObj.IsInitialized())
@@ -53,23 +55,27 @@ namespace OculusSampleFramework
 
 			foreach (Transform toolObject in toolObjectSet)
 			{
-				OVRSkeleton handSkeletonToAttachTo =
-				  isRightHand ? handsManagerObj.RightHandSkeleton : handsManagerObj.LeftHandSkeleton;
-				while (handSkeletonToAttachTo == null || handSkeletonToAttachTo.Bones == null)
-				{
-					yield return null;
-				}
+                if (isHand)
+                {
+                    OVRSkeleton handSkeletonToAttachTo =
+                        isRightHand ? handsManagerObj.RightHandSkeleton : handsManagerObj.LeftHandSkeleton;
+                    while (handSkeletonToAttachTo == null || handSkeletonToAttachTo.Bones == null)
+                    {
+                        yield return null;
+                    }
+                }
 
-				AttachToolToHandTransform(toolObject, isRightHand);
+				AttachToolToHandTransform(toolObject, isRightHand, isHand);
 			}
 		}
 
-		private void AttachToolToHandTransform(Transform tool, bool isRightHanded)
+		private void AttachToolToHandTransform(Transform tool, bool isRightHanded, bool isHand)
 		{
 			var newTool = Instantiate(tool).transform;
 			newTool.localPosition = Vector3.zero; 
 			var toolComp = newTool.GetComponent<InteractableTool>();
 			toolComp.IsRightHandedTool = isRightHanded;
+            toolComp.IsHandTool = isHand;
 			// Initialize only AFTER settings have been applied!
 			toolComp.Initialize();
 		}

@@ -102,8 +102,7 @@ namespace OculusSampleFramework
 			_coneAngleReleaseDegrees = _coneAngleDegrees * 1.2f;
 			_initialized = true;
 
-			var toolComp = GetComponent<InteractableTool>();
-			_handType = toolComp.IsRightHandedTool
+			_handType = IsRightHandedTool
 				? OVRHand.Hand.HandRight
 				: OVRHand.Hand.HandLeft;
 		}
@@ -124,15 +123,17 @@ namespace OculusSampleFramework
 			}
 
 			var hand = IsRightHandedTool ? HandsManager.Instance.RightHand : HandsManager.Instance.LeftHand;
-			var pointer = hand.PointerPose;
 			var cameraRigTransform = hand.gameObject.transform.parent.parent.parent;
-			transform.position = cameraRigTransform.position + pointer.position;
+            var controller = IsRightHandedTool ? HandsManager.Instance.RightController : HandsManager.Instance.LeftController;
+            var pointer = IsHandTool ? hand.PointerPose : controller.PointerPose;
+
+            transform.position = cameraRigTransform.position + pointer.position;
             transform.rotation = pointer.rotation;
 
-			var prevPosition = InteractionPosition;
-			var currPosition = transform.position;
-			Velocity = (currPosition - prevPosition) / Time.deltaTime;
-			InteractionPosition = currPosition;
+            var prevPosition = InteractionPosition;
+            var currPosition = transform.position;
+            Velocity = (currPosition - prevPosition) / Time.deltaTime;
+            InteractionPosition = currPosition;
 
             if (HandsManager.Instance.IsPinchEnabled)
             {
