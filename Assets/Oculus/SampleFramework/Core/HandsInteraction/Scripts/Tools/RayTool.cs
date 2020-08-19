@@ -159,6 +159,8 @@ namespace OculusSampleFramework
 				return _currentIntersectingObjects;
 			}
 
+			Debug.Log("Getting Intersecting Objects for: " + (IsRightHandedTool ? "Right Hand" : "Left Hand"));
+
 			// if we already have focused on something, keep it until the angle between
 			// our forward direction and object vector becomes too large
 			if (_currInteractableCastedAgainst != null &&

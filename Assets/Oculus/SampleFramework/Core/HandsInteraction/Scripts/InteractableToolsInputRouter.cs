@@ -161,9 +161,9 @@ namespace OculusSampleFramework
 			UpdateToolsAndEnableState(_rightHandFarTools, !encounteredNearObjectsRightHand && rightHandIsReliable &&
 			  rightHandProperlyTracked);
 
-			bool encounteredNearObjectsControllerHand = UpdateToolsAndEnableState(_rightControllerNearTools, rightHandIsReliable);
+			bool encounteredNearObjectsRightController = UpdateToolsAndEnableState(_rightControllerNearTools, rightControllerActive);
 			// don't interact with far field if near field is touching something
-			UpdateToolsAndEnableState(_rightControllerFarTools, !encounteredNearObjectsControllerHand && rightControllerActive);
+			UpdateToolsAndEnableState(_rightControllerFarTools, !encounteredNearObjectsRightController && rightControllerActive);
 		}
 
 		private bool UpdateToolsAndEnableState(HashSet<InteractableTool> tools, bool toolsAreEnabledThisFrame)
