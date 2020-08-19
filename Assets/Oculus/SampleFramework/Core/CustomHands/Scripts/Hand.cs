@@ -75,6 +75,14 @@ namespace OVRTouchSample
             }
         }
 
+        public OVRInput.Controller Controller
+        {
+            get
+            {
+                return m_controller;
+            }
+        }
+
         private void Start()
         {
             m_showAfterInputFocusAcquired = new List<Renderer>();

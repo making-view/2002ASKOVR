@@ -255,7 +255,7 @@ namespace OculusSampleFramework
 
             var detectors = FindObjectsOfType<GestureDetector>().ToList();
             var teleporters = FindObjectsOfType<GestureTeleporter>().ToList();
-            var grabbers = FindObjectsOfType<StockGrabber>().ToList();
+            var grabbers = FindObjectsOfType<GestureStockGrabber>().ToList();
             var leftSkelType = OVRSkeleton.SkeletonType.HandLeft;
             var rightSkelType = OVRSkeleton.SkeletonType.HandRight;
 

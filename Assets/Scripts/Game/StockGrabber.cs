@@ -2,34 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StockGrabber : MonoBehaviour
+public abstract class StockGrabber : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private GestureDetector gestureDetector = null;
-    [SerializeField] private GrabHandle grabHandle = null;
+    [SerializeField] protected GrabHandle grabHandle = null;
 
     [Header("Settings")]
-    [SerializeField] private float snatchTime = 0.3f;
+    [SerializeField] protected float snatchTime = 0.3f;
 
-    private Stock focusedStock = null;
-    private Stock grabbedStock = null;
-
-    public OVRSkeleton.SkeletonType SkeletonType
-    {
-        get
-        {
-            return gestureDetector.skeleton.GetSkeletonType();
-        }
-    }
-
-    void Update()
-    {
-        if (grabbedStock == null && focusedStock != null && gestureDetector.IsGestureActive(PoseName.Fist))
-            GrabBegin();
-
-        if (grabbedStock != null && !gestureDetector.IsGestureActive(PoseName.Fist))
-            GrabEnd();
-    }
+    protected Stock focusedStock = null;
+    protected Stock grabbedStock = null;
 
     //
     // Called by RayTool through HandsManager when it targets an object of Stock type
@@ -51,7 +33,7 @@ public class StockGrabber : MonoBehaviour
     //
     // Prepares attachment between Stock and StockGrabber, starts displaying handle
     //
-    private void GrabBegin()
+    protected void GrabBegin()
     {
         grabbedStock = focusedStock;
 
@@ -66,7 +48,7 @@ public class StockGrabber : MonoBehaviour
     //
     // Severs attachment by droping the grabbed Stock and hiding the handle
     //
-    private void GrabEnd()
+    protected void GrabEnd()
     {
         grabbedStock.Drop();
         grabbedStock = null;
