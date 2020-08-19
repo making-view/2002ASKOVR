@@ -5199,6 +5199,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrabHandle
       objectReference: {fileID: 0}
+    - target: {fileID: 3316189027840728659, guid: cd576c6006229294aa350a75e2c11186,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6935982978215251377, guid: cd576c6006229294aa350a75e2c11186,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14921,6 +14926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrabHandle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3316189027840728659, guid: cd576c6006229294aa350a75e2c11186,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6935982978215251377, guid: cd576c6006229294aa350a75e2c11186,
         type: 3}

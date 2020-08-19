@@ -360,7 +360,7 @@ namespace OculusSampleFramework
 
                 if (stockComp != null)
                 {
-                    HandsManager.Instance.SetFocusOnStock(_handType, stockComp);
+                    HandsManager.Instance.SetFocusOnStock(stockComp, IsRightHandedTool, IsHandTool);
                 }
             }
 		}
@@ -370,7 +370,7 @@ namespace OculusSampleFramework
 			_rayToolView.SetFocusedInteractable(null);
 			_focusedInteractable = null;
 
-            HandsManager.Instance.DeFocusStock(_handType);
+            HandsManager.Instance.DeFocusStock(IsRightHandedTool, IsHandTool);
 		}
 	}
 }
