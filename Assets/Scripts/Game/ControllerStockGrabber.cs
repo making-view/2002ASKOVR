@@ -16,13 +16,13 @@ public class ControllerStockGrabber : StockGrabber
     {
         get
         {
+            if (_hand == null)
+            {
+                _hand = GetComponent<Hand>();
+            }
+
             return _hand.Controller == OVRInput.Controller.LTouch ? OVRHand.Hand.HandLeft : OVRHand.Hand.HandRight;
         }
-    }
-
-    void Start()
-    {
-        _hand = GetComponent<Hand>();
     }
 
     void Update()

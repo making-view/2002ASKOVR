@@ -77,7 +77,6 @@ namespace OculusSampleFramework
 			toolComp.IsRightHandedTool = isRightHanded;
             toolComp.IsHandTool = isHand;
 			// Initialize only AFTER settings have been applied!
-			Debug.Log(isRightHanded);
 			toolComp.Initialize();
 		}
 	}

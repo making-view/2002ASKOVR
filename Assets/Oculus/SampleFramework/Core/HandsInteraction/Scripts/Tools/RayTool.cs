@@ -102,6 +102,9 @@ namespace OculusSampleFramework
 			_coneAngleReleaseDegrees = _coneAngleDegrees * 1.2f;
 			_initialized = true;
 
+            Debug.Log("Ray initialized");
+            Debug.Log(IsRightHandedTool ? "Right Hand" : "Left Hand");
+
 			_handType = IsRightHandedTool
 				? OVRHand.Hand.HandRight
 				: OVRHand.Hand.HandLeft;
@@ -158,8 +161,6 @@ namespace OculusSampleFramework
 			{
 				return _currentIntersectingObjects;
 			}
-
-			Debug.Log("Getting Intersecting Objects for: " + (IsRightHandedTool ? "Right Hand" : "Left Hand"));
 
 			// if we already have focused on something, keep it until the angle between
 			// our forward direction and object vector becomes too large
