@@ -130,7 +130,7 @@ namespace OculusSampleFramework
             var controller = IsRightHandedTool ? HandsManager.Instance.RightController : HandsManager.Instance.LeftController;
             var pointer = IsHandTool ? hand.PointerPose : controller.PointerPose;
 
-            transform.position = cameraRigTransform.position + pointer.position;
+            transform.position = IsHandTool ? cameraRigTransform.position + pointer.position : pointer.position;
             transform.rotation = pointer.rotation;
 
             var prevPosition = InteractionPosition;
