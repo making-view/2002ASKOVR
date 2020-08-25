@@ -199,10 +199,20 @@ public class Stock : MonoBehaviour
 
     private void RotateInDirection(Direction direction)
     {
-        if (direction == Direction.Left)
-            stockYAngle = WrapAngle(stockYAngle - 90);
-        if (direction == Direction.Right)
-            stockYAngle = WrapAngle(stockYAngle + 90);
+        switch (direction)
+        {
+            case Direction.Left:
+                stockYAngle = WrapAngle(stockYAngle - 90);
+                break;
+            case Direction.Right:
+                stockYAngle = WrapAngle(stockYAngle + 90);
+                break;
+            case Direction.Up:
+                break;
+            case Direction.Down:
+                break;
+        }
+
     }
 
     //
