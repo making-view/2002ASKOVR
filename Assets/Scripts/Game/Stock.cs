@@ -17,21 +17,34 @@ public class Stock : MonoBehaviour
 
     private BoxCollider ownCollider;
     private Rigidbody rigidBody;
+    private List<BoxCollider> otherColliders;
+    private ControlSchemeManager controlScheme;
 
-    private GrabHandle grabHandle;
+    private StockGrabber grabbedBy = null;
+    private GrabHandle grabHandle = null;
     private float grabHeight = 0.0f;
     private float movementSensitivity = 0.01f;
-    private float angleAdjustThreshold = 30.0f;
-    private float angleAdjustCooldownTimer = 0.0f;
+
+    //
+    // Angles
+    //
     private int stockXAngle = 0;
     private int stockYAngle = 0;
     private int stockZAngle = 0;
-
+    
+    //
+    // Hands rotation
+    //
+    private float angleAdjustThreshold = 30.0f;
+    private float angleAdjustCooldownTimer = 0.0f;
     private float previousHandleRoll = 0.0f;
     private float previousHandleYaw = 0.0f;
 
-    private List<BoxCollider> otherColliders;
-    private ControlSchemeManager controlScheme;
+    //
+    // Controller rotation
+    //
+    private bool needsReset = false;
+    private Direction previousDirection = Direction.None;
 
     void Start()
     {
@@ -90,7 +103,10 @@ public class Stock : MonoBehaviour
             transform.rotation = newRot;
         }
     }
-
+    
+    //
+    // Moves the stock along with GrabHandle and executes gesture controls
+    //
     private void HandTrackingMovement(out Vector3 newPos, out Quaternion newRot)
     {
         var handleForward = new Vector3(grabHandle.transform.forward.x, 0, grabHandle.transform.forward.z);
@@ -150,8 +166,32 @@ public class Stock : MonoBehaviour
         previousHandleYaw = handleYaw;
     }
 
+    //
+    // Moves the stock along with GrabHandle and executes controller button controls
+    //
     private void ControllerMovement(out Vector3 newPos, out Quaternion newRot)
     {
+        var grabber = grabbedBy as ControllerStockGrabber;
+
+        if (grabber)
+        {
+            var currDirection = grabber.RequestedDirection;
+
+            if (currDirection != previousDirection)
+            {
+                needsReset = false;
+            }
+
+            if (!needsReset && currDirection != Direction.None)
+            {
+                Debug.Log("Tried to rotate towards " + currDirection.ToString().ToLower() + ".");
+
+                needsReset = true;
+            }
+
+            previousDirection = currDirection;
+        }
+
         var lastCoilTrans = grabHandle.lastSpringCoil.transform;
         newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
         newPos = lastCoilTrans.position - (lastCoilTrans.up * grabHeight);
@@ -160,10 +200,11 @@ public class Stock : MonoBehaviour
     //
     // Set up attachment of self to the handle of the StockGrabber grabbing this object
     //
-    public void Grab(GrabHandle handle, float height, int xAngle, int yAngle, int zAngle)
+    public void Grab(StockGrabber grabber, GrabHandle handle, float height, int xAngle, int yAngle, int zAngle)
     {
         rigidBody.isKinematic = true;
 
+        grabbedBy = grabber;
         grabHandle = handle;
         grabHeight = height;
         stockXAngle = xAngle;
@@ -182,6 +223,7 @@ public class Stock : MonoBehaviour
     {
         rigidBody.isKinematic = false;
 
+        grabbedBy = null;
         grabHandle = null;
         StartCoroutine(DisableGravityOnceStationary());
     }
