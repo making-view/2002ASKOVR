@@ -70,11 +70,11 @@ namespace OculusSampleFramework
         {
             get
             {
-                return _controller[1];
+                return _controller[RIGHT];
             }
             private set
             {
-                _controller[1] = value;
+                _controller[RIGHT] = value;
             }
         }
 
@@ -142,11 +142,11 @@ namespace OculusSampleFramework
         {
             get
             {
-                return _controller[0];
+                return _controller[LEFT];
             }
             private set
             {
-                _controller[0] = value;
+                _controller[LEFT] = value;
             }
         }
 
@@ -203,9 +203,9 @@ namespace OculusSampleFramework
             get
             {
                 return !_leftController.activeSelf && !_rightController.activeSelf 
-                    &&!(_gestureDetector[0] && _gestureDetector[1]
-                    && _gestureTeleporter[0] && _gestureTeleporter[1]
-					&& _stockGrabber[0] && _stockGrabber[1]);
+                    &&!(_gestureDetector[LEFT] && _gestureDetector[RIGHT]
+                    && _gestureTeleporter[LEFT] && _gestureTeleporter[RIGHT]
+					&& _stockGrabber[LEFT] && _stockGrabber[RIGHT]);
             }
         }
 
@@ -213,10 +213,10 @@ namespace OculusSampleFramework
         {
             var result = true;
 
-            if (_gestureDetector[0] && _gestureDetector[1])
+            if (_gestureDetector[LEFT] && _gestureDetector[RIGHT])
             {
-                var gestureDector = handType == OVRHand.Hand.HandLeft ? _gestureDetector[0] : _gestureDetector[1];
-                var gestureTeleporter = handType == OVRHand.Hand.HandLeft ? _gestureTeleporter[0] : _gestureTeleporter[1];
+                var gestureDector = handType == OVRHand.Hand.HandLeft ? _gestureDetector[LEFT] : _gestureDetector[RIGHT];
+                var gestureTeleporter = handType == OVRHand.Hand.HandLeft ? _gestureTeleporter[LEFT] : _gestureTeleporter[RIGHT];
 
                 result = !gestureDector.IsAnyGestureActive && !gestureTeleporter.IsTargetMarkerActive;
             }
@@ -427,10 +427,14 @@ namespace OculusSampleFramework
 
 		public bool IsInitialized()
 		{
-			return LeftHandSkeleton && LeftHandSkeleton.IsInitialized &&
-				RightHandSkeleton && RightHandSkeleton.IsInitialized &&
-				LeftHandMesh && LeftHandMesh.IsInitialized &&
-				RightHandMesh && RightHandMesh.IsInitialized;
+            var activeController = _leftController.activeSelf || _rightController.activeSelf;
+            var handsInitalized = LeftHandSkeleton && LeftHandSkeleton.IsInitialized &&
+                RightHandSkeleton && RightHandSkeleton.IsInitialized &&
+                LeftHandMesh && LeftHandMesh.IsInitialized &&
+                RightHandMesh && RightHandMesh.IsInitialized;
+
+
+            return activeController || handsInitalized;
 		}
 	}
 }

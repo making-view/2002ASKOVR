@@ -78,11 +78,25 @@ namespace OculusSampleFramework
 			}
 			set
 			{
-                if (!HandsManager.Instance.IsHandNeutral(_handType))
+                bool isPerformingAction = false;
+
+                if (IsHandTool)
+                {
+                    isPerformingAction = !HandsManager.Instance.IsHandNeutral(_handType);
+                }
+                else
+                {
+                    var controller = IsRightHandedTool ? HandsManager.Instance.RightController.Controller : HandsManager.Instance.LeftController.Controller;
+
+                    isPerformingAction = OVRInput.Get(OVRInput.Button.One, controller);
+                    isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
+                }
+
+                if (isPerformingAction)
                     _rayToolView.EnableState = false;
                 else
                     _rayToolView.EnableState = value;
-			}
+            }
 		}
 
 		private Collider[] _collidersOverlapped = new Collider[NUM_COLLIDERS_TO_TEST];
