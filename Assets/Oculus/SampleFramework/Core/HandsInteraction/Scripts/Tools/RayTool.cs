@@ -78,11 +78,25 @@ namespace OculusSampleFramework
 			}
 			set
 			{
-                if (!HandsManager.Instance.IsHandNeutral(_handType))
+                bool isPerformingAction = false;
+
+                if (IsHandTool)
+                {
+                    isPerformingAction = !HandsManager.Instance.IsHandNeutral(_handType);
+                }
+                else
+                {
+                    var controller = IsRightHandedTool ? HandsManager.Instance.RightController.Controller : HandsManager.Instance.LeftController.Controller;
+
+                    isPerformingAction = OVRInput.Get(OVRInput.Button.One, controller);
+                    isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
+                }
+
+                if (isPerformingAction)
                     _rayToolView.EnableState = false;
                 else
                     _rayToolView.EnableState = value;
-			}
+            }
 		}
 
 		private Collider[] _collidersOverlapped = new Collider[NUM_COLLIDERS_TO_TEST];
@@ -101,6 +115,9 @@ namespace OculusSampleFramework
 			_rayToolView.InteractableTool = this;
 			_coneAngleReleaseDegrees = _coneAngleDegrees * 1.2f;
 			_initialized = true;
+
+            Debug.Log("Ray initialized");
+            Debug.Log(IsRightHandedTool ? "Right Hand" : "Left Hand");
 
 			_handType = IsRightHandedTool
 				? OVRHand.Hand.HandRight
@@ -127,7 +144,7 @@ namespace OculusSampleFramework
             var controller = IsRightHandedTool ? HandsManager.Instance.RightController : HandsManager.Instance.LeftController;
             var pointer = IsHandTool ? hand.PointerPose : controller.PointerPose;
 
-            transform.position = cameraRigTransform.position + pointer.position;
+            transform.position = IsHandTool ? cameraRigTransform.position + pointer.position : pointer.position;
             transform.rotation = pointer.rotation;
 
             var prevPosition = InteractionPosition;
@@ -360,7 +377,7 @@ namespace OculusSampleFramework
 
                 if (stockComp != null)
                 {
-                    HandsManager.Instance.SetFocusOnStock(_handType, stockComp);
+                    HandsManager.Instance.SetFocusOnStock(stockComp, IsRightHandedTool, IsHandTool);
                 }
             }
 		}
@@ -370,7 +387,7 @@ namespace OculusSampleFramework
 			_rayToolView.SetFocusedInteractable(null);
 			_focusedInteractable = null;
 
-            HandsManager.Instance.DeFocusStock(_handType);
+            HandsManager.Instance.DeFocusStock(IsRightHandedTool, IsHandTool);
 		}
 	}
 }

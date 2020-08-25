@@ -17,25 +17,40 @@ public class Stock : MonoBehaviour
 
     private BoxCollider ownCollider;
     private Rigidbody rigidBody;
+    private List<BoxCollider> otherColliders;
+    private ControlSchemeManager controlScheme;
 
-    private GrabHandle grabHandle;
-    private float grabHeight = 0.0f;
+    private StockGrabber grabbedBy = null;
+    private GrabHandle grabHandle = null;
+    private float floatDistance = 0.0f;
     private float movementSensitivity = 0.01f;
-    private float angleAdjustThreshold = 30.0f;
-    private float angleAdjustCooldownTimer = 0.0f;
+
+    //
+    // Angles
+    //
     private int stockXAngle = 0;
     private int stockYAngle = 0;
     private int stockZAngle = 0;
-
+    
+    //
+    // Hands rotation
+    //
+    private float angleAdjustThreshold = 30.0f;
+    private float angleAdjustCooldownTimer = 0.0f;
     private float previousHandleRoll = 0.0f;
     private float previousHandleYaw = 0.0f;
 
-    private List<BoxCollider> otherColliders;
+    //
+    // Controller rotation
+    //
+    private bool needsReset = false;
+    private Direction previousDirection = Direction.None;
 
     void Start()
     {
         ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
+        controlScheme = FindObjectOfType<ControlSchemeManager>();
 
         if (massDisplay != null)
         {
@@ -54,63 +69,23 @@ public class Stock : MonoBehaviour
         //
         if (grabHandle)
         {
-            var handleForward = new Vector3(grabHandle.transform.forward.x, 0, grabHandle.transform.forward.z);
-            var handleRoll = Vector3.SignedAngle(Vector3.up, grabHandle.transform.right, handleForward);
-            var handleYaw = Vector3.SignedAngle(Vector3.forward, handleForward, Vector3.up);
+            var newPos = new Vector3();
+            var newRot = new Quaternion();
 
-            var forwardUpAngle = Vector3.Angle(Vector3.up, grabHandle.transform.forward);
-            var canAdjustAngles = angleAdjustCooldownTimer <= 0.0f 
-                && 90 - angleAdjustThreshold <= forwardUpAngle 
-                && 90 + angleAdjustThreshold >= forwardUpAngle;
+            // 
+            // Hands and controllers handle rotation and movement differently
+            //
+            if (controlScheme.IsHandTracking)
+                HandTrackingMovement(out newPos, out newRot);
+            else
+                ControllerMovement(out newPos, out newRot);
 
-            if (canAdjustAngles)
-            {
-                var smallestRollChange = handleRoll - previousHandleRoll;
-                smallestRollChange += smallestRollChange > 180 ? -360 : (smallestRollChange < -180) ? 360 : 0;
-                var smallestYawChange = handleYaw - previousHandleYaw;
-                smallestYawChange += smallestYawChange > 180 ? -360 : (smallestYawChange < -180) ? 360 : 0;
 
-                var handleRollVelocity = smallestRollChange / Time.deltaTime;
-                var handleYawVelocity = smallestYawChange / Time.deltaTime;
-
-                if (Mathf.Abs(handleYawVelocity) >= angleAdjustVelocity)
-                {
-                    stockYAngle += (int)Mathf.Sign(handleYawVelocity) * 90;
-                    stockYAngle = WrapAngle(stockYAngle);
-                    angleAdjustCooldownTimer = angleAdjustCooldownTime;
-
-                    DebugHelper.Instance.Log("X: " + stockXAngle + ", Y: " + stockYAngle + ", Z: " + stockZAngle);
-                }
-                else if (Mathf.Abs(handleRollVelocity) >= angleAdjustVelocity)
-                {
-                    var flipRotationAxes = stockYAngle == 90 || stockYAngle == 270;
-                    var isClosestToZAxis = (handleYaw < 45 && handleYaw > -45) || (handleYaw > 135 && handleYaw < -135);
-                    var shouldRotateAroundZ = (isClosestToZAxis && !flipRotationAxes) || (!isClosestToZAxis && flipRotationAxes);
-
-                    if (shouldRotateAroundZ)
-                    {
-                        stockZAngle += (int)Mathf.Sign(handleRollVelocity) * 90;
-                        stockZAngle = WrapAngle(stockZAngle);
-                    }
-                    else
-                    {
-                        stockXAngle += (int)Mathf.Sign(handleRollVelocity) * 90;
-                        stockXAngle = WrapAngle(stockXAngle);
-                    }
-
-                    DebugHelper.Instance.Log("X: " + stockXAngle + ", Y: " + stockYAngle + ", Z: " + stockZAngle);
-
-                    angleAdjustCooldownTimer = angleAdjustCooldownTime;
-                }
-            }
-
-            var lastCoilTrans = grabHandle.lastSpringCoil.transform;
-            var newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
-            var newPos = lastCoilTrans.position - (lastCoilTrans.up * grabHeight);
-
+            //
+            // Ensures stock items do not penetrate each other
+            //
             Vector3 direction = Vector3.zero;
             float distance = 0.0f;
-
             foreach (var collider in otherColliders)
             {
                 if (Physics.ComputePenetration(ownCollider, newPos, newRot, collider,
@@ -121,23 +96,135 @@ public class Stock : MonoBehaviour
                 }
             }
 
+            //
+            // Applies the calculated rotation and the new and corrected position
+            //
             transform.position = newPos;
             transform.rotation = newRot;
-
-            previousHandleRoll = handleRoll;
-            previousHandleYaw = handleYaw;
         }
+    }
+    
+    //
+    // Moves the stock along with GrabHandle and executes gesture controls
+    //
+    private void HandTrackingMovement(out Vector3 newPos, out Quaternion newRot)
+    {
+        var handleForward = new Vector3(grabHandle.transform.forward.x, 0, grabHandle.transform.forward.z);
+        var handleRoll = Vector3.SignedAngle(Vector3.up, grabHandle.transform.right, handleForward);
+        var handleYaw = Vector3.SignedAngle(Vector3.forward, handleForward, Vector3.up);
+
+        var forwardUpAngle = Vector3.Angle(Vector3.up, grabHandle.transform.forward);
+        var canAdjustAngles = angleAdjustCooldownTimer <= 0.0f
+            && 90 - angleAdjustThreshold <= forwardUpAngle
+            && 90 + angleAdjustThreshold >= forwardUpAngle;
+
+        //
+        // Only allows rotation if handle is held pointing approximately downwards
+        //
+        if (canAdjustAngles)
+        {
+            var smallestRollChange = handleRoll - previousHandleRoll;
+            smallestRollChange += smallestRollChange > 180 ? -360 : (smallestRollChange < -180) ? 360 : 0;
+            var smallestYawChange = handleYaw - previousHandleYaw;
+            smallestYawChange += smallestYawChange > 180 ? -360 : (smallestYawChange < -180) ? 360 : 0;
+
+            var handleRollVelocity = smallestRollChange / Time.deltaTime;
+            var handleYawVelocity = smallestYawChange / Time.deltaTime;
+
+            if (Mathf.Abs(handleYawVelocity) >= angleAdjustVelocity)
+            {
+                stockYAngle += (int)Mathf.Sign(handleYawVelocity) * 90;
+                stockYAngle = WrapAngle(stockYAngle);
+                angleAdjustCooldownTimer = angleAdjustCooldownTime;
+            }
+            else if (Mathf.Abs(handleRollVelocity) >= angleAdjustVelocity)
+            {
+                var flipRotationAxes = stockYAngle == 90 || stockYAngle == 270;
+                var isClosestToZAxis = (handleYaw < 45 && handleYaw > -45) || (handleYaw > 135 && handleYaw < -135);
+                var shouldRotateAroundZ = (isClosestToZAxis && !flipRotationAxes) || (!isClosestToZAxis && flipRotationAxes);
+
+                if (shouldRotateAroundZ)
+                {
+                    stockZAngle += (int)Mathf.Sign(handleRollVelocity) * 90;
+                    stockZAngle = WrapAngle(stockZAngle);
+                }
+                else
+                {
+                    stockXAngle += (int)Mathf.Sign(handleRollVelocity) * 90;
+                    stockXAngle = WrapAngle(stockXAngle);
+                }
+
+                angleAdjustCooldownTimer = angleAdjustCooldownTime;
+            }
+        }
+
+        var lastCoilTrans = grabHandle.lastSpringCoil.transform;
+        newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
+        newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
+
+        previousHandleRoll = handleRoll;
+        previousHandleYaw = handleYaw;
+    }
+
+    //
+    // Moves the stock along with GrabHandle and executes controller button controls
+    //
+    private void ControllerMovement(out Vector3 newPos, out Quaternion newRot)
+    {
+        var grabber = grabbedBy as ControllerStockGrabber;
+
+        if (grabber)
+        {
+            var currDirection = grabber.CurrentDirection;
+
+            if (currDirection != previousDirection)
+            {
+                needsReset = false;
+            }
+
+            if (!needsReset && currDirection != Direction.None)
+            {
+                RotateInDirection(currDirection);
+
+                needsReset = true;
+            }
+
+            previousDirection = currDirection;
+        }
+
+        var lastCoilTrans = grabHandle.lastSpringCoil.transform;
+        newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
+        newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
+    }
+
+    private void RotateInDirection(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.Left:
+                stockYAngle = WrapAngle(stockYAngle - 90);
+                break;
+            case Direction.Right:
+                stockYAngle = WrapAngle(stockYAngle + 90);
+                break;
+            case Direction.Up:
+                break;
+            case Direction.Down:
+                break;
+        }
+
     }
 
     //
     // Set up attachment of self to the handle of the StockGrabber grabbing this object
     //
-    public void Grab(GrabHandle handle, float height, int xAngle, int yAngle, int zAngle)
+    public void Grab(StockGrabber grabber, GrabHandle handle, float fDist, int xAngle, int yAngle, int zAngle)
     {
         rigidBody.isKinematic = true;
 
+        grabbedBy = grabber;
         grabHandle = handle;
-        grabHeight = height;
+        floatDistance = fDist;
         stockXAngle = xAngle;
         stockYAngle = yAngle;
         stockZAngle = zAngle;
@@ -154,6 +241,7 @@ public class Stock : MonoBehaviour
     {
         rigidBody.isKinematic = false;
 
+        grabbedBy = null;
         grabHandle = null;
         StartCoroutine(DisableGravityOnceStationary());
     }

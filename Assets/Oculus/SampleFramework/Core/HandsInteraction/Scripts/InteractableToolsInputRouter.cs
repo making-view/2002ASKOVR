@@ -50,29 +50,45 @@ namespace OculusSampleFramework
 		private HashSet<InteractableTool> _leftHandFarTools = new HashSet<InteractableTool>();
 		private HashSet<InteractableTool> _rightHandNearTools = new HashSet<InteractableTool>();
 		private HashSet<InteractableTool> _rightHandFarTools = new HashSet<InteractableTool>();
+		private HashSet<InteractableTool> _leftControllerNearTools = new HashSet<InteractableTool>();
+		private HashSet<InteractableTool> _leftControllerFarTools = new HashSet<InteractableTool>();
+		private HashSet<InteractableTool> _rightControllerNearTools = new HashSet<InteractableTool>();
+		private HashSet<InteractableTool> _rightControllerFarTools = new HashSet<InteractableTool>();
 
 		public void RegisterInteractableTool(InteractableTool interactableTool)
 		{
 			if (interactableTool.IsRightHandedTool)
 			{
-				if (interactableTool.IsFarFieldTool)
-				{
-					_rightHandFarTools.Add(interactableTool);
+				if (interactableTool.IsHandTool)
+                {
+					if (interactableTool.IsFarFieldTool)
+						_rightHandFarTools.Add(interactableTool);
+					else
+						_rightHandNearTools.Add(interactableTool);
 				}
 				else
-				{
-					_rightHandNearTools.Add(interactableTool);
+                {
+					if (interactableTool.IsFarFieldTool)
+						_rightControllerFarTools.Add(interactableTool);
+					else
+						_rightControllerNearTools.Add(interactableTool);
 				}
 			}
 			else
 			{
-				if (interactableTool.IsFarFieldTool)
+				if (interactableTool.IsHandTool)
 				{
-					_leftHandFarTools.Add(interactableTool);
+					if (interactableTool.IsFarFieldTool)
+						_leftHandFarTools.Add(interactableTool);
+					else
+						_leftHandNearTools.Add(interactableTool);
 				}
 				else
 				{
-					_leftHandNearTools.Add(interactableTool);
+					if (interactableTool.IsFarFieldTool)
+						_leftControllerFarTools.Add(interactableTool);
+					else
+						_leftControllerNearTools.Add(interactableTool);
 				}
 			}
 		}
@@ -81,24 +97,36 @@ namespace OculusSampleFramework
 		{
 			if (interactableTool.IsRightHandedTool)
 			{
-				if (interactableTool.IsFarFieldTool)
+				if (interactableTool.IsHandTool)
 				{
-					_rightHandFarTools.Remove(interactableTool);
+					if (interactableTool.IsFarFieldTool)
+						_rightHandFarTools.Remove(interactableTool);
+					else
+						_rightHandNearTools.Remove(interactableTool);
 				}
 				else
 				{
-					_rightHandNearTools.Remove(interactableTool);
+					if (interactableTool.IsFarFieldTool)
+						_rightControllerFarTools.Remove(interactableTool);
+					else
+						_rightControllerNearTools.Remove(interactableTool);
 				}
 			}
 			else
 			{
-				if (interactableTool.IsFarFieldTool)
+				if (interactableTool.IsHandTool)
 				{
-					_leftHandFarTools.Remove(interactableTool);
+					if (interactableTool.IsFarFieldTool)
+						_leftHandFarTools.Remove(interactableTool);
+					else
+						_leftHandNearTools.Remove(interactableTool);
 				}
 				else
 				{
-					_leftHandNearTools.Remove(interactableTool);
+					if (interactableTool.IsFarFieldTool)
+						_leftControllerFarTools.Remove(interactableTool);
+					else
+						_leftControllerNearTools.Remove(interactableTool);
 				}
 			}
 		}
@@ -116,16 +144,26 @@ namespace OculusSampleFramework
 				HandsManager.Instance.RightHand.HandConfidence == OVRHand.TrackingConfidence.High;
 			bool leftHandProperlyTracked = HandsManager.Instance.LeftHand.IsPointerPoseValid;
 			bool rightHandProperlyTracked = HandsManager.Instance.RightHand.IsPointerPoseValid;
+			bool leftControllerActive = HandsManager.Instance.LeftController.gameObject.activeSelf;
+			bool rightControllerActive = HandsManager.Instance.RightController.gameObject.activeSelf;
 
 			bool encounteredNearObjectsLeftHand = UpdateToolsAndEnableState(_leftHandNearTools, leftHandIsReliable);
 			// don't interact with far field if near field is touching something
 			UpdateToolsAndEnableState(_leftHandFarTools, !encounteredNearObjectsLeftHand && leftHandIsReliable &&
 			  leftHandProperlyTracked);
 
+			bool encounteredNearObjectsLeftController = UpdateToolsAndEnableState(_leftControllerNearTools, leftControllerActive);
+			// don't interact with far field if near field is touching something
+			UpdateToolsAndEnableState(_leftControllerFarTools, !encounteredNearObjectsLeftController && leftControllerActive);
+
 			bool encounteredNearObjectsRightHand = UpdateToolsAndEnableState(_rightHandNearTools, rightHandIsReliable);
 			// don't interact with far field if near field is touching something
 			UpdateToolsAndEnableState(_rightHandFarTools, !encounteredNearObjectsRightHand && rightHandIsReliable &&
 			  rightHandProperlyTracked);
+
+			bool encounteredNearObjectsRightController = UpdateToolsAndEnableState(_rightControllerNearTools, rightControllerActive);
+			// don't interact with far field if near field is touching something
+			UpdateToolsAndEnableState(_rightControllerFarTools, !encounteredNearObjectsRightController && rightControllerActive);
 		}
 
 		private bool UpdateToolsAndEnableState(HashSet<InteractableTool> tools, bool toolsAreEnabledThisFrame)

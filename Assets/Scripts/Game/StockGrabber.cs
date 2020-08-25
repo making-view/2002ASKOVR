@@ -2,34 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StockGrabber : MonoBehaviour
+public abstract class StockGrabber : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private GestureDetector gestureDetector = null;
-    [SerializeField] private GrabHandle grabHandle = null;
+    [SerializeField] protected GrabHandle grabHandle = null;
 
     [Header("Settings")]
-    [SerializeField] private float snatchTime = 0.3f;
+    [SerializeField] protected float snatchTime = 0.3f;
+    [SerializeField] protected float additionalFloatDistance = 0.0f;
 
-    private Stock focusedStock = null;
-    private Stock grabbedStock = null;
-
-    public OVRSkeleton.SkeletonType SkeletonType
-    {
-        get
-        {
-            return gestureDetector.skeleton.GetSkeletonType();
-        }
-    }
-
-    void Update()
-    {
-        if (grabbedStock == null && focusedStock != null && gestureDetector.IsGestureActive(PoseName.Fist))
-            GrabBegin();
-
-        if (grabbedStock != null && !gestureDetector.IsGestureActive(PoseName.Fist))
-            GrabEnd();
-    }
+    protected Stock focusedStock = null;
+    protected Stock grabbedStock = null;
 
     //
     // Called by RayTool through HandsManager when it targets an object of Stock type
@@ -51,22 +34,23 @@ public class StockGrabber : MonoBehaviour
     //
     // Prepares attachment between Stock and StockGrabber, starts displaying handle
     //
-    private void GrabBegin()
+    protected void GrabBegin()
     {
         grabbedStock = focusedStock;
 
-        var grabHeight = grabbedStock.GetComponent<BoxCollider>().size.y;
+        var stockCollider = grabbedStock.GetComponent<BoxCollider>();
+        var floatDistance = ((stockCollider.size.x + stockCollider.size.y) / 2) + additionalFloatDistance;
 
         grabHandle.gameObject.SetActive(true);
 
-        StartCoroutine(SnatchStock(grabHeight));
+        StartCoroutine(SnatchStock(floatDistance));
         DeFocus();
     }
 
     //
     // Severs attachment by droping the grabbed Stock and hiding the handle
     //
-    private void GrabEnd()
+    protected void GrabEnd()
     {
         grabbedStock.Drop();
         grabbedStock = null;
@@ -78,7 +62,7 @@ public class StockGrabber : MonoBehaviour
     // Summons Stock from its position to line up with GrabHandle, 
     // then grabs it if StockGrabber hasn't already been told to drop it
     //
-    private IEnumerator SnatchStock(float grabHeight)
+    private IEnumerator SnatchStock(float floatDistance)
     {
         var timer = 0.0f;
         var initialPos = grabbedStock.transform.position;
@@ -91,8 +75,9 @@ public class StockGrabber : MonoBehaviour
 
         while (grabbedStock != null && timer <= snatchTime)
         {
+            var lastCoil = grabHandle.lastSpringCoil.transform;
             var percent = timer / snatchTime;
-            var targetPos = grabHandle.lastSpringCoil.transform.position - (Vector3.up * grabHeight);
+            var targetPos = lastCoil.position - (lastCoil.up * floatDistance);
 
             grabbedStock.transform.position = Vector3.Lerp(initialPos, targetPos, percent);
             grabbedStock.transform.rotation = Quaternion.Lerp(initialRot, targetRot, percent);
@@ -103,6 +88,6 @@ public class StockGrabber : MonoBehaviour
         }
 
         if (grabbedStock != null)
-            grabbedStock.Grab(grabHandle, grabHeight, (int)closestXRightAngle, (int)closestYRightAngle, (int)closestZRightAngle);
+            grabbedStock.Grab(this, grabHandle, floatDistance, (int)closestXRightAngle, (int)closestYRightAngle, (int)closestZRightAngle);
     }
 }

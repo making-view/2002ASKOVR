@@ -21,29 +21,31 @@ namespace OculusSampleFramework
 	public class HandsManager : MonoBehaviour
 	{
 		private const string SKELETON_VISUALIZER_NAME = "SkeletonRenderer";
+        private const int LEFT = 0;
+        private const int RIGHT = 1;
+        private const int LEFT_C = 2;
+        private const int RIGHT_C = 3;
 
-		[SerializeField] GameObject _leftHand = null;
+        [SerializeField] GameObject _leftHand = null;
 		[SerializeField] GameObject _rightHand = null;
         [SerializeField] GameObject _leftController = null;
         [SerializeField] GameObject _rightController = null;
 
         public HandsVisualMode VisualMode = HandsVisualMode.Mesh;
 		private OVRHand[] _hand = new OVRHand[(int)OVRHand.Hand.HandRight + 1];
-        private Hand[] _controller = new Hand[2];
 		private OVRSkeleton[] _handSkeleton = new OVRSkeleton[(int)OVRHand.Hand.HandRight + 1];
 		private OVRSkeletonRenderer[] _handSkeletonRenderer = new OVRSkeletonRenderer[(int)OVRHand.Hand.HandRight + 1];
 		private OVRMesh[] _handMesh = new OVRMesh[(int)OVRHand.Hand.HandRight + 1];
 		private OVRMeshRenderer[] _handMeshRenderer = new OVRMeshRenderer[(int)OVRHand.Hand.HandRight + 1];
-		private SkinnedMeshRenderer _leftMeshRenderer = null;
-		private SkinnedMeshRenderer _rightMeshRenderer = null;
-        private GestureDetector _leftGestureDetector = null;
-        private GestureDetector _rightGestureDetector = null;
-        private GestureTeleporter _leftGestureTeleporter = null;
-        private GestureTeleporter _rightGestureTeleporter = null;
-        private StockGrabber _leftStockGrabber = null;
-        private StockGrabber _rightStockGrabber = null;
-        private GameObject _leftSkeletonVisual = null;
-		private GameObject _rightSkeletonVisual = null;
+        private GameObject _leftSkeletonVisual;
+        private GameObject _rightSkeletonVisual;
+
+        private Dictionary<int, Hand> _controller = new Dictionary<int, Hand>();
+		private Dictionary<int, SkinnedMeshRenderer> _skinnedMeshRenderer = new Dictionary<int, SkinnedMeshRenderer>();
+        private Dictionary<int, GestureDetector> _gestureDetector = new Dictionary<int, GestureDetector>();
+		private Dictionary<int, GestureTeleporter> _gestureTeleporter = new Dictionary<int, GestureTeleporter>();
+        private Dictionary<int, StockGrabber> _stockGrabber = new Dictionary<int, StockGrabber>();
+
 		private float _currentHandAlpha = 1.0f;
 		private int HandAlphaId = Shader.PropertyToID("_HandAlpha");
 
@@ -68,11 +70,11 @@ namespace OculusSampleFramework
         {
             get
             {
-                return _controller[1];
+                return _controller[RIGHT];
             }
             private set
             {
-                _controller[1] = value;
+                _controller[RIGHT] = value;
             }
         }
 
@@ -140,11 +142,11 @@ namespace OculusSampleFramework
         {
             get
             {
-                return _controller[0];
+                return _controller[LEFT];
             }
             private set
             {
-                _controller[0] = value;
+                _controller[LEFT] = value;
             }
         }
 
@@ -201,9 +203,9 @@ namespace OculusSampleFramework
             get
             {
                 return !_leftController.activeSelf && !_rightController.activeSelf 
-                    &&!(_leftGestureDetector && _rightGestureDetector
-                    && _leftGestureTeleporter && _rightGestureTeleporter
-                    && _leftStockGrabber && _rightStockGrabber);
+                    &&!(_gestureDetector[LEFT] && _gestureDetector[RIGHT]
+                    && _gestureTeleporter[LEFT] && _gestureTeleporter[RIGHT]
+					&& _stockGrabber[LEFT] && _stockGrabber[RIGHT]);
             }
         }
 
@@ -211,10 +213,10 @@ namespace OculusSampleFramework
         {
             var result = true;
 
-            if (_leftGestureDetector && _rightGestureDetector)
+            if (_gestureDetector[LEFT] && _gestureDetector[RIGHT])
             {
-                var gestureDector = handType == OVRHand.Hand.HandLeft ? _leftGestureDetector : _rightGestureDetector;
-                var gestureTeleporter = handType == OVRHand.Hand.HandLeft ? _leftGestureTeleporter : _rightGestureTeleporter;
+                var gestureDector = handType == OVRHand.Hand.HandLeft ? _gestureDetector[LEFT] : _gestureDetector[RIGHT];
+                var gestureTeleporter = handType == OVRHand.Hand.HandLeft ? _gestureTeleporter[LEFT] : _gestureTeleporter[RIGHT];
 
                 result = !gestureDector.IsAnyGestureActive && !gestureTeleporter.IsTargetMarkerActive;
             }
@@ -237,44 +239,54 @@ namespace OculusSampleFramework
 			Assert.IsNotNull(_rightHand);
 
 			LeftHand = _leftHand.GetComponent<OVRHand>();
-            LeftController = _leftController.GetComponent<Hand>();
+			LeftController = _leftController.GetComponent<Hand>();
 			LeftHandSkeleton = _leftHand.GetComponent<OVRSkeleton>();
 			LeftHandSkeletonRenderer = _leftHand.GetComponent<OVRSkeletonRenderer>();
 			LeftHandMesh = _leftHand.GetComponent<OVRMesh>();
 			LeftHandMeshRenderer = _leftHand.GetComponent<OVRMeshRenderer>();
 
 			RightHand = _rightHand.GetComponent<OVRHand>();
-            RightController = _rightController.GetComponent<Hand>();
+			RightController = _rightController.GetComponent<Hand>();
 			RightHandSkeleton = _rightHand.GetComponent<OVRSkeleton>();
 			RightHandSkeletonRenderer = _rightHand.GetComponent<OVRSkeletonRenderer>();
 			RightHandMesh = _rightHand.GetComponent<OVRMesh>();
 			RightHandMeshRenderer = _rightHand.GetComponent<OVRMeshRenderer>();
-			_leftMeshRenderer = LeftHand.GetComponent<SkinnedMeshRenderer>();
-			_rightMeshRenderer = RightHand.GetComponent<SkinnedMeshRenderer>();
+			_skinnedMeshRenderer[LEFT] = LeftHand.GetComponent<SkinnedMeshRenderer>();
+			_skinnedMeshRenderer[RIGHT] = RightHand.GetComponent<SkinnedMeshRenderer>();
 			StartCoroutine(FindSkeletonVisualGameObjects());
+		}
 
-            var detectors = FindObjectsOfType<GestureDetector>().ToList();
-            var teleporters = FindObjectsOfType<GestureTeleporter>().ToList();
-            var grabbers = FindObjectsOfType<StockGrabber>().ToList();
-            var leftSkelType = OVRSkeleton.SkeletonType.HandLeft;
-            var rightSkelType = OVRSkeleton.SkeletonType.HandRight;
+        private void Start()
+        {
+            var detectors = Resources.FindObjectsOfTypeAll<GestureDetector>().ToList();
+            var teleporters = Resources.FindObjectsOfTypeAll<GestureTeleporter>().ToList();
+            var gGrabbers = Resources.FindObjectsOfTypeAll<GestureStockGrabber>().ToList();
+            var cGrabbers = Resources.FindObjectsOfTypeAll<ControllerStockGrabber>().ToList();
+            var leftHandType = OVRSkeleton.SkeletonType.HandLeft;
+            var leftControllerType = OVRHand.Hand.HandLeft;
+            var rightHandType = OVRSkeleton.SkeletonType.HandRight;
+            var rightControllerType = OVRHand.Hand.HandRight;
 
             foreach (var teleporter in teleporters)
             {
                 teleporter.Initialize();
             }
 
-            _leftGestureDetector = detectors.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == leftSkelType);
-            _rightGestureDetector = detectors.FirstOrDefault(gd => gd.skeleton.GetSkeletonType() == rightSkelType);
+            _gestureDetector.Add(LEFT, detectors.FirstOrDefault(gd => gd.skeleton != null
+                && gd.skeleton.GetSkeletonType() == leftHandType));
+            _gestureDetector.Add(RIGHT, detectors.FirstOrDefault(gd => gd.skeleton != null
+                && gd.skeleton.GetSkeletonType() == rightHandType));
 
-            _leftGestureTeleporter = teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == leftSkelType);
-            _rightGestureTeleporter = teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == rightSkelType);
+            _gestureTeleporter.Add(LEFT, teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == leftHandType));
+            _gestureTeleporter.Add(RIGHT, teleporters.FirstOrDefault(gd => gd.Skeleton.GetSkeletonType() == rightHandType));
 
-            _leftStockGrabber = grabbers.FirstOrDefault(sg => sg.SkeletonType == leftSkelType);
-            _rightStockGrabber = grabbers.FirstOrDefault(sg => sg.SkeletonType == rightSkelType);
+            _stockGrabber.Add(LEFT, gGrabbers.FirstOrDefault(sg => sg.SkeletonType == leftHandType));
+            _stockGrabber.Add(RIGHT, gGrabbers.FirstOrDefault(sg => sg.SkeletonType == rightHandType));
+            _stockGrabber.Add(LEFT_C, cGrabbers.FirstOrDefault(sg => sg.HandType == leftControllerType));
+            _stockGrabber.Add(RIGHT_C, cGrabbers.FirstOrDefault(sg => sg.HandType == rightControllerType));
         }
 
-		private void Update()
+        private void Update()
 		{
 			switch (VisualMode)
 			{
@@ -289,31 +301,46 @@ namespace OculusSampleFramework
 					_currentHandAlpha = 1.0f;
 					break;
 			}
-			_rightMeshRenderer.sharedMaterial.SetFloat(HandAlphaId, _currentHandAlpha);
-			_leftMeshRenderer.sharedMaterial.SetFloat(HandAlphaId, _currentHandAlpha);
+
+			_skinnedMeshRenderer[LEFT].sharedMaterial.SetFloat(HandAlphaId, _currentHandAlpha);
+			_skinnedMeshRenderer[RIGHT].sharedMaterial.SetFloat(HandAlphaId, _currentHandAlpha);
 		}
 
-        public void SetFocusOnStock(OVRHand.Hand handType, Stock stock)
+        public void SetFocusOnStock(Stock stock, bool isRightHand, bool isHand)
         {
-            if (_leftStockGrabber && _rightStockGrabber)
+			if (isRightHand)
             {
-                if (handType == OVRHand.Hand.HandLeft)
-                    _leftStockGrabber.SetFocusOnStock(stock);
-                else
-                    _rightStockGrabber.SetFocusOnStock(stock);
+				if (isHand)
+					_stockGrabber[RIGHT].SetFocusOnStock(stock);
+				else
+					_stockGrabber[RIGHT_C].SetFocusOnStock(stock);
             }
+			else
+            {
+				if (isHand)
+					_stockGrabber[LEFT].SetFocusOnStock(stock);
+				else
+					_stockGrabber[LEFT_C].SetFocusOnStock(stock);
+			}
         }
 
-        public void DeFocusStock(OVRHand.Hand handType)
+        public void DeFocusStock(bool isRightHand, bool isHand)
         {
-            if (_leftStockGrabber && _rightStockGrabber)
-            {
-                if (handType == OVRHand.Hand.HandLeft)
-                    _leftStockGrabber.DeFocus();
-                else
-                    _rightStockGrabber.DeFocus();
-            }
-        }
+			if (isRightHand)
+			{
+				if (isHand)
+					_stockGrabber[RIGHT].DeFocus();
+				else
+					_stockGrabber[RIGHT_C].DeFocus();
+			}
+			else
+			{
+				if (isHand)
+					_stockGrabber[LEFT].DeFocus();
+				else
+					_stockGrabber[LEFT_C].DeFocus();
+			}
+		}
 
 		private IEnumerator FindSkeletonVisualGameObjects()
 		{
@@ -324,7 +351,7 @@ namespace OculusSampleFramework
 					Transform leftSkeletonVisualTransform = LeftHand.transform.Find(SKELETON_VISUALIZER_NAME);
 					if (leftSkeletonVisualTransform)
 					{
-						_leftSkeletonVisual = leftSkeletonVisualTransform.gameObject;
+                        _leftSkeletonVisual = leftSkeletonVisualTransform.gameObject;
 					}
 				}
 
@@ -333,7 +360,7 @@ namespace OculusSampleFramework
 					Transform rightSkeletonVisualTransform = RightHand.transform.Find(SKELETON_VISUALIZER_NAME);
 					if (rightSkeletonVisualTransform)
 					{
-						_rightSkeletonVisual = rightSkeletonVisualTransform.gameObject;
+                        _rightSkeletonVisual = rightSkeletonVisualTransform.gameObject;
 					}
 				}
 				yield return null;
@@ -357,27 +384,27 @@ namespace OculusSampleFramework
 			{
 				case HandsVisualMode.Mesh:
 					RightHandMeshRenderer.enabled = true;
-					_rightMeshRenderer.enabled = true;
-					_rightSkeletonVisual.gameObject.SetActive(false);
+					_skinnedMeshRenderer[RIGHT].enabled = true;
+                    _rightSkeletonVisual.gameObject.SetActive(false);
 					LeftHandMeshRenderer.enabled = true;
-					_leftMeshRenderer.enabled = true;
-					_leftSkeletonVisual.gameObject.SetActive(false);
+					_skinnedMeshRenderer[LEFT].enabled = true;
+                    _leftSkeletonVisual.gameObject.SetActive(false);
 					break;
 				case HandsVisualMode.Skeleton:
 					RightHandMeshRenderer.enabled = false;
-					_rightMeshRenderer.enabled = false;
-					_rightSkeletonVisual.gameObject.SetActive(true);
+					_skinnedMeshRenderer[RIGHT].enabled = false;
+                    _rightSkeletonVisual.gameObject.SetActive(true);
 					LeftHandMeshRenderer.enabled = false;
-					_leftMeshRenderer.enabled = false;
-					_leftSkeletonVisual.gameObject.SetActive(true);
+					_skinnedMeshRenderer[LEFT].enabled = false;
+                    _leftSkeletonVisual.gameObject.SetActive(true);
 					break;
 				case HandsVisualMode.Both:
 					RightHandMeshRenderer.enabled = true;
-					_rightMeshRenderer.enabled = true;
-					_rightSkeletonVisual.gameObject.SetActive(true);
+					_skinnedMeshRenderer[RIGHT].enabled = true;
+                    _rightSkeletonVisual.gameObject.SetActive(true);
 					LeftHandMeshRenderer.enabled = true;
-					_leftMeshRenderer.enabled = true;
-					_leftSkeletonVisual.gameObject.SetActive(true);
+					_skinnedMeshRenderer[LEFT].enabled = true;
+                    _leftSkeletonVisual.gameObject.SetActive(true);
 					break;
 				default:
 					break;
@@ -400,10 +427,14 @@ namespace OculusSampleFramework
 
 		public bool IsInitialized()
 		{
-			return LeftHandSkeleton && LeftHandSkeleton.IsInitialized &&
-				RightHandSkeleton && RightHandSkeleton.IsInitialized &&
-				LeftHandMesh && LeftHandMesh.IsInitialized &&
-				RightHandMesh && RightHandMesh.IsInitialized;
+            var activeController = _leftController.activeSelf || _rightController.activeSelf;
+            var handsInitalized = LeftHandSkeleton && LeftHandSkeleton.IsInitialized &&
+                RightHandSkeleton && RightHandSkeleton.IsInitialized &&
+                LeftHandMesh && LeftHandMesh.IsInitialized &&
+                RightHandMesh && RightHandMesh.IsInitialized;
+
+
+            return activeController || handsInitalized;
 		}
 	}
 }

@@ -7,15 +7,24 @@ public class ControlSchemeManager : MonoBehaviour
     [SerializeField] public List<GameObject> handObjects;
     [SerializeField] public List<GameObject> controllerObjects;
 
+    public bool IsHandTracking
+    {
+        get
+        {
+            return currFrameHandTrackingEnabled;
+        }
+    }
+
     bool prevFrameHandTrackingEnabled = true;
+    bool currFrameHandTrackingEnabled = true;
 
     private void Update()
     {
-        var handTrackingEnabled = OVRPlugin.GetHandTrackingEnabled();
+        currFrameHandTrackingEnabled = OVRPlugin.GetHandTrackingEnabled();
 
-        if (handTrackingEnabled != prevFrameHandTrackingEnabled)
+        if (currFrameHandTrackingEnabled != prevFrameHandTrackingEnabled)
         {
-            if (handTrackingEnabled)
+            if (currFrameHandTrackingEnabled)
             {
                 foreach (var obj in handObjects)
                     obj.SetActive(true);
@@ -33,6 +42,6 @@ public class ControlSchemeManager : MonoBehaviour
             }
         }
 
-        prevFrameHandTrackingEnabled = handTrackingEnabled;
+        prevFrameHandTrackingEnabled = currFrameHandTrackingEnabled;
     }
 }
