@@ -9,6 +9,7 @@ public abstract class StockGrabber : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] protected float snatchTime = 0.3f;
+    [SerializeField] protected float additionalFloatDistance = 0.0f;
 
     protected Stock focusedStock = null;
     protected Stock grabbedStock = null;
@@ -37,11 +38,12 @@ public abstract class StockGrabber : MonoBehaviour
     {
         grabbedStock = focusedStock;
 
-        var grabHeight = grabbedStock.GetComponent<BoxCollider>().size.y;
+        var stockCollider = grabbedStock.GetComponent<BoxCollider>();
+        var floatDistance = ((stockCollider.size.x + stockCollider.size.y) / 2) + additionalFloatDistance;
 
         grabHandle.gameObject.SetActive(true);
 
-        StartCoroutine(SnatchStock(grabHeight));
+        StartCoroutine(SnatchStock(floatDistance));
         DeFocus();
     }
 
@@ -60,7 +62,7 @@ public abstract class StockGrabber : MonoBehaviour
     // Summons Stock from its position to line up with GrabHandle, 
     // then grabs it if StockGrabber hasn't already been told to drop it
     //
-    private IEnumerator SnatchStock(float grabHeight)
+    private IEnumerator SnatchStock(float floatDistance)
     {
         var timer = 0.0f;
         var initialPos = grabbedStock.transform.position;
@@ -75,7 +77,7 @@ public abstract class StockGrabber : MonoBehaviour
         {
             var lastCoil = grabHandle.lastSpringCoil.transform;
             var percent = timer / snatchTime;
-            var targetPos = lastCoil.position - (lastCoil.up * grabHeight);
+            var targetPos = lastCoil.position - (lastCoil.up * floatDistance);
 
             grabbedStock.transform.position = Vector3.Lerp(initialPos, targetPos, percent);
             grabbedStock.transform.rotation = Quaternion.Lerp(initialRot, targetRot, percent);
@@ -86,6 +88,6 @@ public abstract class StockGrabber : MonoBehaviour
         }
 
         if (grabbedStock != null)
-            grabbedStock.Grab(this, grabHandle, grabHeight, (int)closestXRightAngle, (int)closestYRightAngle, (int)closestZRightAngle);
+            grabbedStock.Grab(this, grabHandle, floatDistance, (int)closestXRightAngle, (int)closestYRightAngle, (int)closestZRightAngle);
     }
 }

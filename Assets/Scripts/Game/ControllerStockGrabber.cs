@@ -18,7 +18,7 @@ public class ControllerStockGrabber : StockGrabber
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
 
-    public Direction RequestedDirection { get; private set; }
+    public Direction CurrentDirection { get; private set; }
 
     private float dirThreshold = 0.85f;
     private float currFlex = 0.0f;
@@ -68,6 +68,6 @@ public class ControllerStockGrabber : StockGrabber
         else if (stick.y < -dirThreshold)
             newDir = Direction.Down;
 
-        RequestedDirection = newDir;
+        CurrentDirection = newDir;
     }
 }

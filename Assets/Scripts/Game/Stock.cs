@@ -22,7 +22,7 @@ public class Stock : MonoBehaviour
 
     private StockGrabber grabbedBy = null;
     private GrabHandle grabHandle = null;
-    private float grabHeight = 0.0f;
+    private float floatDistance = 0.0f;
     private float movementSensitivity = 0.01f;
 
     //
@@ -160,7 +160,7 @@ public class Stock : MonoBehaviour
 
         var lastCoilTrans = grabHandle.lastSpringCoil.transform;
         newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
-        newPos = lastCoilTrans.position - (lastCoilTrans.up * grabHeight);
+        newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
 
         previousHandleRoll = handleRoll;
         previousHandleYaw = handleYaw;
@@ -175,7 +175,7 @@ public class Stock : MonoBehaviour
 
         if (grabber)
         {
-            var currDirection = grabber.RequestedDirection;
+            var currDirection = grabber.CurrentDirection;
 
             if (currDirection != previousDirection)
             {
@@ -184,7 +184,7 @@ public class Stock : MonoBehaviour
 
             if (!needsReset && currDirection != Direction.None)
             {
-                Debug.Log("Tried to rotate towards " + currDirection.ToString().ToLower() + ".");
+                RotateInDirection(currDirection);
 
                 needsReset = true;
             }
@@ -194,19 +194,27 @@ public class Stock : MonoBehaviour
 
         var lastCoilTrans = grabHandle.lastSpringCoil.transform;
         newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
-        newPos = lastCoilTrans.position - (lastCoilTrans.up * grabHeight);
+        newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
+    }
+
+    private void RotateInDirection(Direction direction)
+    {
+        if (direction == Direction.Left)
+            stockYAngle = WrapAngle(stockYAngle - 90);
+        if (direction == Direction.Right)
+            stockYAngle = WrapAngle(stockYAngle + 90);
     }
 
     //
     // Set up attachment of self to the handle of the StockGrabber grabbing this object
     //
-    public void Grab(StockGrabber grabber, GrabHandle handle, float height, int xAngle, int yAngle, int zAngle)
+    public void Grab(StockGrabber grabber, GrabHandle handle, float fDist, int xAngle, int yAngle, int zAngle)
     {
         rigidBody.isKinematic = true;
 
         grabbedBy = grabber;
         grabHandle = handle;
-        grabHeight = height;
+        floatDistance = fDist;
         stockXAngle = xAngle;
         stockYAngle = yAngle;
         stockZAngle = zAngle;
