@@ -197,8 +197,15 @@ public class Stock : MonoBehaviour
         newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
     }
 
+    //
+    // Adjusts the stock angle variables based on given direction
+    //
     private void RotateInDirection(Direction direction)
     {
+        var handleForward = new Vector3(-grabHandle.lastSpringCoil.transform.up.x, 0, -grabHandle.lastSpringCoil.transform.up.z);
+        var handleYaw = Vector3.SignedAngle(Vector3.forward, handleForward, Vector3.up);
+        var isClosestToZAxis = (handleYaw < 45 && handleYaw > -45) || (handleYaw > 135 && handleYaw < -135);
+
         switch (direction)
         {
             case Direction.Left:
@@ -208,11 +215,44 @@ public class Stock : MonoBehaviour
                 stockYAngle = WrapAngle(stockYAngle + 90);
                 break;
             case Direction.Up:
+                RotateForwards(isClosestToZAxis, reverse: false);
                 break;
             case Direction.Down:
+                RotateForwards(isClosestToZAxis, reverse: true);
                 break;
         }
 
+    }
+
+    //
+    // Rotates forwards along Z or X axis, or backwards if reverse is true
+    //
+    private void RotateForwards(bool isClosestToZAxis, bool reverse)
+    {
+        var r = reverse ? -1 : 1;
+
+        if (isClosestToZAxis)
+        {
+            if (stockYAngle == 0)
+                stockXAngle = WrapAngle(stockXAngle + (90 * r));
+            else if (stockYAngle == 90)
+                stockZAngle = WrapAngle(stockZAngle + (90 * r));
+            else if (stockYAngle == 180)
+                stockXAngle = WrapAngle(stockXAngle - (90 * r));
+            else if (stockYAngle == 270)
+                stockZAngle = WrapAngle(stockZAngle - (90 * r));
+        }
+        else
+        {
+            if (stockYAngle == 0)
+                stockZAngle = WrapAngle(stockZAngle - (90 * r));
+            else if (stockYAngle == 90)
+                stockXAngle = WrapAngle(stockXAngle + (90 * r));
+            else if (stockYAngle == 180)
+                stockZAngle = WrapAngle(stockZAngle + (90 * r));
+            else if (stockYAngle == 270)
+                stockXAngle = WrapAngle(stockXAngle - (90 * r));
+        }
     }
 
     //
