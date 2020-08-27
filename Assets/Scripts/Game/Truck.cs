@@ -56,7 +56,7 @@ public class Truck : MonoBehaviour
 
             if (closestLane == 1)
             {
-                var currentZPos = transform.position.z + localOffset.localPosition.z;
+                var currentZPos = transform.position.z - localOffset.localPosition.z;
                 var zDiff = Mathf.Abs(currentZPos - playerCamera.transform.position.z);
 
                 //
@@ -79,8 +79,8 @@ public class Truck : MonoBehaviour
 
         var timer = 0.0f;
         var initalPos = transform.position;
-        var destinationZ = targetZ - localOffset.localPosition.z;
-        destinationZ = Mathf.Clamp(destinationZ, minZ - localOffset.localPosition.z, maxZ - localOffset.localPosition.z);
+        var destinationZ = targetZ + localOffset.localPosition.z;
+        destinationZ = Mathf.Clamp(destinationZ, minZ + localOffset.localPosition.z, maxZ + localOffset.localPosition.z);
         var targetPos = new Vector3(initalPos.x, initalPos.y, destinationZ);
 
         while (timer <= moveTime)
