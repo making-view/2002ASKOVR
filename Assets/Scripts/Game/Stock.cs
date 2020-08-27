@@ -4,14 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using OculusSampleFramework;
 
+public enum LoadCarryingSides
+{
+    All,
+    TopAndBottom,
+    None
+}
+
 [RequireComponent(typeof(ButtonController))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Stock : MonoBehaviour
 {
-    // How long the object has to be stationary before its physics are turned off
-    [SerializeField] private float stationaryTime = 1.0f;
+    [Header("Properties")]
+    [SerializeField] private string itemName = "Vare";
+    [SerializeField] private LoadCarryingSides loadCarryingSides = LoadCarryingSides.All;
+
+    [Header("Config")]
     [SerializeField] private Text massDisplay = null;
+
+    [Header("Settings")] 
+    [Tooltip("How long the object has to be stationary before its physics are turned off")]
+    [SerializeField] private float stationaryTime = 1.0f;
     [SerializeField] private float rotationTime = 0.25f;
     private float angleAdjustCooldownTime = 0.75f;
     private float angleAdjustVelocity = 500;
@@ -305,7 +319,7 @@ public class Stock : MonoBehaviour
     }
 
     //
-    // Lerps Stock towards new rotation
+    // Lerps Stock towards new rotation around given point and axis
     //
     private IEnumerator RotateStockAround(Vector3 point, Vector3 axis, bool reverse)
     {
