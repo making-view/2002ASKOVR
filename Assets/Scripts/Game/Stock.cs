@@ -27,6 +27,9 @@ public class Stock : MonoBehaviour
     [Tooltip("How long the object has to be stationary before its physics are turned off")]
     [SerializeField] private float stationaryTime = 1.0f;
     [SerializeField] private float rotationTime = 0.25f;
+
+    public string StockCode { get; set; }
+
     private float angleAdjustCooldownTime = 0.75f;
     private float angleAdjustVelocity = 500;
 
