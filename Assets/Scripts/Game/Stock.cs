@@ -71,17 +71,16 @@ public class Stock : MonoBehaviour
         //
         if (grabHandle)
         {
-            var newPos = new Vector3();
-            var newRot = new Quaternion();
-
             // 
-            // Hands and controllers handle rotation and movement differently
+            // Hands and controllers handle rotation differently
             //
             if (controlScheme.IsHandTracking)
-                HandTrackingMovement(out newPos, out newRot);
+                HandTrackingRotation();
             else
-                ControllerMovement(out newPos, out newRot);
+                ControllerRotation();
 
+            var lastCoilTrans = grabHandle.lastSpringCoil.transform;
+            var newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
 
             //
             // Ensures stock items do not penetrate each other
@@ -90,7 +89,7 @@ public class Stock : MonoBehaviour
             float distance = 0.0f;
             foreach (var collider in otherColliders)
             {
-                if (Physics.ComputePenetration(ownCollider, newPos, newRot, collider,
+                if (Physics.ComputePenetration(ownCollider, newPos, transform.rotation, collider,
                     collider.gameObject.transform.position, collider.gameObject.transform.rotation,
                     out direction, out distance))
                 {
@@ -102,14 +101,13 @@ public class Stock : MonoBehaviour
             // Applies the calculated rotation and the new and corrected position
             //
             transform.position = newPos;
-            transform.rotation = newRot;
         }
     }
     
     //
     // Moves the stock along with GrabHandle and executes gesture controls
     //
-    private void HandTrackingMovement(out Vector3 newPos, out Quaternion newRot)
+    private void HandTrackingRotation()
     {
         var handleForward = new Vector3(grabHandle.transform.forward.x, 0, grabHandle.transform.forward.z);
         var handleRoll = Vector3.SignedAngle(Vector3.up, grabHandle.transform.right, handleForward);
@@ -160,18 +158,17 @@ public class Stock : MonoBehaviour
             }
         }
 
-        var lastCoilTrans = grabHandle.lastSpringCoil.transform;
-        newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
-        newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
-
         previousHandleRoll = handleRoll;
         previousHandleYaw = handleYaw;
+
+        var newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
+        transform.rotation = newRot;
     }
 
     //
     // Moves the stock along with GrabHandle and executes controller button controls
     //
-    private void ControllerMovement(out Vector3 newPos, out Quaternion newRot)
+    private void ControllerRotation()
     {
         var grabber = grabbedBy as ControllerStockGrabber;
 
@@ -193,10 +190,6 @@ public class Stock : MonoBehaviour
 
             previousDirection = currDirection;
         }
-
-        var lastCoilTrans = grabHandle.lastSpringCoil.transform;
-        newRot = Quaternion.Euler(new Vector3(stockXAngle, stockYAngle, stockZAngle));
-        newPos = lastCoilTrans.position - (lastCoilTrans.up * floatDistance);
     }
 
     //
