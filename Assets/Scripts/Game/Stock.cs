@@ -12,6 +12,7 @@ public class Stock : MonoBehaviour
     // How long the object has to be stationary before its physics are turned off
     [SerializeField] private float stationaryTime = 1.0f;
     [SerializeField] private Text massDisplay = null;
+    [SerializeField] private float rotationTime = 0.25f;
     private float angleAdjustCooldownTime = 0.75f;
     private float angleAdjustVelocity = 500;
 
@@ -24,6 +25,7 @@ public class Stock : MonoBehaviour
     private GrabHandle grabHandle = null;
     private float floatDistance = 0.0f;
     private float movementSensitivity = 0.01f;
+    private bool isRotating = false;
 
     //
     // Angles
@@ -182,7 +184,7 @@ public class Stock : MonoBehaviour
                 needsReset = false;
             }
 
-            if (!needsReset && currDirection != Direction.None)
+            if (!isRotating && !needsReset && currDirection != Direction.None)
             {
                 RotateInDirection(currDirection);
 
@@ -206,52 +208,59 @@ public class Stock : MonoBehaviour
         var handleYaw = Vector3.SignedAngle(Vector3.forward, handleForward, Vector3.up);
         var isClosestToZAxis = (handleYaw < 45 && handleYaw > -45) || (handleYaw > 135 && handleYaw < -135);
 
+        var newX = stockXAngle;
+        var newY = stockYAngle;
+        var newZ = stockZAngle;
+
         switch (direction)
         {
             case Direction.Left:
-                stockYAngle = WrapAngle(stockYAngle - 90);
+                newY = WrapAngle(stockYAngle - 90);
                 break;
             case Direction.Right:
-                stockYAngle = WrapAngle(stockYAngle + 90);
+                newY = WrapAngle(stockYAngle + 90);
                 break;
             case Direction.Up:
-                RotateForwards(isClosestToZAxis, reverse: false);
+                SetForwardRotation(isClosestToZAxis, out newX, out newZ, reverse: false);
                 break;
             case Direction.Down:
-                RotateForwards(isClosestToZAxis, reverse: true);
+                SetForwardRotation(isClosestToZAxis, out newX, out newZ, reverse: true);
                 break;
         }
 
+        StartCoroutine(RotateStock(newX, newY, newZ));
     }
 
     //
     // Rotates forwards along Z or X axis, or backwards if reverse is true
     //
-    private void RotateForwards(bool isClosestToZAxis, bool reverse)
+    private void SetForwardRotation(bool isClosestToZAxis, out int newX, out int newZ, bool reverse)
     {
         var r = reverse ? -1 : 1;
+        newX = stockXAngle;
+        newZ = stockZAngle;
 
         if (isClosestToZAxis)
         {
             if (stockYAngle == 0)
-                stockXAngle = WrapAngle(stockXAngle + (90 * r));
+                newX = WrapAngle(stockXAngle + (90 * r));
             else if (stockYAngle == 90)
-                stockZAngle = WrapAngle(stockZAngle + (90 * r));
+                newZ = WrapAngle(stockZAngle + (90 * r));
             else if (stockYAngle == 180)
-                stockXAngle = WrapAngle(stockXAngle - (90 * r));
+                newX = WrapAngle(stockXAngle - (90 * r));
             else if (stockYAngle == 270)
-                stockZAngle = WrapAngle(stockZAngle - (90 * r));
+                newZ = WrapAngle(stockZAngle - (90 * r));
         }
         else
         {
             if (stockYAngle == 0)
-                stockZAngle = WrapAngle(stockZAngle - (90 * r));
+                newZ = WrapAngle(stockZAngle - (90 * r));
             else if (stockYAngle == 90)
-                stockXAngle = WrapAngle(stockXAngle + (90 * r));
+                newX = WrapAngle(stockXAngle + (90 * r));
             else if (stockYAngle == 180)
-                stockZAngle = WrapAngle(stockZAngle + (90 * r));
+                newZ = WrapAngle(stockZAngle + (90 * r));
             else if (stockYAngle == 270)
-                stockXAngle = WrapAngle(stockXAngle - (90 * r));
+                newX = WrapAngle(stockXAngle - (90 * r));
         }
     }
 
@@ -325,6 +334,35 @@ public class Stock : MonoBehaviour
         }
 
         rigidBody.isKinematic = true;
+    }
+
+    //
+    // Lerps Stock towards new rotation
+    //
+    private IEnumerator RotateStock(int newX, int newY, int newZ)
+    {
+        isRotating = true;
+
+        var currRotation = transform.rotation;
+        var newRotation = Quaternion.Euler(newX, newY, newZ);
+        var timer = 0.0f;
+
+        while (timer <= rotationTime)
+        {
+            var percent = timer / rotationTime;
+
+            transform.rotation = Quaternion.Lerp(currRotation, newRotation, Mathf.SmoothStep(0, 1, percent));
+
+            yield return null;
+
+            timer += Time.deltaTime;
+        }
+
+        stockXAngle = newX;
+        stockYAngle = newY;
+        stockZAngle = newZ;
+
+        isRotating = false;
     }
 
     private int WrapAngle(int angle)
