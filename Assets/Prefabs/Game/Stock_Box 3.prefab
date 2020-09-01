@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5fd58b1f11e54fa5a5607b7b709fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Vare
+  itemName: "Dyremat p\xE5 boks"
   loadCarryingSides: 0
   massDisplay: {fileID: 3835116820841204629}
   stationaryTime: 1

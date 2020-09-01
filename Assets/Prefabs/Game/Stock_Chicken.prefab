@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5fd58b1f11e54fa5a5607b7b709fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Vare
+  itemName: "Kylling p\xE5legg"
   loadCarryingSides: 0
   massDisplay: {fileID: 0}
   stationaryTime: 1
