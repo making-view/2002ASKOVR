@@ -12,7 +12,7 @@ public class Truck : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float moveThreshold = 1.5f;
-    [SerializeField] private float moveTime = 3f;
+    [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float minZ = 0.0f;
     [SerializeField] private float maxZ = 0.0f;
 
@@ -39,30 +39,15 @@ public class Truck : MonoBehaviour
         {
             var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
 
-            //
-            // Places truck and its stock in center of mid lane
-            //
-            //if (closestLane != currentLane)
-            //{
-            //    currentLane = closestLane;
-
-            //    var newLane = truckLanes.GetLanePosition(currentLane);
-            //    var newPosition = new Vector3(newLane.x, transform.position.y, 0);
-            //    var posChange = newPosition - transform.position;
-
-            //    transform.position = newPosition;
-            //    MoveStock(posChange);
-            //}
-
             if (closestLane == 1)
             {
                 var currentZPos = transform.position.z - localOffset.localPosition.z;
-                var zDiff = Mathf.Abs(currentZPos - playerCamera.transform.position.z);
+                var zDiff = currentZPos - playerCamera.transform.position.z;
 
                 //
-                // Starts moving truck towards user if distance between self and user exceeds treshold
+                // Starts moving truck towards user if distance between self and user exceeds treshold in positive direction
                 //
-                if (zDiff > moveThreshold)
+                if (zDiff > 0.0f && Mathf.Abs(zDiff) > moveThreshold)
                 {
                     StartCoroutine(MoveToZPoint(playerCamera.transform.position.z));
                 }
@@ -77,16 +62,19 @@ public class Truck : MonoBehaviour
     {
         moving = true;
 
-        var timer = 0.0f;
-        var initalPos = transform.position;
+        var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
         destinationZ = Mathf.Clamp(destinationZ, minZ + localOffset.localPosition.z, maxZ + localOffset.localPosition.z);
-        var targetPos = new Vector3(initalPos.x, initalPos.y, destinationZ);
+        var targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
+        
+        var range = targetPos.z - initialPos.z;
+        var totDeltaZ = 0.0f;
 
-        while (timer <= moveTime)
+        while (initialPos.z + totDeltaZ <= targetPos.z)
         {
-            var percent = timer / moveTime;
-            var newPos = Vector3.Lerp(initalPos, targetPos, Mathf.SmoothStep(0, 1, percent));
+            var currentZ = initialPos.z + totDeltaZ;
+            var percent = (currentZ - initialPos.z) / range;
+            var newPos = Vector3.Lerp(initialPos, targetPos, Mathf.SmoothStep(0, 1, percent));
             var posChange = newPos - transform.position;
 
             transform.position = newPos;
@@ -94,7 +82,7 @@ public class Truck : MonoBehaviour
 
             yield return null;
 
-            timer += Time.deltaTime;
+            totDeltaZ += moveSpeed * Time.deltaTime;
         }
 
         transform.position = targetPos;
