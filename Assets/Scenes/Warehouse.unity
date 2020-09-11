@@ -22238,6 +22238,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 6130852751529744503, guid: 9282b12330f27284a8d6e13177a177f2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.145
+      objectReference: {fileID: 0}
     - target: {fileID: 6976026159751848379, guid: 9282b12330f27284a8d6e13177a177f2,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
