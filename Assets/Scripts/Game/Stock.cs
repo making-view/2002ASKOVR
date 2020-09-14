@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using OculusSampleFramework;
@@ -24,8 +25,6 @@ public class Stock : MonoBehaviour
     [SerializeField] private Text massDisplay = null;
 
     [Header("Settings")] 
-    [Tooltip("How long the object has to be stationary before its physics are turned off")]
-    [SerializeField] private float stationaryTime = 1.0f;
     [SerializeField] private float rotationTime = 0.25f;
 
     public string StockCode { get; set; }
@@ -277,7 +276,23 @@ public class Stock : MonoBehaviour
 
         grabbedBy = null;
         grabHandle = null;
-        StartCoroutine(DisableGravityOnceStationary());
+    }
+
+    public List<Stock> GetOverheadStock()
+    {
+        var result = new List<Stock>();
+
+        var center = ownCollider.transform.position + ownCollider.center;
+        center.y += 0.015f;
+        var halfExtents = ownCollider.size / 2;
+        
+        result = Physics.OverlapBox(center, halfExtents)
+            .Where(o => o != ownCollider 
+                && o.gameObject.GetComponent<Stock>() != null 
+                && o.gameObject.transform.position.y > transform.position.y)
+            .Select(o => o.gameObject.GetComponent<Stock>()).ToList();
+
+        return result;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -294,31 +309,6 @@ public class Stock : MonoBehaviour
         {
             otherColliders.Remove(collision.collider as BoxCollider);
         }
-    }
-
-    //
-    // Turns off physics after object has been stationary for some time
-    //
-    private IEnumerator DisableGravityOnceStationary()
-    {
-        var timer = 0.0f;
-        var previousPosition = Vector3.zero;
-
-        while (timer < stationaryTime)
-        {
-            timer += Time.deltaTime;
-
-            var diff = transform.position - previousPosition;
-
-            if (diff.magnitude > movementSensitivity) 
-                timer = 0.0f;
-
-            previousPosition = transform.position;
-
-            yield return null;
-        }
-
-        rigidBody.isKinematic = true;
     }
 
     //

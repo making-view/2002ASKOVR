@@ -36,15 +36,21 @@ public abstract class StockGrabber : MonoBehaviour
     //
     protected void GrabBegin()
     {
-        grabbedStock = focusedStock;
+        //
+        // Only grab stock if there are no stock items on top of it
+        //
+        if (focusedStock.GetOverheadStock().Count == 0)
+        {
+            grabbedStock = focusedStock;
 
-        var stockCollider = grabbedStock.GetComponent<BoxCollider>();
-        var floatDistance = ((stockCollider.size.x + stockCollider.size.y) / 2) + additionalFloatDistance;
+            var stockCollider = grabbedStock.GetComponent<BoxCollider>();
+            var floatDistance = ((stockCollider.size.x + stockCollider.size.y) / 2) + additionalFloatDistance;
 
-        grabHandle.gameObject.SetActive(true);
+            grabHandle.gameObject.SetActive(true);
 
-        StartCoroutine(SnatchStock(floatDistance));
-        DeFocus();
+            StartCoroutine(SnatchStock(floatDistance));
+            DeFocus();
+        }
     }
 
     //
