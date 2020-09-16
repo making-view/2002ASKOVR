@@ -28,6 +28,7 @@ public class Stock : MonoBehaviour
     [SerializeField] private float rotationTime = 0.25f;
 
     public string StockCode { get; set; }
+    public int ShelfNumber { get; set; }
 
     private float angleAdjustCooldownTime = 0.75f;
     private float angleAdjustVelocity = 500;
