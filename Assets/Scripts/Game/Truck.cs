@@ -42,7 +42,7 @@ public class Truck : MonoBehaviour
             if (closestLane == 1)
             {
                 var currentZPos = transform.position.z - localOffset.localPosition.z;
-                var zDiff = currentZPos - playerCamera.transform.position.z;
+                var zDiff = playerCamera.transform.position.z - currentZPos;
 
                 //
                 // Starts moving truck towards user if distance between self and user exceeds treshold in positive direction
