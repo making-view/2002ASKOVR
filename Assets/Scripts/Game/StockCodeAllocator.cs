@@ -6,6 +6,7 @@ using UnityEngine;
 public class StockCodeAllocator : MonoBehaviour
 {
     [SerializeField] private string stockCode = "000";
+    [SerializeField] private int shelfNumber = 0;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class StockCodeAllocator : MonoBehaviour
             if (stock)
             {
                 stock.StockCode = stockCode;
+                stock.ShelfNumber = shelfNumber;
             }
         }
     }
