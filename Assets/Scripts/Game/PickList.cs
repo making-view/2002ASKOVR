@@ -30,6 +30,12 @@ public class PickList : MonoBehaviour
     private bool picking = false;
     private string currentStockCode = "000";
 
+    private void Start()
+    {
+        //todo remove this shit
+        Initialize();
+    }
+
     public void Initialize()
     {
         voiceCommandLady.PlayCShelfCommand(orderItems[currentItem].shelfNo);
@@ -38,6 +44,8 @@ public class PickList : MonoBehaviour
 
     public void ReceiveCommand(string command)
     {
+        Debug.Log("Received command: " + command);
+
         if (command.ToLower().Equals("repeat"))
         {
             RepeatCommand();

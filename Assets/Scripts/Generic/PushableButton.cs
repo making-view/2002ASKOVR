@@ -10,24 +10,33 @@ public class PushableButton : MonoBehaviour
     [SerializeField] private GameObject topPoint = null;
     [SerializeField] private GameObject bottomPoint = null;
 
+    Rigidbody rigidboody = null;
+
     private bool pressed = false;
     private Vector3 midPoint;
 
     void Start()
     {
-        midPoint = (topPoint.transform.position + bottomPoint.transform.position) / 2;
+        rigidboody = GetComponent<Rigidbody>();
+        midPoint = (topPoint.transform.localPosition + bottomPoint.transform.localPosition) / 2;
     }
 
     void Update()
     {
-        if (transform.position.y > topPoint.transform.position.y)
+        Vector3 localVelocity = transform.InverseTransformDirection(rigidboody.velocity);
+        localVelocity.x = 0;
+        localVelocity.z = 0;
+
+        rigidboody.velocity = transform.TransformDirection(localVelocity);
+
+        if (transform.localPosition.y > topPoint.transform.localPosition.y)
         {
-            transform.position = topPoint.transform.position;
+            transform.localPosition = topPoint.transform.localPosition;
         }
 
-        if (transform.position.y < bottomPoint.transform.position.y)
+        if (transform.localPosition.y < bottomPoint.transform.localPosition.y)
         {
-            transform.position = bottomPoint.transform.position;
+            transform.localPosition = bottomPoint.transform.localPosition;
 
             if (!pressed)
             {
@@ -36,7 +45,7 @@ public class PushableButton : MonoBehaviour
             }
         }
 
-        if (transform.position.y > midPoint.y)
+        if (transform.localPosition.y > midPoint.y)
         {
             pressed = false;
         }
