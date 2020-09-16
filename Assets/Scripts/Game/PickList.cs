@@ -38,8 +38,6 @@ public class PickList : MonoBehaviour
 
     public void ReceiveCommand(string command)
     {
-        Debug.Log("Received command: " + command);
-
         if (command.ToLower().Equals("repeat"))
         {
             RepeatCommand();
@@ -49,10 +47,7 @@ public class PickList : MonoBehaviour
         {
             if (command.Equals(orderItems[currentItem].amount.ToString()))
             {
-                currentItem++;
-                picking = false;
-                voiceCommandLady.PlayCShelfCommand(orderItems[currentItem].shelfNo);
-                currentStockCode = shelves.FirstOrDefault(s => s.shelfNo.Equals(orderItems[currentItem].shelfNo)).stockCode;
+                NextItem();
             }
             else
             {
@@ -70,6 +65,22 @@ public class PickList : MonoBehaviour
             {
                 RepeatCommand();
             }
+        }
+    }
+
+    private void NextItem()
+    {
+        if (currentItem < orderItems.Count)
+        {
+            currentItem++;
+            picking = false;
+            voiceCommandLady.PlayCShelfCommand(orderItems[currentItem].shelfNo);
+            currentStockCode = shelves.FirstOrDefault(s => s.shelfNo.Equals(orderItems[currentItem].shelfNo)).stockCode;
+        }
+        else
+        {
+            Debug.Log("PICKY DONE");
+            voiceCommandLady.Hehehoho();
         }
     }
 
