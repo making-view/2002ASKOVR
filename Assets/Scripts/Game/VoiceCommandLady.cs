@@ -17,6 +17,8 @@ public class VoiceCommandLady : MonoBehaviour
 
     public void PlayCShelfCommand(int shelfNo)
     {
+        Debug.Log("Received shelf command: " + shelfNo);
+
         if (shelfNo > 0 && shelfNo <= cShelfNumbers.Count)
         {
             audioSource.Stop();
@@ -27,6 +29,8 @@ public class VoiceCommandLady : MonoBehaviour
 
     public void PlayStockPickCommand(int numberOfStock)
     {
+        Debug.Log("Received pick command: " + numberOfStock);
+
         if (numberOfStock > 0 && numberOfStock <= stockPickAmounts.Count)
         {
             audioSource.Stop();
