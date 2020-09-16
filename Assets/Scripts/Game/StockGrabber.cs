@@ -44,6 +44,7 @@ public abstract class StockGrabber : MonoBehaviour
             grabbedStock = focusedStock;
 
             var stockCollider = grabbedStock.GetComponent<BoxCollider>();
+            // COULD DO: Finn lengste side(r) og gjør det bedre
             var floatDistance = ((stockCollider.size.x + stockCollider.size.y) / 2) + additionalFloatDistance;
 
             grabHandle.gameObject.SetActive(true);

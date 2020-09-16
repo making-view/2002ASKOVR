@@ -43257,9 +43257,29 @@ PrefabInstance:
       objectReference: {fileID: 1719749318}
     - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
         type: 3}
+      propertyPath: gestures.Array.data[0].onRecognized.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
+        type: 3}
       propertyPath: skeleton
       value: 
       objectReference: {fileID: 1141540498}
+    - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
+        type: 3}
+      propertyPath: allowGestureCreation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
+        type: 3}
+      propertyPath: gestures.Array.data[0].onRecognized.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
+        type: 3}
+      propertyPath: gestures.Array.data[0].onRecognized.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5287604726976585242, guid: 4fb0a7019b2924740a668da2c1998cf2,
         type: 3}
       propertyPath: m_Name
