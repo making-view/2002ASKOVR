@@ -9,9 +9,12 @@ public class KeypadButton : MonoBehaviour
     private Text text = null;
     private Keypad keypad = null;
 
+    //
+    // Assigns this button to the correct action on the correct keypad
+    //
     private void Start()
     {
-        keypad = FindObjectOfType<Keypad>();
+        keypad = GetComponentInParent<Keypad>();
         button = GetComponentInChildren<PushableButton>();
         text = GetComponentInChildren<Text>();
 

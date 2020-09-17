@@ -19,6 +19,11 @@ public struct ShelfInfo
     public string stockCode;
 }
 
+//
+// Handles the progression of the picking game
+// If the user is in picking phase, the game expects to be given the amount of stock picked
+// If not in picking phase, it expects to be given the stockcode of the next item on the orderlist
+//
 public class PickList : MonoBehaviour
 {
     public static List<ShelfInfo> shelves = new List<ShelfInfo>();
@@ -36,16 +41,20 @@ public class PickList : MonoBehaviour
         Initialize();
     }
 
+    //
+    // Starts off the game
+    //
     public void Initialize()
     {
         voiceCommandLady.PlayCShelfCommand(orderItems[currentItem].shelfNo);
         currentStockCode = shelves.FirstOrDefault(s => s.shelfNo.Equals(orderItems[currentItem].shelfNo)).stockCode;
     }
 
+    //
+    // Parses the given string and executs the appropriate action if it matches an expected command
+    //
     public void ReceiveCommand(string command)
     {
-        Debug.Log("Received command: " + command);
-
         if (command.ToLower().Equals("repeat"))
         {
             RepeatCommand();
@@ -53,13 +62,16 @@ public class PickList : MonoBehaviour
 
         if (picking)
         {
-            if (command.Equals(orderItems[currentItem].amount.ToString()))
+            if (currentItem < orderItems.Count)
             {
-                NextItem();
-            }
-            else
-            {
-                RepeatCommand();
+                if (command.Equals(orderItems[currentItem].amount.ToString()))
+                {
+                    NextItem();
+                }
+                else
+                {
+                    RepeatCommand();
+                }
             }
         }
         else
@@ -76,22 +88,29 @@ public class PickList : MonoBehaviour
         }
     }
 
+    //
+    // Tries to progress to the next item on the orderlist, finishes game if current item was the last one
+    //
     private void NextItem()
     {
-        if (currentItem < orderItems.Count)
+        currentItem++;
+        picking = false;
+
+        if (currentItem >= orderItems.Count)
         {
-            currentItem++;
-            picking = false;
-            voiceCommandLady.PlayCShelfCommand(orderItems[currentItem].shelfNo);
-            currentStockCode = shelves.FirstOrDefault(s => s.shelfNo.Equals(orderItems[currentItem].shelfNo)).stockCode;
+            // TODO: Make actual end condition thing
+            voiceCommandLady.Hehehoho();
         }
         else
         {
-            Debug.Log("PICKY DONE");
-            voiceCommandLady.Hehehoho();
+            voiceCommandLady.PlayCShelfCommand(orderItems[currentItem].shelfNo);
+            currentStockCode = shelves.FirstOrDefault(s => s.shelfNo.Equals(orderItems[currentItem].shelfNo)).stockCode;
         }
     }
 
+    //
+    // Plays the voice command for the current step again
+    //
     private void RepeatCommand()
     {
         if (picking)

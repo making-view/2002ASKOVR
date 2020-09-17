@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//
+// Interacts with PickList to execute game actions
+//
 public class Keypad : MonoBehaviour
 {
     [SerializeField] PickList pickList;
@@ -20,13 +23,11 @@ public class Keypad : MonoBehaviour
     public void AddToCommand(string add)
     {
         command += add;
-        Debug.Log("Numpad, current command: " + command);
         display.text = command;
     }
 
     public void SendCommand()
     {
-        Debug.Log("Sending command");
         pickList.ReceiveCommand(command.Trim());
         command = "";
         display.text = command;
