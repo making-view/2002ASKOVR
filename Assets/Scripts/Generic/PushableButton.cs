@@ -15,19 +15,18 @@ public class PushableButton : MonoBehaviour
     private bool pressed = false;
     private Vector3 midPoint;
 
+    private Vector3 initLocalPos;
+
     void Start()
     {
         rigidboody = GetComponent<Rigidbody>();
         midPoint = (topPoint.transform.localPosition + bottomPoint.transform.localPosition) / 2;
+        initLocalPos = transform.localPosition;
     }
 
     void Update()
     {
-        Vector3 localVelocity = transform.InverseTransformDirection(rigidboody.velocity);
-        localVelocity.x = 0;
-        localVelocity.z = 0;
-
-        rigidboody.velocity = transform.TransformDirection(localVelocity);
+        transform.localPosition = new Vector3(initLocalPos.x, transform.localPosition.y, initLocalPos.z);
 
         if (transform.localPosition.y > topPoint.transform.localPosition.y)
         {
