@@ -9,9 +9,9 @@ using UnityEngine.UI;
 //
 public class Keypad : MonoBehaviour
 {
-    [SerializeField] Text display;
-    [SerializeField] PickList pickList;
-    [SerializeField] Wrapper wrapper;
+    [SerializeField] Text display = null;
+    [SerializeField] PickList pickList = null;
+    [SerializeField] Wrapper wrapper = null;
 
     private string command = "";
 

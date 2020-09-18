@@ -4,32 +4,58 @@ using UnityEngine;
 
 public class Wrapper : MonoBehaviour
 {
+    [Header("Config")]
+    [SerializeField] GameObject pallet = null;
+    [SerializeField] Material plasticMaterial = null;
+    [SerializeField] GameObject topPoint = null;
+    [SerializeField] GameObject bottomPoint = null;
+
+    [Header("Settings")]
     [SerializeField] bool wrapping = false;
     [SerializeField] [Range(0,1)] float speed = 0.2f;
-    private List<GameObject> stockInside = null;
+    [SerializeField] [Range(0, 1)] float requiredAreaFilled = 0.85f;
+    [SerializeField] float minPlastic = 1f;
+    [SerializeField] float maxPlastic = -8f;
 
+    List<GameObject> stockInside = null;
     Vector3 startPos;
+    float palletArea = 0.0f;
+
+    private void Awake()
+    {
+        plasticMaterial.SetFloat("_OpacityGradient", minPlastic);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         stockInside = new List<GameObject>();
         startPos = transform.localPosition;
+
+        var palletCollider = pallet.GetComponent<BoxCollider>();
+        palletArea = palletCollider.bounds.size.x * palletCollider.bounds.size.z;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (wrapping)
+        if (wrapping && CanWrap())
+        {
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + Time.deltaTime * speed, transform.localPosition.z);
+
+            var currentPlasticProgress = transform.position.y.Map(
+                bottomPoint.transform.position.y, topPoint.transform.position.y, 
+                minPlastic, maxPlastic
+            );
+
+            plasticMaterial.SetFloat("_OpacityGradient", currentPlasticProgress);
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.GetComponent<Stock>() != null)
             stockInside.Add(collider.gameObject);
-
-        Debug.Log(collider.gameObject.name + " entered wrapping volume");
     }
 
     private void OnTriggerExit(Collider collider)
@@ -39,11 +65,26 @@ public class Wrapper : MonoBehaviour
             collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             collider.gameObject.transform.parent = transform.parent;
         }
+    }
 
-        if (stockInside.Count == 0)
-            wrapping = false;
+    private bool CanWrap()
+    {
+        var canWrap = false;
 
-        Debug.Log(collider.gameObject.name + " left wrapping volume");
+        if (stockInside.Count > 0)
+        {
+            var totArea = 0.0f;
+
+            foreach (var stock in stockInside)
+            {
+                var stockCollider = stock.GetComponent<BoxCollider>();
+                totArea += stockCollider.bounds.size.x * stockCollider.bounds.size.z;
+            }
+
+            canWrap = totArea >= (palletArea * requiredAreaFilled);
+        }
+
+        return canWrap;
     }
 
     public void SetWrapping(bool wrapping)

@@ -41,7 +41,6 @@ public class Stock : MonoBehaviour
     private StockGrabber grabbedBy = null;
     private GrabHandle grabHandle = null;
     private float floatDistance = 0.0f;
-    private float movementSensitivity = 0.01f;
     private bool isRotating = false;
 
     //
