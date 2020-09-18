@@ -37,7 +37,7 @@ public class Wrapper : MonoBehaviour
         if (stockInside.Remove(collider.gameObject))
         {
             collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            collider.gameObject.transform.parent = this.transform.parent;
+            collider.gameObject.transform.parent = transform.parent;
         }
 
         if (stockInside.Count == 0)
@@ -54,6 +54,6 @@ public class Wrapper : MonoBehaviour
 
     public void ResetWrapping()
     {
-        this.transform.localPosition = startPos;
+        transform.localPosition = startPos;
     }
 }

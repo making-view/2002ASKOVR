@@ -43,4 +43,9 @@ public class Keypad : MonoBehaviour
         command = command.Substring(0, Mathf.Clamp(command.Length - 1, 0, 999));
         display.text = command;
     }
+
+    public void Wrap()
+    {
+        // TODO: THE WRAPPENING
+    }
 }
