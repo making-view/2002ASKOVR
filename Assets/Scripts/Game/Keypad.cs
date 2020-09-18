@@ -9,8 +9,9 @@ using UnityEngine.UI;
 //
 public class Keypad : MonoBehaviour
 {
-    [SerializeField] PickList pickList;
     [SerializeField] Text display;
+    [SerializeField] PickList pickList;
+    [SerializeField] Wrapper wrapper;
 
     private string command = "";
 
@@ -44,8 +45,13 @@ public class Keypad : MonoBehaviour
         display.text = command;
     }
 
-    public void Wrap()
+    public void StartWrapping()
     {
-        // TODO: THE WRAPPENING
+        wrapper.SetWrapping(true);
+    }
+
+    public void StopWrapping()
+    {
+        wrapper.SetWrapping(false);
     }
 }

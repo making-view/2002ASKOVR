@@ -47331,6 +47331,11 @@ PrefabInstance:
       propertyPath: pickList
       value: 
       objectReference: {fileID: 41334663}
+    - target: {fileID: 7353940859005055357, guid: 5a34674e818805e4fb5153c6a7ae9537,
+        type: 3}
+      propertyPath: wrapper
+      value: 
+      objectReference: {fileID: 1967779964}
     - target: {fileID: 7362475870841293534, guid: 5a34674e818805e4fb5153c6a7ae9537,
         type: 3}
       propertyPath: m_Camera
@@ -49239,6 +49244,11 @@ PrefabInstance:
       propertyPath: pickList
       value: 
       objectReference: {fileID: 41334663}
+    - target: {fileID: 7353940859005055357, guid: 5a34674e818805e4fb5153c6a7ae9537,
+        type: 3}
+      propertyPath: wrapper
+      value: 
+      objectReference: {fileID: 1967779964}
     - target: {fileID: 7362475870841293534, guid: 5a34674e818805e4fb5153c6a7ae9537,
         type: 3}
       propertyPath: m_Camera
