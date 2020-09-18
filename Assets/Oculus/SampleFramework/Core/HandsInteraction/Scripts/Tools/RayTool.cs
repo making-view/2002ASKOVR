@@ -89,7 +89,9 @@ namespace OculusSampleFramework
                     var controller = IsRightHandedTool ? HandsManager.Instance.RightController.Controller : HandsManager.Instance.LeftController.Controller;
 
                     isPerformingAction = OVRInput.Get(OVRInput.Button.One, controller);
-                    isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
+					isPerformingAction |= OVRInput.Get(OVRInput.Button.Two);
+					isPerformingAction |= OVRInput.Get(OVRInput.Button.Four);
+					isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
                 }
 
                 if (isPerformingAction)
