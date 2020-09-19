@@ -6,7 +6,7 @@ public class Wrapper : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] GameObject pallet = null;
-    [SerializeField] Material plasticMaterial = null;
+    [SerializeField] GameObject plastic = null;
     [SerializeField] GameObject topPoint = null;
     [SerializeField] GameObject bottomPoint = null;
 
@@ -20,9 +20,11 @@ public class Wrapper : MonoBehaviour
     List<GameObject> stockInside = null;
     Vector3 startPos;
     float palletArea = 0.0f;
+    Material plasticMaterial;
 
     private void Awake()
     {
+        plasticMaterial = plastic.GetComponent<MeshRenderer>().material;
         plasticMaterial.SetFloat("_OpacityGradient", minPlastic);
     }
 
