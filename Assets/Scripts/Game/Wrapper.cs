@@ -28,7 +28,6 @@ public class Wrapper : MonoBehaviour
         plasticMaterial.SetFloat("_OpacityGradient", minPlastic);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         stockInside = new List<GameObject>();
@@ -38,7 +37,6 @@ public class Wrapper : MonoBehaviour
         palletArea = palletCollider.bounds.size.x * palletCollider.bounds.size.z;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (wrapping && CanWrap())
@@ -66,10 +64,7 @@ public class Wrapper : MonoBehaviour
     private void OnTriggerExit(Collider collider)
     {
         if (stockInside.Remove(collider.gameObject))
-        {
             collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            collider.gameObject.transform.parent = transform.parent;
-        }
     }
 
     private bool CanWrap()
