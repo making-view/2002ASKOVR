@@ -35,12 +35,6 @@ public class PickList : MonoBehaviour
     private bool picking = false;
     private string currentStockCode = "000";
 
-    private void Start()
-    {
-        //todo remove this shit
-        Initialize();
-    }
-
     //
     // Starts off the game
     //
@@ -98,8 +92,8 @@ public class PickList : MonoBehaviour
 
         if (currentItem >= orderItems.Count)
         {
-            // TODO: Make actual end condition thing
             voiceCommandLady.Hehehoho();
+            FindObjectOfType<GameManager>().EndGame();
         }
         else
         {
