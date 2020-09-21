@@ -63,8 +63,8 @@ public class Wrapper : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (stockInside.Remove(collider.gameObject))
-            collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        if (stockInside.Remove(collider.gameObject) && wrapping)
+            collider.gameObject.GetComponent<Stock>().Wrap();
     }
 
     private bool CanWrap()

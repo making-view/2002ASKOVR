@@ -274,7 +274,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -419,6 +419,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onButtonPushed:
+    m_PersistentCalls:
+      m_Calls: []
+  onButtonReleased:
     m_PersistentCalls:
       m_Calls: []
   topPoint: {fileID: 7851110020448245745}
@@ -1019,6 +1022,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 274952528245992973}
   bottomPoint: {fileID: 1252987014787373034}
 --- !u!65 &4316014360008826893
@@ -1124,6 +1130,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 8398258196276188261}
   bottomPoint: {fileID: 7255193083910777586}
 --- !u!65 &8388351106442980480
@@ -1205,7 +1214,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -1827,6 +1836,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 6935065791023462188}
   bottomPoint: {fileID: 8078694021922015675}
 --- !u!65 &6979381099708108745
@@ -1938,7 +1950,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -2547,6 +2559,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 4090864255879848200}
   bottomPoint: {fileID: 4126295572430027319}
 --- !u!65 &4787320827455670925
@@ -2828,7 +2843,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -3354,7 +3369,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -3483,6 +3498,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 5641392742365750344}
   bottomPoint: {fileID: 6803043692207413983}
 --- !u!65 &5669947789915364525
@@ -3564,7 +3582,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -4107,6 +4125,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 4661409055150464523}
   bottomPoint: {fileID: 5806162638423007388}
 --- !u!65 &4635705264447661806
@@ -4346,7 +4367,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -4776,7 +4797,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -4948,7 +4969,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -5264,6 +5285,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 2998836958793375633}
   bottomPoint: {fileID: 4160488973851975942}
 --- !u!65 &2989248745485821812
@@ -5424,7 +5448,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -5894,6 +5918,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 2202206695551829767}
   bottomPoint: {fileID: 7430434410048714209}
 --- !u!65 &8932693467207063556
@@ -6090,6 +6117,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 2638070010325532555}
   bottomPoint: {fileID: 3800838302483939612}
 --- !u!65 &2628339685207279470
@@ -6231,7 +6261,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 1
@@ -6243,7 +6273,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: bruh
+  m_Text: 0123
 --- !u!114 &8682480684983221176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6447,6 +6477,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 1911722624973575223}
   bottomPoint: {fileID: 766959283545959072}
 --- !u!65 &1901150365989432530
@@ -6612,8 +6645,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb8c90c50226c642903bd4e775dd072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickList: {fileID: 0}
   display: {fileID: 6546309475910537720}
+  pickList: {fileID: 0}
+  wrapper: {fileID: 0}
 --- !u!1 &7430273880556903784
 GameObject:
   m_ObjectHideFlags: 0
@@ -6680,7 +6714,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -6827,6 +6861,9 @@ MonoBehaviour:
   onButtonPushed:
     m_PersistentCalls:
       m_Calls: []
+  onButtonReleased:
+    m_PersistentCalls:
+      m_Calls: []
   topPoint: {fileID: 1187674293122291278}
   bottomPoint: {fileID: 24896812888074457}
 --- !u!65 &1197540563602976427
@@ -6908,7 +6945,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 221
     m_FontStyle: 0
     m_BestFit: 1
@@ -7045,7 +7082,7 @@ SpringJoint:
   m_ConnectedBody: {fileID: 517640242218753325}
   m_Anchor: {x: 0, y: 0.017725764, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.042031776, z: 0}
+  m_ConnectedAnchor: {x: 0, y: 0.038231775, z: 0}
   serializedVersion: 2
   m_Spring: 1000
   m_Damper: 10
@@ -7071,6 +7108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onButtonPushed:
+    m_PersistentCalls:
+      m_Calls: []
+  onButtonReleased:
     m_PersistentCalls:
       m_Calls: []
   topPoint: {fileID: 5724679989376456424}
@@ -7426,6 +7466,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onButtonPushed:
+    m_PersistentCalls:
+      m_Calls: []
+  onButtonReleased:
     m_PersistentCalls:
       m_Calls: []
   topPoint: {fileID: 927297568786906537}
