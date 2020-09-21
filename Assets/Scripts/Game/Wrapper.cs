@@ -43,7 +43,10 @@ public class Wrapper : MonoBehaviour
     {
         if (wrapping && CanWrap())
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + Time.deltaTime * speed, transform.localPosition.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, 
+                transform.localPosition.y + Time.deltaTime * speed, 
+                transform.localPosition.z
+            );
 
             var currentPlasticProgress = transform.position.y.Map(
                 bottomPoint.transform.position.y, topPoint.transform.position.y, 
