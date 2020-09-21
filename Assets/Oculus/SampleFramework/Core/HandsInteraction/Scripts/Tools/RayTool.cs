@@ -280,7 +280,7 @@ namespace OculusSampleFramework
 				RaycastHit raycastHit = _primaryHits[hitIndex];
 
 				// continue if something occludes it and that object is not an interactable
-				var currentHitColliderZone = raycastHit.transform.GetComponent<ColliderZone>();
+				var currentHitColliderZone = raycastHit.transform.gameObject.GetComponentInChildren<ColliderZone>();
 				if (currentHitColliderZone == null)
 				{
 					continue;
