@@ -54,4 +54,9 @@ public class KeypadButton : MonoBehaviour
     {
         keypad.AddToCommand(text.text);
     }
+
+    private void OnDisable()
+    {
+        keypad.StopWrapping();
+    }
 }

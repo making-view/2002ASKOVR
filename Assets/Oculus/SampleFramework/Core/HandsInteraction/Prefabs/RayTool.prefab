@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rayToolView: {fileID: 114332492007034412}
-  _coneAngleDegrees: 2
+  _coneAngleDegrees: 15
   _farFieldMaxDistance: 10
 --- !u!1 &1416015005936930
 GameObject:
