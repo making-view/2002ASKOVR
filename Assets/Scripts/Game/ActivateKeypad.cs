@@ -6,7 +6,7 @@ public class ActivateKeypad : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField] GameObject keypad;
+    [SerializeField] GameObject keypad = null;
     [SerializeField] private bool right;
 
     private OVRInput.Button button;

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class PushableButton : MonoBehaviour
 {
     public UnityEvent onButtonPushed;
+    public UnityEvent onButtonReleased;
 
     [SerializeField] private GameObject topPoint = null;
     [SerializeField] private GameObject bottomPoint = null;
@@ -16,6 +17,11 @@ public class PushableButton : MonoBehaviour
     private Vector3 midPoint;
 
     private Vector3 initLocalPos;
+
+    public bool IsButtonPressed()
+    {
+        return pressed;
+    }
 
     void Start()
     {
@@ -46,6 +52,11 @@ public class PushableButton : MonoBehaviour
 
         if (transform.localPosition.y > midPoint.y)
         {
+            if (pressed)
+            {
+                onButtonReleased.Invoke();
+            }
+
             pressed = false;
         }
     }

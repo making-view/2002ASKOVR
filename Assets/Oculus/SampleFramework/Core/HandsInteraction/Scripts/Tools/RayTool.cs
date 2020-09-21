@@ -89,7 +89,9 @@ namespace OculusSampleFramework
                     var controller = IsRightHandedTool ? HandsManager.Instance.RightController.Controller : HandsManager.Instance.LeftController.Controller;
 
                     isPerformingAction = OVRInput.Get(OVRInput.Button.One, controller);
-                    isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
+					isPerformingAction |= OVRInput.Get(OVRInput.Button.Two);
+					isPerformingAction |= OVRInput.Get(OVRInput.Button.Four);
+					isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
                 }
 
                 if (isPerformingAction)
@@ -287,7 +289,7 @@ namespace OculusSampleFramework
 				// at this point we have encountered an interactable. Only consider it if
 				// it allows interaction with our tool. Otherwise ignore it.
 				Interactable currentInteractable = currentHitColliderZone.ParentInteractable;
-				if (currentInteractable == null || (currentInteractable.ValidToolTagsMask & (int)ToolTags) == 0)
+				if (currentInteractable == null || !currentInteractable.enabled || (currentInteractable.ValidToolTagsMask & (int)ToolTags) == 0)
 				{
 					continue;
 				}

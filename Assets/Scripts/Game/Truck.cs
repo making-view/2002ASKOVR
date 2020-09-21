@@ -16,6 +16,9 @@ public class Truck : MonoBehaviour
     [SerializeField] private float minZ = 0.0f;
     [SerializeField] private float maxZ = 0.0f;
 
+    public int UnsafeMovements { get; private set; } = 0;
+    public bool StockFellOff { get; private set; } = false;
+
     private bool moving = false;
     private int currentLane = 0;
 

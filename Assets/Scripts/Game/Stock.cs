@@ -41,8 +41,9 @@ public class Stock : MonoBehaviour
     private StockGrabber grabbedBy = null;
     private GrabHandle grabHandle = null;
     private float floatDistance = 0.0f;
-    private float movementSensitivity = 0.01f;
     private bool isRotating = false;
+    private Vector3 previousPosition;
+    private Vector3 grabVelocity;
 
     //
     // Angles
@@ -70,6 +71,7 @@ public class Stock : MonoBehaviour
         ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
         controlScheme = FindObjectOfType<ControlSchemeManager>();
+        previousPosition = transform.position;
 
         if (massDisplay != null)
         {
@@ -114,9 +116,12 @@ public class Stock : MonoBehaviour
                 }
             }
 
+
             //
-            // Applies the calculated rotation and the new and corrected position
+            // Applies the calculated rotation and the new and corrected position, and calculates velocity
             //
+            grabVelocity = (newPos - previousPosition) / Time.deltaTime;
+            previousPosition = transform.position;
             transform.position = newPos;
         }
     }
@@ -274,9 +279,19 @@ public class Stock : MonoBehaviour
     public void Drop()
     {
         rigidBody.isKinematic = false;
+        if (grabVelocity.magnitude > 2f)
+        {
+            rigidBody.velocity = grabVelocity / Mathf.Clamp(rigidBody.mass, 1, 15);
+        }
 
         grabbedBy = null;
         grabHandle = null;
+    }
+
+    public void Wrap()
+    {
+        rigidBody.isKinematic = true;
+        GetComponent<ButtonController>().enabled = false;
     }
 
     public List<Stock> GetOverheadStock()
@@ -290,7 +305,8 @@ public class Stock : MonoBehaviour
         result = Physics.OverlapBox(center, halfExtents)
             .Where(o => o != ownCollider 
                 && o.gameObject.GetComponent<Stock>() != null 
-                && o.gameObject.transform.position.y > transform.position.y)
+                && o.gameObject.transform.position.y - gameObject.GetComponent<BoxCollider>().bounds.size.y / 1.75f 
+                    > transform.position.y + ownCollider.bounds.size.y / 2)
             .Select(o => o.gameObject.GetComponent<Stock>()).ToList();
 
         return result;
