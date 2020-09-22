@@ -312,7 +312,6 @@ MonoBehaviour:
   itemName: "Dyremat p\xE5 boks"
   loadCarryingSides: 0
   massDisplay: {fileID: 3835116820841204629}
-  stationaryTime: 1
   rotationTime: 0.25
 --- !u!54 &3157181199935924479
 Rigidbody:

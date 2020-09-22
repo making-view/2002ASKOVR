@@ -124,6 +124,7 @@ namespace OVRTouchSample
             float flex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, m_controller);
 
             bool collisionEnabled = flex >= THRESH_COLLISION_FLEX;
+            collisionEnabled = true;
             CollisionEnable(collisionEnabled);
 
             UpdateAnimStates();

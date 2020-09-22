@@ -60,4 +60,9 @@ public class PushableButton : MonoBehaviour
             pressed = false;
         }
     }
+
+    private void OnDisable()
+    {
+        transform.position = topPoint.transform.position;
+    }
 }

@@ -20,10 +20,12 @@ public class Wrapper : MonoBehaviour
     List<GameObject> stockInside = null;
     Vector3 startPos;
     float palletArea = 0.0f;
+    BoxCollider boxCollider;
     Material plasticMaterial;
 
     private void Awake()
     {
+        boxCollider = GetComponent<BoxCollider>();
         plasticMaterial = plastic.GetComponent<MeshRenderer>().material;
         plasticMaterial.SetFloat("_OpacityGradient", minPlastic);
     }
@@ -46,7 +48,7 @@ public class Wrapper : MonoBehaviour
                 transform.localPosition.z
             );
 
-            var currentPlasticProgress = transform.position.y.Map(
+            var currentPlasticProgress = (transform.position.y - boxCollider.bounds.size.y / 2).Map(
                 bottomPoint.transform.position.y, topPoint.transform.position.y, 
                 minPlastic, maxPlastic
             );
