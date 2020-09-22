@@ -27,6 +27,9 @@ public class Stock : MonoBehaviour
     [Header("Settings")] 
     [SerializeField] private float rotationTime = 0.25f;
     [SerializeField] private float tumbleThreshold = 5.0f;
+    [SerializeField] private Color highlightColor = Color.white;
+    [SerializeField] private Color wrappedColor = Color.black;
+    [SerializeField] private Color damageColor = Color.red;
 
     public string StockCode { get; set; }
     public int ShelfNumber { get; set; }
@@ -59,6 +62,8 @@ public class Stock : MonoBehaviour
     private bool isRotating = false;
     private Vector3 previousPosition;
     private Vector3 grabVelocity;
+    private Material material;
+    private Color initEmissionColor;
 
     //
     // Angles
@@ -81,12 +86,19 @@ public class Stock : MonoBehaviour
     private bool needsReset = false;
     private Direction previousDirection = Direction.None;
 
+    public void SetFocused(bool focused)
+    {
+        material.SetColor("_EmissionColor", focused ? highlightColor : initEmissionColor);
+    }
+
     void Start()
     {
         ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
         controlScheme = FindObjectOfType<ControlSchemeManager>();
         previousPosition = transform.position;
+        material = GetComponent<MeshRenderer>().material;
+        initEmissionColor = material.GetColor("_EmissionColor");
 
         if (massDisplay != null)
         {
@@ -306,7 +318,8 @@ public class Stock : MonoBehaviour
     public void Wrap()
     {
         rigidBody.isKinematic = true;
-        GetComponent<ButtonController>().enabled = false;
+        GetComponent<ButtonController>().IsInteractable = false;
+        material.SetColor("_EmissionColor", wrappedColor);
     }
 
     public List<Stock> GetOverheadStock()

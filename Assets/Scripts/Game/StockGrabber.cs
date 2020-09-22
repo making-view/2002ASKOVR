@@ -19,8 +19,13 @@ public abstract class StockGrabber : MonoBehaviour
     //
     public void SetFocusOnStock(Stock stock)
     {
+        DeFocus();
+
         if (grabbedStock == null)
+        {
             focusedStock = stock;
+            stock.SetFocused(true);
+        }
     }
 
     //
@@ -28,6 +33,9 @@ public abstract class StockGrabber : MonoBehaviour
     //
     public void DeFocus()
     {
+        if (focusedStock != null)
+            focusedStock.SetFocused(false);
+
         focusedStock = null;
     }
 

@@ -24,6 +24,8 @@ namespace OculusSampleFramework
 		protected ColliderZone _contactZoneCollider = null;
 		protected ColliderZone _actionZoneCollider = null;
 
+		public bool IsInteractable { get; set; } = true;
+
 		// Collider that indicates "am I close?"
 		public ColliderZone ProximityCollider
 		{

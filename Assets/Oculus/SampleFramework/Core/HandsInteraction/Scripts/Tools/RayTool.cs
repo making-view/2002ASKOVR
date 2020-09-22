@@ -289,7 +289,7 @@ namespace OculusSampleFramework
 				// at this point we have encountered an interactable. Only consider it if
 				// it allows interaction with our tool. Otherwise ignore it.
 				Interactable currentInteractable = currentHitColliderZone.ParentInteractable;
-				if (currentInteractable == null || !currentInteractable.enabled || (currentInteractable.ValidToolTagsMask & (int)ToolTags) == 0)
+				if (currentInteractable == null || !currentInteractable.IsInteractable || (currentInteractable.ValidToolTagsMask & (int)ToolTags) == 0)
 				{
 					continue;
 				}
@@ -341,7 +341,7 @@ namespace OculusSampleFramework
 
 				// skip invalid components
 				Interactable interactableComponent = colliderZone.ParentInteractable;
-				if (interactableComponent == null ||
+				if (interactableComponent == null || !interactableComponent.IsInteractable ||
 					(interactableComponent.ValidToolTagsMask & (int)ToolTags) == 0)
 				{
 					continue;
