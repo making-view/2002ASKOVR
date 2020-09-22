@@ -98,7 +98,7 @@ Shader "Plastic"
 			float2 uv_Colour = i.uv_texcoord * _Colour_ST.xy + _Colour_ST.zw;
 			o.Emission = tex2D( _Colour, uv_Colour ).rgb;
 			o.Smoothness = 0.8;
-			Gradient gradient47 = NewGradient( 0, 2, 2, float4( 1, 1, 1, 0 ), float4( 0, 0, 0, 1 ), 0, 0, 0, 0, 0, 0, float2( 1, 0 ), float2( 1, 1 ), 0, 0, 0, 0, 0, 0 );
+			Gradient gradient47 = NewGradient( 0, 2, 2, float4( 1, 1, 1, 0 ), float4( 0, 0, 0, 0.1205921 ), 0, 0, 0, 0, 0, 0, float2( 1, 0 ), float2( 1, 1 ), 0, 0, 0, 0, 0, 0 );
 			float2 temp_cast_1 = (_OpacityGradient).xx;
 			float2 uv_TexCoord24 = i.uv_texcoord * float2( 0,8 ) + temp_cast_1;
 			o.Alpha = ( 0.5 * SampleGradient( gradient47, uv_TexCoord24.y ) ).r;
@@ -110,14 +110,14 @@ Shader "Plastic"
 }
 /*ASEBEGIN
 Version=18301
-3072;367.2;1920;1019;1620.558;-57.69725;1.051174;True;True
-Node;AmplifyShaderEditor.RangedFloatNode;48;-1230.07,711.0811;Inherit;False;Property;_OpacityGradient;OpacityGradient;2;0;Create;True;0;0;False;0;False;-3;-0.92;-8;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.GradientNode;47;-854.8012,512.4091;Inherit;False;0;2;2;1,1,1,0;0,0,0,1;1,0;1,1;0;1;OBJECT;0
+3072;368.2;1920;1018;1715.163;-58.22284;1.051174;True;True
+Node;AmplifyShaderEditor.RangedFloatNode;48;-1230.07,711.0811;Inherit;False;Property;_OpacityGradient;OpacityGradient;2;0;Create;True;0;0;False;0;False;-3;-3.85;-8;1;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TextureCoordinatesNode;24;-918.838,676.4917;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;0,8;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.GradientNode;47;-854.8012,512.4091;Inherit;False;0;2;2;1,1,1,0;0,0,0,0.1205921;1,0;1,1;0;1;OBJECT;0
 Node;AmplifyShaderEditor.GradientSampleNode;46;-559.4213,505.0512;Inherit;True;2;0;OBJECT;;False;1;FLOAT;0;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;3;-699.3726,168.0494;Inherit;False;Constant;_Float0;Float 0;2;0;Create;True;0;0;False;0;False;0.5;1.04;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode;1;-682,-114.5;Inherit;True;Property;_Colour;Colour;0;0;Create;True;0;0;False;0;False;-1;a70b1b477d962a949b18f05172b496f9;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.SamplerNode;7;-348,-283.5;Inherit;True;Property;_Normal;Normal;1;0;Create;True;0;0;False;0;False;-1;ea51b67f3d375704cbe27aa946a40753;None;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;1;-682,-114.5;Inherit;True;Property;_Colour;Colour;0;0;Create;True;0;0;False;0;False;-1;a70b1b477d962a949b18f05172b496f9;a70b1b477d962a949b18f05172b496f9;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.SamplerNode;7;-348,-283.5;Inherit;True;Property;_Normal;Normal;1;0;Create;True;0;0;False;0;False;-1;ea51b67f3d375704cbe27aa946a40753;ea51b67f3d375704cbe27aa946a40753;True;0;True;bump;Auto;True;Object;-1;Auto;Texture2D;6;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.DitheringNode;16;-246.5436,-81.16524;Inherit;False;1;False;3;0;FLOAT;0;False;1;SAMPLER2D;;False;2;FLOAT4;0,0,0,0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;9;-208.761,55.85401;Inherit;False;Constant;_Float2;Float 2;3;0;Create;True;0;0;False;0;False;0.8;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;49;-273.7623,349.9506;Inherit;False;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
@@ -132,4 +132,4 @@ WireConnection;0;2;1;0
 WireConnection;0;4;9;0
 WireConnection;0;9;49;0
 ASEEND*/
-//CHKSM=6C81D977B41A3DACBAB22938B2B51589DC6C6455
+//CHKSM=E59233214CE50BFC10FAC3DC11FAAF6CE9707DFC
