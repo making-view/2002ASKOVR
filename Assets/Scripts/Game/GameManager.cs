@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         {
             PrintReport(report);
         }
+
+        FindObjectOfType<VoiceCommandLady>().Hehehoho();
     }
 
     private void PrintReport(Report report)
@@ -80,25 +82,27 @@ public class GameManager : MonoBehaviour
             var correctStock = new List<Stock>();
             var missingPicks = 0;
             var superfluousPicks = 0;
+            var shouldPick = 0;
 
             foreach (var orderItem in pickList.orderItems)
             {
                 var picked = carryingArea.CarriedStock.Where(s => s.ShelfNumber == orderItem.shelfNo).ToList();
                 correctStock.AddRange(picked.GetRange(0, Mathf.Clamp(orderItem.amount, 0, picked.Count)));
+                shouldPick += orderItem.amount;
 
                 missingPicks += (int)Mathf.Abs(Mathf.Clamp(picked.Count - orderItem.amount, -Mathf.Infinity, 0));
                 superfluousPicks += (int)Mathf.Clamp(picked.Count - orderItem.amount, 0, Mathf.Infinity);
             }
 
             var pickedScore = correctStock.Count * 10;
-            report.reasons.Add("Riktig plukk X" + correctStock.Count + ": " + pickedScore);
+            report.reasons.Add("Riktig plukk x" + correctStock.Count + ": " + pickedScore);
             report.score += pickedScore;
 
             var extraNonOrderStock = carryingArea.CarriedStock.ToList().Count - (correctStock.Count + superfluousPicks);
             var totalIncorrectPicks = missingPicks + superfluousPicks + extraNonOrderStock;
             var minusScore = Mathf.Clamp(totalIncorrectPicks * -10, -pickedScore, 0);
 
-            report.reasons.Add("Feil plukk X" + totalIncorrectPicks + ": " + minusScore);
+            report.reasons.Add("Feil plukk x" + totalIncorrectPicks + ": " + minusScore);
 
             var totStickyWares = 0;
             var stabilityScore = 0;
@@ -112,13 +116,18 @@ public class GameManager : MonoBehaviour
 
             if (totStickyWares > 0)
             {
-                report.reasons.Add("Varebinding X" + totStickyWares + ": " + stabilityScore);
+                report.reasons.Add("Varebinding x" + totStickyWares + ": " + stabilityScore);
                 report.score += stabilityScore;
             }
 
-            var driveScore = 250 - Mathf.Clamp((truck.UnsafeMovements * 50), -250, 0);
-            report.reasons.Add("Uaktsom kjøring X" + truck.UnsafeMovements + ": " + driveScore);
+            var driveScore = 250 - Mathf.Clamp((truck.UnsafeMovements * -50), -250, 0);
+            report.reasons.Add("Uaktsom kjøring x" + truck.UnsafeMovements + ": " + driveScore);
             report.score += driveScore;
+
+            var rightFactor = (float)correctStock.Count / shouldPick;
+            report.reasons.Add("Andel riktig plukk: " + (int)(rightFactor * 100) + "%");
+
+            report.score = (int)(rightFactor * report.score);
         }
 
         return report;

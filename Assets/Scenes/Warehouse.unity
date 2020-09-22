@@ -242,7 +242,8 @@ MonoBehaviour:
   grabHandle: {fileID: 662601097}
   snatchTime: 0.3
   additionalFloatDistance: 0
-  playerCamera: {fileID: 1817454830}
+  playerRig: {fileID: 1184962595}
+  playerHead: {fileID: 1817454830}
   grabBegin: 0.55
   grabEnd: 0.35
 --- !u!1001 &18394907
@@ -11647,7 +11648,8 @@ MonoBehaviour:
   grabHandle: {fileID: 210889719}
   snatchTime: 0.3
   additionalFloatDistance: 0
-  playerCamera: {fileID: 1817454830}
+  playerRig: {fileID: 1184962595}
+  playerHead: {fileID: 1817454830}
   grabBegin: 0.55
   grabEnd: 0.35
 --- !u!1001 &630061231

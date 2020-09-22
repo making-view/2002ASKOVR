@@ -68,9 +68,6 @@ public class Truck : MonoBehaviour
 
         UnsafeMovements += IsMovementSafe() ? 0 : 1;
 
-        var initCount = carryingArea.CarriedStock.Count();
-        var stockTumbled = false;
-
         var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
         destinationZ = Mathf.Clamp(destinationZ, minZ + localOffset.localPosition.z, maxZ + localOffset.localPosition.z);
@@ -87,8 +84,15 @@ public class Truck : MonoBehaviour
             var posChange = newPos - transform.position;
 
             transform.position = newPos;
-            var movedWithoutIncident = MoveStock(posChange);
-            stockTumbled = stockTumbled || !movedWithoutIncident;
+            var stockStaying = MoveStock(posChange);
+            
+            if (!stockStaying)
+            {
+                StockFellOff = true;
+                FindObjectOfType<GameManager>().EndGame();
+                targetPos = transform.position;
+                break;
+            }
 
             yield return null;
 
@@ -96,12 +100,6 @@ public class Truck : MonoBehaviour
         }
 
         transform.position = targetPos;
-
-        if (stockTumbled || initCount != carryingArea.CarriedStock.Count())
-        {
-            StockFellOff = true;
-            FindObjectOfType<GameManager>().EndGame();
-        }
 
         moving = false;
     }
@@ -136,14 +134,14 @@ public class Truck : MonoBehaviour
     //
     private bool MoveStock(Vector3 posChange)
     {
-        var movedWithoutIncident = true;
+        var stockStaying = true;
 
         foreach (var stock in carryingArea.CarriedStock)
         {
             stock.transform.position += posChange;
-            movedWithoutIncident = movedWithoutIncident && !stock.IsTumbling;
+            stockStaying = stockStaying && !stock.IsTumbling;
         }
 
-        return movedWithoutIncident;
+        return stockStaying;
     }
 }
