@@ -26,9 +26,24 @@ public class Stock : MonoBehaviour
 
     [Header("Settings")] 
     [SerializeField] private float rotationTime = 0.25f;
+    [SerializeField] private float tumbleThreshold = 5.0f;
 
     public string StockCode { get; set; }
     public int ShelfNumber { get; set; }
+    public bool IsWrapped { 
+        get
+        {
+            return rigidBody.isKinematic;
+        }
+    }
+
+    public bool IsTumbling
+    {
+        get
+        {
+            return rigidBody.angularVelocity.magnitude > tumbleThreshold;
+        }
+    }
 
     private float angleAdjustCooldownTime = 0.75f;
     private float angleAdjustVelocity = 500;

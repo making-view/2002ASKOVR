@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,6 +66,11 @@ public class Truck : MonoBehaviour
     {
         moving = true;
 
+        UnsafeMovements += IsMovementSafe() ? 0 : 1;
+
+        var initCount = carryingArea.CarriedStock;
+        var stockTumbled = false;
+
         var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
         destinationZ = Mathf.Clamp(destinationZ, minZ + localOffset.localPosition.z, maxZ + localOffset.localPosition.z);
@@ -81,7 +87,8 @@ public class Truck : MonoBehaviour
             var posChange = newPos - transform.position;
 
             transform.position = newPos;
-            MoveStock(posChange);
+            var movedWithoutIncident = MoveStock(posChange);
+            stockTumbled = stockTumbled || !movedWithoutIncident;
 
             yield return null;
 
@@ -90,17 +97,53 @@ public class Truck : MonoBehaviour
 
         transform.position = targetPos;
 
+        if (stockTumbled || initCount != carryingArea.CarriedStock)
+        {
+            StockFellOff = true;
+            FindObjectOfType<GameManager>().EndGame();
+        }
+
         moving = false;
+    }
+
+    //
+    // Counts the movement as unsafe if there are a stack 3 in height of
+    //
+    private bool IsMovementSafe()
+    {
+        var isSafe = true;
+
+        foreach(var stock in carryingArea.CarriedStock.Where(s => !s.IsWrapped))
+        {
+            foreach (var ovrStock in stock.GetOverheadStock())
+            {
+                if (ovrStock.GetOverheadStock().Count > 0)
+                {
+                    isSafe = false;
+                    break;
+                }
+            }
+
+            if (!isSafe)
+                break;
+        }
+
+        return isSafe;
     }
 
     //
     // Translates all stock currently carried by truck by given amount
     //
-    private void MoveStock(Vector3 posChange)
+    private bool MoveStock(Vector3 posChange)
     {
+        var movedWithoutIncident = true;
+
         foreach (var stock in carryingArea.CarriedStock)
         {
             stock.transform.position += posChange;
+            movedWithoutIncident = movedWithoutIncident && !stock.IsTumbling;
         }
+
+        return movedWithoutIncident;
     }
 }
