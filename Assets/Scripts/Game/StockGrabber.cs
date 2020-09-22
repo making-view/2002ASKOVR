@@ -47,7 +47,7 @@ public abstract class StockGrabber : MonoBehaviour
         //
         // Only grab stock if there are no stock items on top of it
         //
-        if (focusedStock.GetOverheadStock().Count == 0)
+        if (focusedStock.GetStockAbove().Count == 0)
         {
             grabbedStock = focusedStock;
 

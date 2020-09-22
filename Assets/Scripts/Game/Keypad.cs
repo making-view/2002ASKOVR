@@ -12,6 +12,8 @@ public class Keypad : MonoBehaviour
     [SerializeField] Text display = null;
     [SerializeField] PickList pickList = null;
     [SerializeField] Wrapper wrapper = null;
+    [SerializeField] GameObject debugDisplay = null;
+    [SerializeField] bool debug = false;
 
     private string command = "";
 
@@ -53,5 +55,10 @@ public class Keypad : MonoBehaviour
     public void StopWrapping()
     {
         wrapper.SetWrapping(false);
+    }
+
+    private void OnValidate()
+    {
+        debugDisplay.SetActive(debug);
     }
 }

@@ -17,6 +17,8 @@ public enum LoadCarryingSides
 [RequireComponent(typeof(Rigidbody))]
 public class Stock : MonoBehaviour
 {
+    [SerializeField] Text debug = null;
+
     [Header("Properties")]
     [SerializeField] private string itemName = "Vare";
     [SerializeField] private LoadCarryingSides loadCarryingSides = LoadCarryingSides.All;
@@ -93,6 +95,10 @@ public class Stock : MonoBehaviour
 
     void Start()
     {
+        foreach (Text t in GetComponentsInChildren<Text>())
+            if (t.gameObject.name.Equals("debug"))
+                debug = t;
+
         ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
         controlScheme = FindObjectOfType<ControlSchemeManager>();
@@ -110,6 +116,18 @@ public class Stock : MonoBehaviour
 
     void Update()
     {
+
+        if(debug != null)
+        {
+            debug.text = "";
+            debug.text += GetStockAbove().Count;
+            debug.text += System.Environment.NewLine;
+            debug.text += System.Environment.NewLine;
+            debug.text += GetStockBelow().Count;
+
+            Debug.Log("stock debug text: " + debug.text);
+        }
+
         angleAdjustCooldownTimer -= Time.deltaTime;
 
         //
@@ -322,19 +340,37 @@ public class Stock : MonoBehaviour
         material.SetColor("_EmissionColor", wrappedColor);
     }
 
-    public List<Stock> GetOverheadStock()
+    public List<Stock> GetStockAbove()
     {
         var result = new List<Stock>();
 
-        var center = ownCollider.transform.position + ownCollider.center;
-        center.y += 0.015f;
-        var halfExtents = ownCollider.size / 2;
+        var center = ownCollider.transform.position;
+        center.y += 0.05f;
+        var halfExtents = ownCollider.bounds.size / 2.1f;
         
         result = Physics.OverlapBox(center, halfExtents)
             .Where(o => o != ownCollider 
                 && o.gameObject.GetComponent<Stock>() != null 
-                && o.gameObject.transform.position.y - gameObject.GetComponent<BoxCollider>().bounds.size.y / 1.75f 
-                    > transform.position.y + ownCollider.bounds.size.y / 2)
+                && o.gameObject.transform.position.y
+                    > transform.position.y)
+            .Select(o => o.gameObject.GetComponent<Stock>()).ToList();
+
+        return result;
+    }
+
+    public List<Stock> GetStockBelow()
+    {
+        var result = new List<Stock>();
+
+        var center = ownCollider.transform.position;
+        center.y -= 0.05f;
+        var halfExtents = ownCollider.bounds.size / 2.1f;
+
+        result = Physics.OverlapBox(center, halfExtents)
+            .Where(o => o != ownCollider
+                && o.gameObject.GetComponent<Stock>() != null
+                && o.gameObject.transform.position.y
+                    < transform.position.y)
             .Select(o => o.gameObject.GetComponent<Stock>()).ToList();
 
         return result;

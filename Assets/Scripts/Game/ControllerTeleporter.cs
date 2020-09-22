@@ -126,10 +126,10 @@ public class ControllerTeleporter : MonoBehaviour
         //
         if (!OVRInput.Get(OVRInput.Button.One, controller) && teleportActivationTimer > 0.0f)
         {
-            Vector3 userLocalPos = centerEyeAnchor.transform.localPosition;
-            Vector3 xzPlaneOffset = new Vector3(userLocalPos.x, 0, userLocalPos.z);
+            var offset = centerEyeAnchor.transform.position - cameraRig.transform.position;
+            Vector3 xzPlaneOffset = new Vector3(offset.x, 0, offset.z);
 
-            cameraRig.transform.position = targetMarker.transform.position - xzPlaneOffset;
+            cameraRig.transform.position = targetMarker.transform.position + xzPlaneOffset;
 
             teleportActivationTimer = 0.0f;
         }
