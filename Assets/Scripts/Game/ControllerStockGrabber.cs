@@ -14,7 +14,7 @@ public enum Direction
 
 public class ControllerStockGrabber : StockGrabber
 {
-    [SerializeField] private OVRCameraRig cameraRig;
+    [SerializeField] private GameObject playerCamera;
 
     [Header("Controller")]
     public float grabBegin = 0.55f;
@@ -58,11 +58,11 @@ public class ControllerStockGrabber : StockGrabber
 
         if (CurrentDirection == Direction.Right && previousDirection != Direction.Right && currFlex <= grabEnd)
         {
-            cameraRig.gameObject.transform.Rotate(Vector3.up, 45, Space.World);
+            playerCamera.gameObject.transform.Rotate(Vector3.up, 45, Space.World);
         }
         else if (CurrentDirection == Direction.Left && previousDirection != Direction.Left && currFlex <= grabEnd)
         {
-            cameraRig.gameObject.transform.Rotate(Vector3.up, -45, Space.World);
+            playerCamera.gameObject.transform.Rotate(Vector3.up, -45, Space.World);
         }
     }
 

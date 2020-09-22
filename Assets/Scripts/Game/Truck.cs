@@ -68,7 +68,7 @@ public class Truck : MonoBehaviour
 
         UnsafeMovements += IsMovementSafe() ? 0 : 1;
 
-        var initCount = carryingArea.CarriedStock;
+        var initCount = carryingArea.CarriedStock.Count();
         var stockTumbled = false;
 
         var initialPos = transform.position;
@@ -97,7 +97,7 @@ public class Truck : MonoBehaviour
 
         transform.position = targetPos;
 
-        if (stockTumbled || initCount != carryingArea.CarriedStock)
+        if (stockTumbled || initCount != carryingArea.CarriedStock.Count())
         {
             StockFellOff = true;
             FindObjectOfType<GameManager>().EndGame();
@@ -115,9 +115,9 @@ public class Truck : MonoBehaviour
 
         foreach(var stock in carryingArea.CarriedStock.Where(s => !s.IsWrapped))
         {
-            foreach (var ovrStock in stock.GetOverheadStock())
+            foreach (var ovrStock in stock.GetStockAbove())
             {
-                if (ovrStock.GetOverheadStock().Count > 0)
+                if (ovrStock.GetStockAbove().Count > 0)
                 {
                     isSafe = false;
                     break;

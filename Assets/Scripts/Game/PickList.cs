@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-struct OrderItem
+public struct OrderItem
 {
     public int amount;
     public int shelfNo;
@@ -29,7 +29,7 @@ public class PickList : MonoBehaviour
     public static List<ShelfInfo> shelves = new List<ShelfInfo>();
 
     [SerializeField] private VoiceCommandLady voiceCommandLady = null;
-    [SerializeField] private List<OrderItem> orderItems = null;
+    [SerializeField] public List<OrderItem> orderItems = null;
 
     private int currentItem = 0;
     private bool picking = false;
