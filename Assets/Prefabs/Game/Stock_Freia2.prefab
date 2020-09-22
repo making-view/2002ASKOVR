@@ -308,10 +308,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e5fd58b1f11e54fa5a5607b7b709fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Havrekli
+  itemName: Freia Sjokoladeplater
   loadCarryingSides: 0
   massDisplay: {fileID: 0}
   rotationTime: 0.25
+  tumbleThreshold: 5
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  wrappedColor: {r: 0, g: 0, b: 0, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!54 &3157181199935924479
 Rigidbody:
   m_ObjectHideFlags: 0
