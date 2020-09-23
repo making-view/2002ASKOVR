@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 struct Report
 {
@@ -21,16 +22,17 @@ public class GameManager : MonoBehaviour
     bool finishedPicking = false;
     float timer = 0.0f;
 
-    public void Start()
-    {
-        //TODO find better way to start game than just automatically starting immediately
-        StartGame();
-    }
-
     public void StartGame()
     {
-        StartCoroutine(Timer());
-        pickList.Initialize();
+        if (finishedPicking || timer > 0.0f)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            StartCoroutine(Timer());
+            pickList.Initialize();
+        }
     }
 
     public void EndGame()
