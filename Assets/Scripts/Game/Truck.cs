@@ -60,6 +60,27 @@ public class Truck : MonoBehaviour
     }
 
     //
+    // Hides the truck meshes, captures current state of all carried stock, and stops this script from running 
+    //
+    public void DisableTruck()
+    {
+        StopAllCoroutines();
+
+        foreach(var stock in carryingArea.CarriedStock)
+        {
+            stock.CaptureState(false);
+            stock.transform.parent = transform;
+        }
+
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponentsInChildren<MeshRenderer>().ToList()
+            .FirstOrDefault(c => c.transform.parent.name == "Geometry")
+            .transform.parent.gameObject.SetActive(false);
+
+        enabled = false;
+    }
+
+    //
     // Lerps truck and stock from its current Z position to the target Z position
     //
     IEnumerator MoveToZPoint(float targetZ)
@@ -67,6 +88,8 @@ public class Truck : MonoBehaviour
         moving = true;
 
         UnsafeMovements += IsMovementSafe() ? 0 : 1;
+
+        var initStock = carryingArea.CarriedStock.ToList();
 
         var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
@@ -85,10 +108,34 @@ public class Truck : MonoBehaviour
 
             transform.position = newPos;
             var stockStaying = MoveStock(posChange);
-            
+
             if (!stockStaying)
             {
                 StockFellOff = true;
+                FindObjectOfType<GameManager>().EndGame();
+                targetPos = transform.position;
+                break;
+            }
+
+            var currentStock = carryingArea.CarriedStock.ToList();
+            var initCurrStockIntersection = initStock.Intersect(currentStock).ToList();
+            var allInitStockStillOn = initCurrStockIntersection.Count == initStock.Count;
+            
+            if (!allInitStockStillOn)
+            {
+                StockFellOff = true;
+
+                foreach(var stock in initCurrStockIntersection)
+                {
+                    initStock.Remove(stock);
+                }
+
+                foreach(var stock in initStock)
+                {
+                    stock.CaptureState(true);
+                    stock.transform.parent = transform;
+                }
+
                 FindObjectOfType<GameManager>().EndGame();
                 targetPos = transform.position;
                 break;

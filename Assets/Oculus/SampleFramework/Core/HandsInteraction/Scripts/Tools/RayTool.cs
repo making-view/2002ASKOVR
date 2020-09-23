@@ -41,6 +41,7 @@ namespace OculusSampleFramework
 
 		private PinchStateModule _pinchStateModule = new PinchStateModule();
 		private Interactable _focusedInteractable;
+		private GameManager _gameManager = null;
 
         private OVRHand.Hand _handType;
 
@@ -78,6 +79,12 @@ namespace OculusSampleFramework
 			}
 			set
 			{
+				if (_gameManager && !_gameManager.IsGameRunning)
+                {
+					_rayToolView.EnableState = false;
+					return;
+				}
+
                 bool isPerformingAction = false;
 
                 if (IsHandTool)
@@ -117,9 +124,8 @@ namespace OculusSampleFramework
 			_rayToolView.InteractableTool = this;
 			_coneAngleReleaseDegrees = _coneAngleDegrees * 1.2f;
 			_initialized = true;
+			_gameManager = FindObjectOfType<GameManager>();
 
-            Debug.Log("Ray initialized");
-            Debug.Log(IsRightHandedTool ? "Right Hand" : "Left Hand");
 
 			_handType = IsRightHandedTool
 				? OVRHand.Hand.HandRight
