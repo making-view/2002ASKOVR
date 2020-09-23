@@ -129,7 +129,7 @@ public class ControllerTeleporter : MonoBehaviour
             var offset = centerEyeAnchor.transform.position - cameraRig.transform.position;
             Vector3 xzPlaneOffset = new Vector3(offset.x, 0, offset.z);
 
-            cameraRig.transform.position = targetMarker.transform.position + xzPlaneOffset;
+            cameraRig.transform.position = targetMarker.transform.position - xzPlaneOffset;
 
             teleportActivationTimer = 0.0f;
         }
