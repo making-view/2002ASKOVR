@@ -20,10 +20,13 @@ public class MeasureWall : MonoBehaviour
         stockHitPosition = Vector3.zero;
         palletHitPosition = Vector3.zero;
 
-        while (timer <= 1.0f && (stockHitPosition == Vector3.zero || palletHitPosition == Vector3.zero))
+        while (timer <= 2.0f && (stockHitPosition == Vector3.zero || palletHitPosition == Vector3.zero))
         {
             timer += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPos, targetPos, timer);
+
+            float step = Mathf.SmoothStep(0, 1, timer / 2);
+
+            transform.position = Vector3.Lerp(startPos, targetPos, step);
 
             yield return null;
         }
