@@ -831,7 +831,7 @@ Transform:
   m_GameObject: {fileID: 3083197312994418282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: -1}
-  m_LocalScale: {x: 1.2, y: 3, z: 0.05}
+  m_LocalScale: {x: 1.21, y: 3, z: 0.05}
   m_Children: []
   m_Father: {fileID: 3937018723236878489}
   m_RootOrder: 0
@@ -909,7 +909,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imprecision: 0
-  middle: {fileID: 0}
   stockHitPosition: {x: 0, y: 0, z: 0}
   palletHitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &3425722092165534079
@@ -1053,7 +1052,7 @@ Transform:
   m_GameObject: {fileID: 3975348339490584025}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.998, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.8, y: 3, z: 0.05}
+  m_LocalScale: {x: 0.81, y: 3, z: 0.05}
   m_Children: []
   m_Father: {fileID: 3937018723236878489}
   m_RootOrder: 2
@@ -1131,7 +1130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imprecision: 0
-  middle: {fileID: 0}
   stockHitPosition: {x: 0, y: 0, z: 0}
   palletHitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &4113356669357626440
@@ -1242,7 +1240,7 @@ Transform:
   m_GameObject: {fileID: 4152053660099397186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: 1}
-  m_LocalScale: {x: 1.2, y: 3, z: 0.05}
+  m_LocalScale: {x: 1.21, y: 3, z: 0.05}
   m_Children: []
   m_Father: {fileID: 3937018723236878489}
   m_RootOrder: 1
@@ -1320,7 +1318,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imprecision: 0
-  middle: {fileID: 0}
   stockHitPosition: {x: 0, y: 0, z: 0}
   palletHitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &6193808657805965172
@@ -1443,7 +1440,7 @@ Transform:
   m_GameObject: {fileID: 6505045242492657378}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.998, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.8, y: 3, z: 0.05}
+  m_LocalScale: {x: 0.81, y: 3, z: 0.05}
   m_Children: []
   m_Father: {fileID: 3937018723236878489}
   m_RootOrder: 3
@@ -1521,7 +1518,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imprecision: 0
-  middle: {fileID: 0}
   stockHitPosition: {x: 0, y: 0, z: 0}
   palletHitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &7428429146370650218
