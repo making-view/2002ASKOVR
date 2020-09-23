@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: {fileID: 0}
-  itemName: Redbull x12
+  itemName: Brynild Godteri
   loadCarryingSides: 0
   massDisplay: {fileID: 0}
   rotationTime: 0.25
