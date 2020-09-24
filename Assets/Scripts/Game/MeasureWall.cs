@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MeasureWall : MonoBehaviour
 {
@@ -37,10 +38,13 @@ public class MeasureWall : MonoBehaviour
         }
         else
         {
-            imprecision = (int)(stockHitPosition - palletHitPosition).magnitude * 100;
+            imprecision = (int)((stockHitPosition - palletHitPosition).magnitude * 100);
         }
 
-        Debug.Log(gameObject.name + " is done looking");
+        foreach (var text in GetComponentsInChildren<Text>())
+        {
+            text.text = imprecision.ToString();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

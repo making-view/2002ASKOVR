@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ReportManager reportManager = null;
     [SerializeField] ReportRow reportRowTemplate = null;
     [SerializeField] Text debugText = null;
+    [SerializeField] int maxImprecision = 25;
 
     bool finishedPicking = false;
     float timer = 0.0f;
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
             reportManager.messageText.text += "Diskvalifisert";
             reportManager.messageText.gameObject.SetActive(true);
         }
-        else if (report.imprecision > 10)
+        else if (report.imprecision > maxImprecision)
         {
             reportManager.messageText.text = "Varene dine er ikke stablet presist nok på pallen";
             reportManager.messageText.text += Environment.NewLine;
@@ -215,7 +216,7 @@ public class GameManager : MonoBehaviour
                 totalImprecision += imprecision;
             }
 
-            var precisionScore = Mathf.Clamp(10 - totalImprecision, 0, 10) * 50;
+            var precisionScore = Mathf.Clamp(maxImprecision - totalImprecision, 0, maxImprecision) * (500 / maxImprecision);
             report.entries.Add(new ReportEntry() { reason = "Unøyaktighet " + totalImprecision + "cm: ", score = precisionScore });
             report.imprecision = totalImprecision;
         }
