@@ -109,6 +109,14 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
 
+            var totalScore = 0;
+            foreach(var entry in report.entries)
+            {
+                totalScore += entry.score;
+            }
+
+            reportManager.totalScoreText.text = totalScore.ToString();
+
             reportManager.pickFactorText.gameObject.SetActive(true);
             reportManager.pickFactorText.text = report.correctPickString;
             reportManager.pickFactorNum.text = "x" + report.correctPickFactor.ToString("0.00");
