@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ReportManager reportManager = null;
     [SerializeField] ReportRow reportRowTemplate = null;
     [SerializeField] Text debugText = null;
+    [SerializeField] int maxImprecision = 25;
 
     bool finishedPicking = false;
     float timer = 0.0f;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+
         if (finishedPicking || timer > 0.0f)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
             reportManager.messageText.text += "Diskvalifisert";
             reportManager.messageText.gameObject.SetActive(true);
         }
-        else if (report.imprecision > 10)
+        else if (report.imprecision > maxImprecision)
         {
             reportManager.messageText.text = "Varene dine er ikke stablet presist nok på pallen";
             reportManager.messageText.text += Environment.NewLine;
@@ -163,7 +165,7 @@ public class GameManager : MonoBehaviour
         if (!truck.StockFellOff)
         {
             var timeScore = Mathf.Clamp((int)(500 - timer), 0, 500);
-            report.entries.Add(new ReportEntry() {reason = "Tidsbonus: ", score = timeScore });
+            report.entries.Add(new ReportEntry() { reason = "Tidsbonus: ", score = timeScore });
 
             var correctStock = new List<Stock>();
             var missingPicks = 0;
@@ -208,14 +210,14 @@ public class GameManager : MonoBehaviour
             report.entries.Add(new ReportEntry() { reason = "Uaktsom kjøring x" + truck.UnsafeMovements + ": ", score = driveScore });
 
             yield return StartCoroutine(measurer.MeasureAll());
-            
+
             var totalImprecision = 0;
             foreach (var imprecision in measurer.imprecisions)
             {
                 totalImprecision += imprecision;
             }
 
-            var precisionScore = Mathf.Clamp(10 - totalImprecision, 0, 10) * 50;
+            var precisionScore = Mathf.Clamp(maxImprecision - totalImprecision, 0, maxImprecision) * (500 / maxImprecision);
             report.entries.Add(new ReportEntry() { reason = "Unøyaktighet " + totalImprecision + "cm: ", score = precisionScore });
             report.imprecision = totalImprecision;
         }

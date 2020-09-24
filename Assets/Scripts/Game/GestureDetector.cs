@@ -24,6 +24,7 @@ public struct Gesture
 
 public class GestureDetector : MonoBehaviour
 {
+    public bool detectGestures = true;
     public OVRSkeleton skeleton = null;
     public float threshold = 0.1f;
     public bool allowGestureCreation = false;
@@ -60,8 +61,9 @@ public class GestureDetector : MonoBehaviour
         return activeGesture.name == name;
     }
 
-    void Start()
+    void OnEnable()
     {
+        fingerBones = new List<OVRBone>();
         StartCoroutine(GetFingerBones());
         activeGesture = new Gesture();
 
@@ -76,34 +78,37 @@ public class GestureDetector : MonoBehaviour
 
     void Update()
     {
-        if (allowGestureCreation && fingerBones.Count > 0 && Input.GetKeyDown(KeyCode.Space))
+        if (detectGestures)
         {
-            SaveGesture();
-        }
+            if (allowGestureCreation && fingerBones.Count > 0 && Input.GetKeyDown(KeyCode.Space))
+            {
+                SaveGesture();
+            }
 
-        var newGesture = DetectGesture();
-        bool gestureDetected = newGesture.poseName != PoseName.None;
+            var newGesture = DetectGesture();
+            bool gestureDetected = newGesture.poseName != PoseName.None;
 
-        //
-        // Counts up while the current gesture is different from the previously activated one
-        // Resets when they're the same
-        //
-        if (newGesture.poseName != activeGesture.poseName)
-            timeSinceGestureChange += Time.deltaTime;
-        else
-            timeSinceGestureChange = 0.0f;
+            //
+            // Counts up while the current gesture is different from the previously activated one
+            // Resets when they're the same
+            //
+            if (newGesture.poseName != activeGesture.poseName)
+                timeSinceGestureChange += Time.deltaTime;
+            else
+                timeSinceGestureChange = 0.0f;
 
-        //
-        // Invoke and change gesture if previous one was None or if current gesture has been
-        // different from previous gesture for longer than gestureChangeThreshold
-        //
-        if ((gestureDetected && activeGesture.poseName == PoseName.None)
-            || (timeSinceGestureChange > gestureChangeThreshold))
-        {
-            if (gestureDetected)
-                newGesture.onRecognized.Invoke();
+            //
+            // Invoke and change gesture if previous one was None or if current gesture has been
+            // different from previous gesture for longer than gestureChangeThreshold
+            //
+            if ((gestureDetected && activeGesture.poseName == PoseName.None)
+                || (timeSinceGestureChange > gestureChangeThreshold))
+            {
+                if (gestureDetected)
+                    newGesture.onRecognized.Invoke();
 
-            activeGesture = newGesture;
+                activeGesture = newGesture;
+            }
         }
     }
 
@@ -180,7 +185,8 @@ public class GestureDetector : MonoBehaviour
     {
         do
         {
-            fingerBones = new List<OVRBone>(skeleton.Bones);
+            if(skeleton.Bones != null)
+                fingerBones = new List<OVRBone>(skeleton.Bones);
             yield return null;
         } while (fingerBones.Count <= 0);
     }

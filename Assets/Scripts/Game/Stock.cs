@@ -12,7 +12,6 @@ public enum LoadCarryingSides
     None
 }
 
-[RequireComponent(typeof(ButtonController))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Stock : MonoBehaviour
