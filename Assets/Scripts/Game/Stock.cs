@@ -28,7 +28,7 @@ public class Stock : MonoBehaviour
 
     [Header("Settings")] 
     [SerializeField] private float rotationTime = 0.25f;
-    [SerializeField] private float tumbleThreshold = 5.0f;
+    [SerializeField] private float tumbleThreshold = 3.0f;
     [SerializeField] private Color highlightColor = Color.white;
     [SerializeField] private Color wrappedColor = Color.black;
     [SerializeField] private Color damageColor = Color.red;
@@ -95,9 +95,9 @@ public class Stock : MonoBehaviour
 
     void Start()
     {
-        foreach (Text t in GetComponentsInChildren<Text>())
-            if (t.gameObject.name.Equals("debug"))
-                debug = t;
+        //foreach (Text t in GetComponentsInChildren<Text>())
+        //    if (t.gameObject.name.Equals("debug"))
+        //        debug = t;
 
         ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
@@ -117,16 +117,16 @@ public class Stock : MonoBehaviour
     void Update()
     {
 
-        if(debug != null)
-        {
-            debug.text = "";
-            debug.text += GetStockAbove().Count;
-            debug.text += System.Environment.NewLine;
-            debug.text += System.Environment.NewLine;
-            debug.text += GetStockBelow().Count;
+        //if(debug != null)
+        //{
+        //    debug.text = "";
+        //    debug.text += GetStockAbove().Count;
+        //    debug.text += System.Environment.NewLine;
+        //    debug.text += System.Environment.NewLine;
+        //    debug.text += GetStockBelow().Count;
 
-            Debug.Log("stock debug text: " + debug.text);
-        }
+        //    Debug.Log("stock debug text: " + debug.text);
+        //}
 
         angleAdjustCooldownTimer -= Time.deltaTime;
 
@@ -338,6 +338,18 @@ public class Stock : MonoBehaviour
         rigidBody.isKinematic = true;
         GetComponent<ButtonController>().IsInteractable = false;
         material.SetColor("_EmissionColor", wrappedColor);
+    }
+
+    public void CaptureState(bool causeDamage)
+    {
+        if (IsTumbling || causeDamage)
+        {
+            material.SetColor("_EmissionColor", damageColor);
+        }
+
+        rigidBody.isKinematic = true;
+        GetComponent<ButtonController>().IsInteractable = false;
+        
     }
 
     public List<Stock> GetStockAbove()
