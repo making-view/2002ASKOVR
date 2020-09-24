@@ -23,9 +23,14 @@ public class Measurer : MonoBehaviour
 
     public IEnumerator MeasureAll()
     {
+
+        foreach (var wall in walls)
+        {
+            wall.gameObject.SetActive(true);
+        }
+
         for (int i = 0; i < walls.Count; ++i)
         {
-            walls[i].gameObject.SetActive(true);
             yield return StartCoroutine(walls[i].Measure());
             imprecisions[i] = walls[i].imprecision;
         }

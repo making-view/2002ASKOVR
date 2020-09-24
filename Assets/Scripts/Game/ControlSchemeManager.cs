@@ -6,6 +6,7 @@ public class ControlSchemeManager : MonoBehaviour
 {
     [SerializeField] public List<GameObject> handObjects;
     [SerializeField] public List<GameObject> controllerObjects;
+    [SerializeField] public List<GestureDetector> gestureDetectors;
 
     public bool IsHandTracking
     {
@@ -31,6 +32,9 @@ public class ControlSchemeManager : MonoBehaviour
 
                 foreach (var obj in controllerObjects)
                     obj.SetActive(false);
+
+                foreach (var obj in gestureDetectors)
+                    obj.detectGestures = true;
             }
             else
             {
@@ -39,6 +43,9 @@ public class ControlSchemeManager : MonoBehaviour
 
                 foreach (var obj in controllerObjects)
                     obj.SetActive(true);
+
+                foreach (var obj in gestureDetectors)
+                    obj.detectGestures = true;
             }
         }
 

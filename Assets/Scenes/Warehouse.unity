@@ -629,12 +629,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   voiceCommandLady: {fileID: 827080290}
   orderItems:
-  - amount: 1
-    shelfNo: 14
-  - amount: 3
-    shelfNo: 17
-  - amount: 4
-    shelfNo: 22
+  - amount: 2
+    shelfNo: 2
 --- !u!4 &41334664
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,6 +1524,7 @@ MonoBehaviour:
   reportManager: {fileID: 1683127571}
   reportRowTemplate: {fileID: 1107875372}
   debugText: {fileID: 2087913127}
+  maxImprecision: 25
 --- !u!1001 &77681013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4709,7 +4706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 143668, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 143668, guid: e6ba3498ffa1e534b91a07264266e6b8, type: 3}
       propertyPath: m_Layer
@@ -20758,7 +20755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21152,7 +21149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 195418, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 195418, guid: ba1fa4a8c66106b4988c88fe4b8e8502, type: 3}
       propertyPath: m_Layer
@@ -33242,7 +33239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1870938896605422, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_LocalPosition.x
@@ -39901,6 +39898,9 @@ MonoBehaviour:
   controllerObjects:
   - {fileID: 628261422}
   - {fileID: 8866552}
+  gestureDetectors:
+  - {fileID: 1418826799}
+  - {fileID: 232012692}
 --- !u!1001 &2040963915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42726,6 +42726,11 @@ PrefabInstance:
       propertyPath: skeleton
       value: 
       objectReference: {fileID: 1719749318}
+    - target: {fileID: 5287604726023384532, guid: 4fb0a7019b2924740a668da2c1998cf2,
+        type: 3}
+      propertyPath: detectGestures
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
         type: 3}
       propertyPath: gestures.Array.data[0].onRecognized.m_PersistentCalls.m_Calls.Array.size
@@ -42739,7 +42744,7 @@ PrefabInstance:
     - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
         type: 3}
       propertyPath: allowGestureCreation
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
         type: 3}
@@ -42750,6 +42755,11 @@ PrefabInstance:
         type: 3}
       propertyPath: gestures.Array.data[0].onRecognized.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5287604726673261167, guid: 4fb0a7019b2924740a668da2c1998cf2,
+        type: 3}
+      propertyPath: detectGestures
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5287604726976585242, guid: 4fb0a7019b2924740a668da2c1998cf2,
         type: 3}

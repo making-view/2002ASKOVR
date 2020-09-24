@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MeasureWall : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer visualScanner = null;
+
     public int imprecision;
 
     public Vector3 stockHitPosition = Vector3.zero;
@@ -14,9 +16,12 @@ public class MeasureWall : MonoBehaviour
     public IEnumerator Measure()
     {
         var timer = 0.0f;
+
         var startPos = transform.position;
-        var middle = transform.parent.transform;
+        var middle = transform.parent.parent.transform;
         var targetPos = new Vector3(middle.position.x, transform.position.y, middle.position.z);
+
+        visualScanner.gameObject.SetActive(true);
 
         stockHitPosition = Vector3.zero;
         palletHitPosition = Vector3.zero;
@@ -27,21 +32,28 @@ public class MeasureWall : MonoBehaviour
 
             float step = Mathf.SmoothStep(0, 1, timer / 2);
 
+            var currStockHitPosition = stockHitPosition;
+
             transform.position = Vector3.Lerp(startPos, targetPos, step);
+
+            if (currStockHitPosition == Vector3.zero)
+            {
+                visualScanner.transform.position = transform.position;
+            }
 
             yield return null;
         }
 
         if (stockHitPosition == Vector3.zero || palletHitPosition == Vector3.zero)
         {
-            imprecision = 999;
+            imprecision = (int)((transform.position - palletHitPosition).magnitude * 100);
         }
         else
         {
             imprecision = (int)((stockHitPosition - palletHitPosition).magnitude * 100);
         }
 
-        foreach (var text in GetComponentsInChildren<Text>())
+        foreach (var text in visualScanner.GetComponentsInChildren<Text>())
         {
             text.text = imprecision.ToString();
         }
@@ -49,11 +61,13 @@ public class MeasureWall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(name + " collided with " + other.gameObject.name);
+
         if (other.gameObject.name.Equals("Pallet"))
         {
             palletHitPosition = transform.position;
         }
-        else if (other.gameObject.GetComponent<Stock>())
+        else if (other.gameObject.GetComponent<Stock>() || other.gameObject.transform.parent.gameObject.GetComponent<Stock>())
         {
             stockHitPosition = transform.position;
         }

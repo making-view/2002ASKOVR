@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+
         if (finishedPicking || timer > 0.0f)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -164,7 +165,7 @@ public class GameManager : MonoBehaviour
         if (!truck.StockFellOff)
         {
             var timeScore = Mathf.Clamp((int)(500 - timer), 0, 500);
-            report.entries.Add(new ReportEntry() {reason = "Tidsbonus: ", score = timeScore });
+            report.entries.Add(new ReportEntry() { reason = "Tidsbonus: ", score = timeScore });
 
             var correctStock = new List<Stock>();
             var missingPicks = 0;
@@ -209,7 +210,7 @@ public class GameManager : MonoBehaviour
             report.entries.Add(new ReportEntry() { reason = "Uaktsom kjøring x" + truck.UnsafeMovements + ": ", score = driveScore });
 
             yield return StartCoroutine(measurer.MeasureAll());
-            
+
             var totalImprecision = 0;
             foreach (var imprecision in measurer.imprecisions)
             {
