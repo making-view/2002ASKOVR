@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,6 @@ public class Wrapper : MonoBehaviour
     [SerializeField] float minPlastic = 1f;
     [SerializeField] float maxPlastic = -8f;
 
-    List<GameObject> stockInside = null;
     Vector3 startPos;
     float palletArea = 0.0f;
     BoxCollider boxCollider;
@@ -33,7 +33,6 @@ public class Wrapper : MonoBehaviour
 
     void Start()
     {
-        stockInside = new List<GameObject>();
         startPos = transform.localPosition;
 
         var palletCollider = pallet.GetComponent<BoxCollider>();
@@ -46,8 +45,6 @@ public class Wrapper : MonoBehaviour
 
         if (wrapping && CanWrap())
         {
-            Debug.Log("CanWrap");
-
             transform.localPosition = new Vector3(transform.localPosition.x, 
                 transform.localPosition.y + Time.deltaTime * speed, 
                 transform.localPosition.z
@@ -72,22 +69,13 @@ public class Wrapper : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.GetComponent<Stock>() != null)
-            stockInside.Add(collider.gameObject);
-    }
-
-    private void OnTriggerExit(Collider collider)
-    {
-        stockInside.Remove(collider.gameObject);
-    }
-
     private bool CanWrap()
     {
         var canWrap = false;
 
-        if (stockInside.Count > 0)
+        var stockInside = Physics.OverlapBox(boxCollider.transform.position, boxCollider.bounds.extents).Where(c => c.GetComponent<Stock>() != null);
+
+        if (stockInside.Count() > 0)
         {
             var totArea = 0.0f;
 
