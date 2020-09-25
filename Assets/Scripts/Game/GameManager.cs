@@ -161,8 +161,8 @@ public class GameManager : MonoBehaviour
 
             var driveScore = 250 * (1 - (truck.UnsafeMovement / truck.TotalMovement));
             var safeMovement = truck.TotalMovement - truck.UnsafeMovement;
-            report.entries.Add(new ReportEntry() { reason = "Trygg kjøring " + safeMovement.ToString("0.00") 
-                + "m/" + truck.TotalMovement.ToString("0.00") + "m: ",
+            report.entries.Add(new ReportEntry() { reason = "Trygg kjøring " + safeMovement.ToString("0.0") 
+                + "m/" + truck.TotalMovement.ToString("0.0") + "m: ",
                 score = (int)driveScore });
 
             yield return StartCoroutine(measurer.MeasureAll());
