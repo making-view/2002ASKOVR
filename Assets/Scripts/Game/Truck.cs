@@ -17,19 +17,11 @@ public class Truck : MonoBehaviour
     [SerializeField] private float minZ = 0.0f;
     [SerializeField] private float maxZ = 0.0f;
 
-    public int UnsafeMovements { get; private set; } = 0;
+    public float TotalMovement { get; private set; } = 0.0f;
+    public float UnsafeMovement { get; private set; } = 0.0f;
     public bool StockFellOff { get; private set; } = false;
 
     private bool moving = false;
-    private int currentLane = 0;
-
-    //
-    // Initiate currentLane to current position
-    //
-    private void Start()
-    {
-        currentLane = truckLanes.FindLaneClosestToPoint(transform.position);
-    }
 
     //
     // Determines if truck should across or between lanes, then executes the required movement
@@ -87,9 +79,9 @@ public class Truck : MonoBehaviour
     {
         moving = true;
 
-        UnsafeMovements += IsMovementSafe() ? 0 : 1;
 
         var initStock = carryingArea.CarriedStock.ToList();
+        var isMovementSafe = IsMovementSafe();
 
         var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
@@ -107,6 +99,9 @@ public class Truck : MonoBehaviour
             var posChange = newPos - transform.position;
 
             transform.position = newPos;
+            TotalMovement += posChange.magnitude;
+            UnsafeMovement += isMovementSafe ? 0.0f : posChange.magnitude;
+
             var stockStaying = MoveStock(posChange);
 
             if (!stockStaying)

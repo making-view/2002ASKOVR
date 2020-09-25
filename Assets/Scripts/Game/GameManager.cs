@@ -72,61 +72,6 @@ public class GameManager : MonoBehaviour
     }
 
     //
-    // Shows the report and animates values and grades over time for visual flair
-    //
-    private IEnumerator VisualizeReport(Report report)
-    {
-        if (truck.StockFellOff)
-        {
-            reportManager.messageText.text = "Usikrede varer falt av pallen din";
-            reportManager.messageText.text += Environment.NewLine;
-            reportManager.messageText.text += Environment.NewLine;
-            reportManager.messageText.text += "Diskvalifisert";
-            reportManager.messageText.gameObject.SetActive(true);
-        }
-        else if (report.imprecision > maxImprecision)
-        {
-            reportManager.messageText.text = "Varene dine er ikke stablet presist nok på pallen";
-            reportManager.messageText.text += Environment.NewLine;
-            reportManager.messageText.text += Environment.NewLine;
-            reportManager.messageText.text += "Diskvalifisert";
-            reportManager.messageText.gameObject.SetActive(true);
-        }
-        else
-        {
-            reportManager.messageText.gameObject.SetActive(false);
-
-            foreach (ReportEntry entry in report.entries)
-            {
-                var row = Instantiate(reportRowTemplate);
-                row.transform.SetParent(reportManager.Entries.gameObject.transform, false);
-
-                row.reasonText.text = entry.reason;
-                row.scoreText.text = entry.score.ToString();
-
-                row.gameObject.SetActive(true);
-
-                yield return null;
-            }
-
-            var totalScore = 0;
-            foreach(var entry in report.entries)
-            {
-                totalScore += entry.score;
-            }
-
-            reportManager.totalScoreText.text = totalScore.ToString();
-
-            reportManager.pickFactorText.gameObject.SetActive(true);
-            reportManager.pickFactorText.text = report.correctPickString;
-            reportManager.pickFactorNum.text = "x" + report.correctPickFactor.ToString("0.00");
-
-            reportManager.totalScoreText.gameObject.SetActive(true);
-            reportManager.totalGradeImage.gameObject.SetActive(true);
-        }
-    }
-
-    //
     // Moves all stock and player to report area
     //
     private void GoToReport()
@@ -214,8 +159,11 @@ public class GameManager : MonoBehaviour
             if (totStickyWares > 0)
                 report.entries.Add(new ReportEntry() { reason = "Varebinding x" + totStickyWares + ": ", score = stabilityScore });
 
-            var driveScore = 250 - Mathf.Clamp((truck.UnsafeMovements * -50), -250, 0);
-            report.entries.Add(new ReportEntry() { reason = "Uaktsom kjøring x" + truck.UnsafeMovements + ": ", score = driveScore });
+            var driveScore = 250 * (1 - (truck.UnsafeMovement / truck.TotalMovement));
+            var safeMovement = truck.TotalMovement - truck.UnsafeMovement;
+            report.entries.Add(new ReportEntry() { reason = "Trygg kjøring " + safeMovement.ToString("0.00") 
+                + "m/" + truck.TotalMovement.ToString("0.00") + "m: ",
+                score = (int)driveScore });
 
             yield return StartCoroutine(measurer.MeasureAll());
 
@@ -231,6 +179,61 @@ public class GameManager : MonoBehaviour
         }
 
         yield return StartCoroutine(VisualizeReport(report));
+    }
+
+    //
+    // Shows the report and animates values and grades over time for visual flair
+    //
+    private IEnumerator VisualizeReport(Report report)
+    {
+        if (truck.StockFellOff)
+        {
+            reportManager.messageText.text = "Usikrede varer falt av pallen din";
+            reportManager.messageText.text += Environment.NewLine;
+            reportManager.messageText.text += Environment.NewLine;
+            reportManager.messageText.text += "Diskvalifisert";
+            reportManager.messageText.gameObject.SetActive(true);
+        }
+        else if (report.imprecision > maxImprecision)
+        {
+            reportManager.messageText.text = "Varene dine er ikke stablet presist nok på pallen";
+            reportManager.messageText.text += Environment.NewLine;
+            reportManager.messageText.text += Environment.NewLine;
+            reportManager.messageText.text += "Diskvalifisert";
+            reportManager.messageText.gameObject.SetActive(true);
+        }
+        else
+        {
+            reportManager.messageText.gameObject.SetActive(false);
+
+            foreach (ReportEntry entry in report.entries)
+            {
+                var row = Instantiate(reportRowTemplate);
+                row.transform.SetParent(reportManager.Entries.gameObject.transform, false);
+
+                row.reasonText.text = entry.reason;
+                row.scoreText.text = entry.score.ToString();
+
+                row.gameObject.SetActive(true);
+
+                yield return null;
+            }
+
+            var totalScore = 0;
+            foreach (var entry in report.entries)
+            {
+                totalScore += entry.score;
+            }
+
+            reportManager.totalScoreText.text = totalScore.ToString();
+
+            reportManager.pickFactorText.gameObject.SetActive(true);
+            reportManager.pickFactorText.text = report.correctPickString;
+            reportManager.pickFactorNum.text = "x" + report.correctPickFactor.ToString("0.00");
+
+            reportManager.totalScoreText.gameObject.SetActive(true);
+            reportManager.totalGradeImage.gameObject.SetActive(true);
+        }
     }
 
     //
