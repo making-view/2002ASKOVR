@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 9e07bcb893806694fb37d798f591f43e
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Emissive: {fileID: 2800000, guid: 92214aef7de7bd64984b073c2a7b4a89, type: 3}
+  - _TextureSample0: {fileID: 2800000, guid: 8df326d2f7f6d9c43bd7a6d32ff3b6d3, type: 3}
+  - _Opacity: {fileID: 2800000, guid: fb9e5843c890014438e618d2f31b1c77, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

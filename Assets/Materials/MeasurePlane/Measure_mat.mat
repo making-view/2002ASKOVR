@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SelectionCylinder
+  m_Name: Measure_mat
   m_Shader: {fileID: 4800000, guid: 9e07bcb893806694fb37d798f591f43e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
@@ -44,7 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2fef2bbdf32555342ad350ddd7e73d46, type: 3}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Measur_Emissive_mat_Emissive:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -90,6 +94,6 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 1, g: 0.8474483, b: 0.44700003, a: 0.597}
-    - _Color0: {r: 0, g: 0.15510938, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color0: {r: 0, g: 0.6691942, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
