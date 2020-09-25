@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using OculusSampleFramework;
+using System;
 
 public enum LoadCarryingSides
 {
@@ -16,8 +17,6 @@ public enum LoadCarryingSides
 [RequireComponent(typeof(Rigidbody))]
 public class Stock : MonoBehaviour
 {
-    [SerializeField] Text debug = null;
-
     [Header("Properties")]
     [SerializeField] private string itemName = "Vare";
     [SerializeField] private LoadCarryingSides loadCarryingSides = LoadCarryingSides.All;
@@ -63,6 +62,7 @@ public class Stock : MonoBehaviour
     private bool isRotating = false;
     private Vector3 previousPosition;
     private Vector3 grabVelocity;
+
     private Material material;
     private Color initEmissionColor;
 
@@ -115,18 +115,6 @@ public class Stock : MonoBehaviour
 
     void Update()
     {
-
-        //if(debug != null)
-        //{
-        //    debug.text = "";
-        //    debug.text += GetStockAbove().Count;
-        //    debug.text += System.Environment.NewLine;
-        //    debug.text += System.Environment.NewLine;
-        //    debug.text += GetStockBelow().Count;
-
-        //    Debug.Log("stock debug text: " + debug.text);
-        //}
-
         angleAdjustCooldownTimer -= Time.deltaTime;
 
         //
@@ -159,7 +147,6 @@ public class Stock : MonoBehaviour
                     newPos += direction * distance;
                 }
             }
-
 
             //
             // Applies the calculated rotation and the new and corrected position, and calculates velocity
@@ -332,11 +319,15 @@ public class Stock : MonoBehaviour
         grabHandle = null;
     }
 
-    public void Wrap()
+    internal void SetWrapped(bool isBelow)
     {
-        rigidBody.isKinematic = true;
-        GetComponent<ButtonController>().IsInteractable = false;
-        material.SetColor("_EmissionColor", wrappedColor);
+        if (!IsTumbling)
+        {
+            rigidBody.isKinematic = isBelow;
+            GetComponent<ButtonController>().IsInteractable = !isBelow;
+            var newColor = isBelow ? wrappedColor : initEmissionColor;
+            material.SetColor("_EmissionColor", newColor);
+        }
     }
 
     public void CaptureState(bool causeDamage)

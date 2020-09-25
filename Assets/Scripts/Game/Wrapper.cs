@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,19 +8,20 @@ public class Wrapper : MonoBehaviour
     [Header("Config")]
     [SerializeField] GameObject pallet = null;
     [SerializeField] GameObject plastic = null;
+    [SerializeField] CarryingArea carryingArea = null;
     [SerializeField] GameObject topPoint = null;
     [SerializeField] GameObject bottomPoint = null;
 
     [Header("Settings")]
-    [SerializeField] bool wrapping = false;
     [SerializeField] [Range(0,1)] float speed = 0.2f;
     [SerializeField] [Range(0, 1)] float requiredAreaFilled = 0.85f;
     [SerializeField] float minPlastic = 1f;
     [SerializeField] float maxPlastic = -8f;
 
-    List<GameObject> stockInside = null;
-    Vector3 startPos;
+    bool wrapping = false;
+    bool unwrapping = false;
     float palletArea = 0.0f;
+    Vector3 startPos;
     BoxCollider boxCollider;
     Material plasticMaterial;
 
@@ -32,7 +34,6 @@ public class Wrapper : MonoBehaviour
 
     void Start()
     {
-        stockInside = new List<GameObject>();
         startPos = transform.localPosition;
 
         var palletCollider = pallet.GetComponent<BoxCollider>();
@@ -41,15 +42,44 @@ public class Wrapper : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Wrapping: " + wrapping);
+
         if (wrapping && CanWrap())
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, 
-                transform.localPosition.y + Time.deltaTime * speed, 
-                transform.localPosition.z
+            transform.position = new Vector3(transform.position.x, 
+                transform.position.y + Time.deltaTime * speed, 
+                transform.position.z
             );
+        }
+        else if (unwrapping)
+        {
+            transform.position = new Vector3(transform.position.x,
+                transform.position.y - Time.deltaTime * speed,
+                transform.position.z
+            );
+        }
+        else
+        {
+            wrapping = false;
+            unwrapping = false;
+        }
 
-            var currentPlasticProgress = (transform.position.y - boxCollider.bounds.size.y / 2).Map(
-                bottomPoint.transform.position.y, topPoint.transform.position.y, 
+        if (transform.position.y > topPoint.transform.position.y)
+            transform.position = topPoint.transform.position;
+
+        if (transform.position.y < bottomPoint.transform.position.y)
+            transform.position = bottomPoint.transform.position;
+
+        if (wrapping || unwrapping)
+        {
+            foreach (var stock in carryingArea.CarriedStock)
+            {
+                var isBelow = stock.transform.position.y <= transform.position.y;
+                stock.SetWrapped(isBelow);
+            }
+
+            var currentPlasticProgress = transform.position.y.Map(
+                bottomPoint.transform.position.y, topPoint.transform.position.y,
                 minPlastic, maxPlastic
             );
 
@@ -57,23 +87,13 @@ public class Wrapper : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.GetComponent<Stock>() != null)
-            stockInside.Add(collider.gameObject);
-    }
-
-    private void OnTriggerExit(Collider collider)
-    {
-        if (stockInside.Remove(collider.gameObject) && wrapping)
-            collider.gameObject.GetComponent<Stock>().Wrap();
-    }
-
     private bool CanWrap()
     {
         var canWrap = false;
 
-        if (stockInside.Count > 0)
+        var stockInside = Physics.OverlapBox(boxCollider.transform.position, boxCollider.bounds.extents).Where(c => c.GetComponent<Stock>() != null);
+
+        if (stockInside.Count() > 0)
         {
             var totArea = 0.0f;
 
@@ -89,14 +109,19 @@ public class Wrapper : MonoBehaviour
         return canWrap;
     }
 
-    public void SetWrapping(bool wrapping)
+    public void ToggleWrapping()
     {
-        this.wrapping = wrapping;
+        wrapping = !wrapping;
     }
 
-
-    public void ResetWrapping()
+    public void SetUnwrapping(bool unwrapping)
     {
-        transform.localPosition = startPos;
+        this.unwrapping = unwrapping;
+    }
+
+    public void StopWrapActions()
+    {
+        unwrapping = false;
+        wrapping = false;
     }
 }

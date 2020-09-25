@@ -12,8 +12,6 @@ public class Keypad : MonoBehaviour
     [SerializeField] Text display = null;
     [SerializeField] PickList pickList = null;
     [SerializeField] Wrapper wrapper = null;
-    [SerializeField] GameObject debugDisplay = null;
-    [SerializeField] bool debug = false;
 
     private string command = "";
 
@@ -47,18 +45,23 @@ public class Keypad : MonoBehaviour
         display.text = command;
     }
 
-    public void StartWrapping()
+    public void ToggleWrapping()
     {
-        wrapper.SetWrapping(true);
+        wrapper.ToggleWrapping();
     }
 
-    public void StopWrapping()
+    public void StartUnwrapping()
     {
-        wrapper.SetWrapping(false);
+        wrapper.SetUnwrapping(true);
     }
 
-    private void OnValidate()
+    public void StopUnwrapping()
     {
-        debugDisplay.SetActive(debug);
+        wrapper.SetUnwrapping(false);
+    }
+
+    public void StopWrapActions()
+    {
+        wrapper.StopWrapActions();
     }
 }

@@ -14,22 +14,13 @@ public class Truck : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float moveThreshold = 1.5f;
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private float minZ = 0.0f;
-    [SerializeField] private float maxZ = 0.0f;
+    [SerializeField] private float truckEndPointZ = 0.0f;
 
-    public int UnsafeMovements { get; private set; } = 0;
+    public float TotalMovement { get; private set; } = 0.0f;
+    public float UnsafeMovement { get; private set; } = 0.0f;
     public bool StockFellOff { get; private set; } = false;
 
     private bool moving = false;
-    private int currentLane = 0;
-
-    //
-    // Initiate currentLane to current position
-    //
-    private void Start()
-    {
-        currentLane = truckLanes.FindLaneClosestToPoint(transform.position);
-    }
 
     //
     // Determines if truck should across or between lanes, then executes the required movement
@@ -51,7 +42,7 @@ public class Truck : MonoBehaviour
                 //
                 // Starts moving truck towards user if distance between self and user exceeds treshold in positive direction
                 //
-                if (zDiff > 0.0f && Mathf.Abs(zDiff) > moveThreshold)
+                if (currentZPos < truckEndPointZ && zDiff > 0.0f && Mathf.Abs(zDiff) > moveThreshold)
                 {
                     StartCoroutine(MoveToZPoint(playerCamera.transform.position.z));
                 }
@@ -66,7 +57,7 @@ public class Truck : MonoBehaviour
     {
         StopAllCoroutines();
 
-        foreach(var stock in carryingArea.CarriedStock)
+        foreach (var stock in carryingArea.CarriedStock)
         {
             stock.CaptureState(false);
             stock.transform.parent = transform;
@@ -87,15 +78,14 @@ public class Truck : MonoBehaviour
     {
         moving = true;
 
-        UnsafeMovements += IsMovementSafe() ? 0 : 1;
-
         var initStock = carryingArea.CarriedStock.ToList();
+        var isMovementSafe = IsMovementSafe();
 
         var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
-        destinationZ = Mathf.Clamp(destinationZ, minZ + localOffset.localPosition.z, maxZ + localOffset.localPosition.z);
+        destinationZ = Mathf.Clamp(destinationZ, initialPos.z, truckEndPointZ + localOffset.localPosition.z);
         var targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
-        
+
         var range = targetPos.z - initialPos.z;
         var totDeltaZ = 0.0f;
 
@@ -107,6 +97,9 @@ public class Truck : MonoBehaviour
             var posChange = newPos - transform.position;
 
             transform.position = newPos;
+            TotalMovement += posChange.magnitude;
+            UnsafeMovement += isMovementSafe ? 0.0f : posChange.magnitude;
+
             var stockStaying = MoveStock(posChange);
 
             if (!stockStaying)
@@ -120,17 +113,17 @@ public class Truck : MonoBehaviour
             var currentStock = carryingArea.CarriedStock.ToList();
             var initCurrStockIntersection = initStock.Intersect(currentStock).ToList();
             var allInitStockStillOn = initCurrStockIntersection.Count == initStock.Count;
-            
+
             if (!allInitStockStillOn)
             {
                 StockFellOff = true;
 
-                foreach(var stock in initCurrStockIntersection)
+                foreach (var stock in initCurrStockIntersection)
                 {
                     initStock.Remove(stock);
                 }
 
-                foreach(var stock in initStock)
+                foreach (var stock in initStock)
                 {
                     stock.CaptureState(true);
                     stock.transform.parent = transform;
@@ -158,7 +151,7 @@ public class Truck : MonoBehaviour
     {
         var isSafe = true;
 
-        foreach(var stock in carryingArea.CarriedStock.Where(s => !s.IsWrapped))
+        foreach (var stock in carryingArea.CarriedStock.Where(s => !s.IsWrapped))
         {
             foreach (var ovrStock in stock.GetStockAbove())
             {
