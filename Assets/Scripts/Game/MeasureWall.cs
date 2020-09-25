@@ -61,8 +61,6 @@ public class MeasureWall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(name + " collided with " + other.gameObject.name);
-
         if (other.gameObject.name.Equals("Pallet"))
         {
             palletHitPosition = transform.position;
