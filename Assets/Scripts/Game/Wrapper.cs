@@ -7,6 +7,7 @@ public class Wrapper : MonoBehaviour
     [Header("Config")]
     [SerializeField] GameObject pallet = null;
     [SerializeField] GameObject plastic = null;
+    [SerializeField] CarryingArea carryingArea = null;
     [SerializeField] GameObject topPoint = null;
     [SerializeField] GameObject bottomPoint = null;
 
@@ -41,12 +42,22 @@ public class Wrapper : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Wrapping: " + wrapping);
+
         if (wrapping && CanWrap())
         {
+            Debug.Log("CanWrap");
+
             transform.localPosition = new Vector3(transform.localPosition.x, 
                 transform.localPosition.y + Time.deltaTime * speed, 
                 transform.localPosition.z
             );
+
+            foreach(var stock in carryingArea.CarriedStock)
+            {
+                var isBelow = stock.transform.position.y <= transform.position.y;
+                stock.SetWrapped(isBelow);
+            }
 
             var currentPlasticProgress = (transform.position.y - boxCollider.bounds.size.y / 2).Map(
                 bottomPoint.transform.position.y, topPoint.transform.position.y, 
@@ -54,6 +65,10 @@ public class Wrapper : MonoBehaviour
             );
 
             plasticMaterial.SetFloat("_OpacityGradient", currentPlasticProgress);
+        }
+        else
+        {
+            wrapping = false;
         }
     }
 
@@ -65,8 +80,7 @@ public class Wrapper : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (stockInside.Remove(collider.gameObject) && wrapping && !collider.gameObject.GetComponent<Stock>().IsTumbling)
-            collider.gameObject.GetComponent<Stock>().Wrap();
+        stockInside.Remove(collider.gameObject);
     }
 
     private bool CanWrap()
@@ -89,9 +103,14 @@ public class Wrapper : MonoBehaviour
         return canWrap;
     }
 
-    public void SetWrapping(bool wrapping)
+    public void ToggleWrapping()
     {
-        this.wrapping = wrapping;
+        wrapping = !wrapping;
+    }
+
+    public void StopWrapping()
+    {
+        wrapping = false;
     }
 
 
