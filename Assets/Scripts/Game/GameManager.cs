@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Camera playerHead = null;
     [SerializeField] ReportManager reportManager = null;
     [SerializeField] ReportRow reportRowTemplate = null;
-    [SerializeField] Text debugText = null;
     [SerializeField] int maxImprecision = 25;
 
     bool finishedPicking = false;
@@ -88,22 +87,6 @@ public class GameManager : MonoBehaviour
 
         cameraRig.transform.position = playerDestination.position - xzPlaneOffset;
         cameraRig.transform.rotation = Quaternion.Euler(playerDestination.rotation.eulerAngles - new Vector3(0, rotOffset, 0));
-    }
-
-    private void PrintReport(Report report)
-    {
-        //TODO edgecase for stock fell off
-        debugText.text = "";
-        int totalscore = 0;
-
-        foreach (var entry in report.entries)
-        {
-            debugText.text += entry.reason;
-            debugText.text += System.Environment.NewLine;
-            totalscore += entry.score;
-        }
-
-        debugText.text += "Total score: " + totalscore;
     }
 
     //

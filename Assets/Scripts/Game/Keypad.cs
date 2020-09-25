@@ -47,7 +47,7 @@ public class Keypad : MonoBehaviour
         display.text = command;
     }
 
-    public void StartWrapping()
+    public void ToggleWrapping()
     {
         wrapper.SetWrapping(true);
     }

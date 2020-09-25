@@ -44,8 +44,7 @@ public class KeypadButton : MonoBehaviour
                 button.onButtonPushed.AddListener(keypad.Repeat);
                 break;
             case ButtonType.Wrap:
-                button.onButtonPushed.AddListener(keypad.StartWrapping);
-                button.onButtonReleased.AddListener(keypad.StopWrapping);
+                button.onButtonPushed.AddListener(keypad.ToggleWrapping);
                 break;
         }
     }
