@@ -65,7 +65,7 @@ public class Wrapper : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (stockInside.Remove(collider.gameObject) && wrapping)
+        if (stockInside.Remove(collider.gameObject) && wrapping && !collider.gameObject.GetComponent<Stock>().IsTumbling)
             collider.gameObject.GetComponent<Stock>().Wrap();
     }
 

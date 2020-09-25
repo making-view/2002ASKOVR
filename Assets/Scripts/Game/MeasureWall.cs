@@ -46,7 +46,7 @@ public class MeasureWall : MonoBehaviour
 
         if (stockHitPosition == Vector3.zero || palletHitPosition == Vector3.zero)
         {
-            imprecision = (int)((transform.position - palletHitPosition).magnitude * 100);
+            imprecision = (int)((targetPos - palletHitPosition).magnitude * 100);
         }
         else
         {
@@ -63,11 +63,13 @@ public class MeasureWall : MonoBehaviour
     {
         if (other.gameObject.name.Equals("Pallet"))
         {
-            palletHitPosition = transform.position;
+            if (palletHitPosition == Vector3.zero)
+                palletHitPosition = transform.position;
         }
         else if (other.gameObject.GetComponent<Stock>() || other.gameObject.transform.parent.gameObject.GetComponent<Stock>())
         {
-            stockHitPosition = transform.position;
+            if (stockHitPosition == Vector3.zero)
+                stockHitPosition = transform.position;
         }
     }
 }

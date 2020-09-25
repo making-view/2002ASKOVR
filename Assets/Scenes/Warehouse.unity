@@ -631,24 +631,6 @@ MonoBehaviour:
   orderItems:
   - amount: 2
     shelfNo: 2
-  - amount: 3
-    shelfNo: 7
-  - amount: 2
-    shelfNo: 8
-  - amount: 4
-    shelfNo: 11
-  - amount: 4
-    shelfNo: 12
-  - amount: 5
-    shelfNo: 13
-  - amount: 4
-    shelfNo: 17
-  - amount: 2
-    shelfNo: 20
-  - amount: 8
-    shelfNo: 23
-  - amount: 3
-    shelfNo: 28
 --- !u!4 &41334664
 Transform:
   m_ObjectHideFlags: 0

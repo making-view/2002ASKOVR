@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
         if (!truck.StockFellOff)
         {
-            var timeScore = Mathf.Clamp((int)(500 - timer), 0, 500);
+            var timeScore = Mathf.Clamp((int)((1000 - timer) / 2), 0, 500);
             report.entries.Add(new ReportEntry() { reason = "Tidsbonus: ", score = timeScore });
 
             var correctStock = new List<Stock>();
