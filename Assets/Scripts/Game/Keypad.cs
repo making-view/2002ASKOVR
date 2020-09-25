@@ -50,8 +50,18 @@ public class Keypad : MonoBehaviour
         wrapper.ToggleWrapping();
     }
 
-    public void StopWrapping()
+    public void StartUnwrapping()
     {
-        wrapper.StopWrapping();
+        wrapper.SetUnwrapping(true);
+    }
+
+    public void StopUnwrapping()
+    {
+        wrapper.SetUnwrapping(false);
+    }
+
+    public void StopWrapActions()
+    {
+        wrapper.StopWrapActions();
     }
 }

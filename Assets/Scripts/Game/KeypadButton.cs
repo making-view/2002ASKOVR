@@ -9,7 +9,8 @@ enum ButtonType
     Confirm,
     Backspace,
     Repeat,
-    Wrap
+    Wrap,
+    Unwrap
 }
 
 public class KeypadButton : MonoBehaviour
@@ -46,6 +47,10 @@ public class KeypadButton : MonoBehaviour
             case ButtonType.Wrap:
                 button.onButtonPushed.AddListener(keypad.ToggleWrapping);
                 break;
+            case ButtonType.Unwrap:
+                button.onButtonPushed.AddListener(keypad.StartUnwrapping);
+                button.onButtonReleased.AddListener(keypad.StopUnwrapping);
+                break;
         }
     }
 
@@ -56,6 +61,6 @@ public class KeypadButton : MonoBehaviour
 
     private void OnDisable()
     {
-        keypad.StopWrapping();
+        keypad.StopWrapActions();
     }
 }

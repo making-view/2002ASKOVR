@@ -17,8 +17,6 @@ public enum LoadCarryingSides
 [RequireComponent(typeof(Rigidbody))]
 public class Stock : MonoBehaviour
 {
-    [SerializeField] Text debug = null;
-
     [Header("Properties")]
     [SerializeField] private string itemName = "Vare";
     [SerializeField] private LoadCarryingSides loadCarryingSides = LoadCarryingSides.All;

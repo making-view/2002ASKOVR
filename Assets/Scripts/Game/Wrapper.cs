@@ -13,14 +13,15 @@ public class Wrapper : MonoBehaviour
     [SerializeField] GameObject bottomPoint = null;
 
     [Header("Settings")]
-    [SerializeField] bool wrapping = false;
     [SerializeField] [Range(0,1)] float speed = 0.2f;
     [SerializeField] [Range(0, 1)] float requiredAreaFilled = 0.85f;
     [SerializeField] float minPlastic = 1f;
     [SerializeField] float maxPlastic = -8f;
 
-    Vector3 startPos;
+    bool wrapping = false;
+    bool unwrapping = false;
     float palletArea = 0.0f;
+    Vector3 startPos;
     BoxCollider boxCollider;
     Material plasticMaterial;
 
@@ -45,27 +46,44 @@ public class Wrapper : MonoBehaviour
 
         if (wrapping && CanWrap())
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, 
-                transform.localPosition.y + Time.deltaTime * speed, 
-                transform.localPosition.z
+            transform.position = new Vector3(transform.position.x, 
+                transform.position.y + Time.deltaTime * speed, 
+                transform.position.z
             );
+        }
+        else if (unwrapping)
+        {
+            transform.position = new Vector3(transform.position.x,
+                transform.position.y - Time.deltaTime * speed,
+                transform.position.z
+            );
+        }
+        else
+        {
+            wrapping = false;
+            unwrapping = false;
+        }
 
-            foreach(var stock in carryingArea.CarriedStock)
+        if (transform.position.y > topPoint.transform.position.y)
+            transform.position = topPoint.transform.position;
+
+        if (transform.position.y < bottomPoint.transform.position.y)
+            transform.position = bottomPoint.transform.position;
+
+        if (wrapping || unwrapping)
+        {
+            foreach (var stock in carryingArea.CarriedStock)
             {
                 var isBelow = stock.transform.position.y <= transform.position.y;
                 stock.SetWrapped(isBelow);
             }
 
-            var currentPlasticProgress = (transform.position.y - boxCollider.bounds.size.y / 2).Map(
-                bottomPoint.transform.position.y, topPoint.transform.position.y, 
+            var currentPlasticProgress = transform.position.y.Map(
+                bottomPoint.transform.position.y, topPoint.transform.position.y,
                 minPlastic, maxPlastic
             );
 
             plasticMaterial.SetFloat("_OpacityGradient", currentPlasticProgress);
-        }
-        else
-        {
-            wrapping = false;
         }
     }
 
@@ -96,14 +114,14 @@ public class Wrapper : MonoBehaviour
         wrapping = !wrapping;
     }
 
-    public void StopWrapping()
+    public void SetUnwrapping(bool unwrapping)
     {
-        wrapping = false;
+        this.unwrapping = unwrapping;
     }
 
-
-    public void ResetWrapping()
+    public void StopWrapActions()
     {
-        transform.localPosition = startPos;
+        unwrapping = false;
+        wrapping = false;
     }
 }
