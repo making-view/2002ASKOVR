@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MeasureWall : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer visualScanner = null;
+    [SerializeField] private GameObject visualScanner = null;
 
     public int imprecision;
 

@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50f5cee6117ebd439714a5697db2d49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualScanner: {fileID: 0}
+  visualScanner: {fileID: 1894922541332681337}
   imprecision: 0
   stockHitPosition: {x: 0, y: 0, z: 0}
   palletHitPosition: {x: 0, y: 0, z: 0}
