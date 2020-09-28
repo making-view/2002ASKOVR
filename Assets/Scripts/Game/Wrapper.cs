@@ -42,8 +42,6 @@ public class Wrapper : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Wrapping: " + wrapping);
-
         if (wrapping && CanWrap())
         {
             transform.position = new Vector3(transform.position.x, 
