@@ -83,7 +83,7 @@ public class Truck : MonoBehaviour
 
         var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
-        destinationZ = Mathf.Clamp(destinationZ, initialPos.z, truckEndPointZ + localOffset.localPosition.z);
+        destinationZ = Mathf.Clamp(destinationZ, initialPos.z, truckEndPointZ - localOffset.localPosition.z);
         var targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
 
         var range = targetPos.z - initialPos.z;
@@ -137,6 +137,26 @@ public class Truck : MonoBehaviour
             yield return null;
 
             totDeltaZ += moveSpeed * Time.deltaTime;
+
+            var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
+
+            if (closestLane == 1)
+            {
+                var currentZPos = transform.position.z - localOffset.localPosition.z;
+                destinationZ = targetZ + localOffset.localPosition.z;
+                destinationZ = Mathf.Clamp(destinationZ, currentZPos, truckEndPointZ - localOffset.localPosition.z);
+
+                var zDiff = playerCamera.transform.position.z - destinationZ;
+
+                if (Mathf.Abs(zDiff) > moveThreshold)
+                {
+                    targetZ = playerCamera.transform.position.z;
+                    destinationZ = targetZ + localOffset.localPosition.z;
+                    destinationZ = Mathf.Clamp(destinationZ, currentZPos, truckEndPointZ - localOffset.localPosition.z);
+                    targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
+                    range = targetPos.z - initialPos.z;
+                }
+            }
         }
 
         transform.position = targetPos;

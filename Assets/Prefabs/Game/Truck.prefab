@@ -75,7 +75,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967779962}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -614,7 +614,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   moveThreshold: 1.5
   moveSpeed: 1
-  truckEndPointZ: 0
+  truckEndPointZ: 12.866
 --- !u!54 &7428429145934766034
 Rigidbody:
   m_ObjectHideFlags: 0
