@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21, y: 0.32, z: 0.18}
-  m_Center: {x: -0.004, y: 0.012, z: 0}
+  m_Size: {x: 0.21, y: 0.30596185, z: 0.18}
+  m_Center: {x: -0.0040000007, y: 0.0049809217, z: -4.440892e-16}
 --- !u!114 &104397976598304365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,8 +101,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21, y: 0.32, z: 0.18}
-  m_Center: {x: -0.004, y: 0.012, z: 0}
+  m_Size: {x: 0.21, y: 0.30596185, z: 0.18}
+  m_Center: {x: -0.0040000007, y: 0.0049809217, z: -4.440892e-16}
 --- !u!114 &104397977204319650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,8 +159,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21, y: 0.32, z: 0.18}
-  m_Center: {x: -0.004, y: 0.012, z: 0}
+  m_Size: {x: 0.21, y: 0.30596185, z: 0.18}
+  m_Center: {x: -0.0040000007, y: 0.0049809217, z: -4.440892e-16}
 --- !u!114 &104397977514039254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 3157181199935924477}
   - component: {fileID: 3157181199935924478}
   - component: {fileID: 3157181199935924479}
+  - component: {fileID: 1094298120709613407}
   m_Layer: 9
   m_Name: Stock_PlasticBottle
   m_TagString: Untagged
@@ -271,8 +272,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21, y: 0.32, z: 0.18}
-  m_Center: {x: -0.004, y: 0.012, z: 0}
+  m_Size: {x: 0.21, y: 0.30596185, z: 0.18}
+  m_Center: {x: -0.0040000007, y: 0.0049809217, z: -4.440892e-16}
 --- !u!114 &3157181199935924477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,8 +312,11 @@ MonoBehaviour:
   itemName: Matolje
   loadCarryingSides: 0
   massDisplay: {fileID: 0}
-  stationaryTime: 1
   rotationTime: 0.25
+  tumbleThreshold: 3
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  wrappedColor: {r: 0, g: 0, b: 0, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!54 &3157181199935924479
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -329,3 +333,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!136 &1094298120709613407
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157181199935924476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.031552464
+  m_Height: 0.14583158
+  m_Direction: 0
+  m_Center: {x: 0.01407969, y: 0.1639342, z: -0.005186215}
