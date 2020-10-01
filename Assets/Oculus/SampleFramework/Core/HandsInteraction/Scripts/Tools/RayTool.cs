@@ -42,6 +42,7 @@ namespace OculusSampleFramework
 		private PinchStateModule _pinchStateModule = new PinchStateModule();
 		private Interactable _focusedInteractable;
 		private GameManager _gameManager = null;
+		private ActivateKeypad[] _keypadActivators = null;
 
         private OVRHand.Hand _handType;
 
@@ -96,9 +97,12 @@ namespace OculusSampleFramework
                     var controller = IsRightHandedTool ? HandsManager.Instance.RightController.Controller : HandsManager.Instance.LeftController.Controller;
 
                     isPerformingAction = OVRInput.Get(OVRInput.Button.One, controller);
-					isPerformingAction |= OVRInput.Get(OVRInput.Button.Two);
-					isPerformingAction |= OVRInput.Get(OVRInput.Button.Four);
 					isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
+
+					foreach (var keypadActivator in _keypadActivators)
+                    {
+						isPerformingAction |= keypadActivator.IsActive;
+                    }
                 }
 
                 if (isPerformingAction)
@@ -125,6 +129,7 @@ namespace OculusSampleFramework
 			_coneAngleReleaseDegrees = _coneAngleDegrees * 1.2f;
 			_initialized = true;
 			_gameManager = FindObjectOfType<GameManager>();
+			_keypadActivators = FindObjectsOfType<ActivateKeypad>();
 
 
 			_handType = IsRightHandedTool
