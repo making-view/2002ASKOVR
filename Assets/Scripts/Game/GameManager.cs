@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
             reportManager.pickFactorNum.text = "x" + report.correctPickFactor.ToString("0.00");
 
             reportManager.totalScoreText.gameObject.SetActive(true);
-            reportManager.totalGradeImage.gameObject.SetActive(true);
+            //reportManager.totalGradeImage.gameObject.SetActive(true);
         }
     }
 

@@ -676,9 +676,9 @@ MonoBehaviour:
   - amount: 3
     shelfNo: 2
   - amount: 4
-    shelfNo: 13
+    shelfNo: 12
   - amount: 4
-    shelfNo: 17
+    shelfNo: 13
   - amount: 4
     shelfNo: 23
   - amount: 3
@@ -14130,7 +14130,7 @@ Transform:
   m_LocalScale: {x: 3.3189, y: 1, z: 1.6}
   m_Children: []
   m_Father: {fileID: 1276335847}
-  m_RootOrder: 18
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!65 &706462340
 BoxCollider:
@@ -24470,6 +24470,7 @@ Transform:
   - {fileID: 1775555736}
   - {fileID: 127458475}
   - {fileID: 1946714989}
+  - {fileID: 706462339}
   - {fileID: 239560832}
   - {fileID: 611798769}
   - {fileID: 1483567861}
@@ -24480,7 +24481,6 @@ Transform:
   - {fileID: 1558842355}
   - {fileID: 1759844449}
   - {fileID: 1638890251}
-  - {fileID: 706462339}
   - {fileID: 18394908}
   - {fileID: 2086371806}
   - {fileID: 771181312}
@@ -24490,8 +24490,8 @@ Transform:
   - {fileID: 889833987}
   - {fileID: 107567553}
   - {fileID: 307485818}
-  - {fileID: 442004881}
   - {fileID: 769345323}
+  - {fileID: 442004881}
   - {fileID: 1887828869}
   - {fileID: 595203816}
   - {fileID: 1934693166}
