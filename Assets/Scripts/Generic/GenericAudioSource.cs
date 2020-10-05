@@ -18,6 +18,10 @@ public class GenericAudioSource : MonoBehaviour
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f;
+        audioSource.minDistance = 0.1f;
+        audioSource.maxDistance = 50f;
 
         // Try to get audio handler from parent if reference not set in editor
         if (audioHandler == null)
@@ -30,7 +34,7 @@ public class GenericAudioSource : MonoBehaviour
     }
 
     // Update variables from audioHandler
-    virtual protected void UpdateVariablesFromHandler()
+    virtual public void UpdateVariablesFromHandler()
     {
         pitchMax = audioHandler.pitchMax;
         pitchMin = audioHandler.pitchMin;
@@ -40,7 +44,7 @@ public class GenericAudioSource : MonoBehaviour
 
     virtual public void PlaySound()
     {
-        // Stop if still playing sound
+        // Stop if already playing sound
         if (audioSource.isPlaying)
             return;
 
@@ -52,7 +56,4 @@ public class GenericAudioSource : MonoBehaviour
         audioSource.clip = audioHandler.GetAudioClip();
         audioSource.Play();
     }
-
-
-
 }

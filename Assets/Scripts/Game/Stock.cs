@@ -55,6 +55,8 @@ public class Stock : MonoBehaviour
     private Rigidbody rigidBody;
     private List<BoxCollider> otherColliders;
     private ControlSchemeManager controlScheme;
+    private GenericAudioHandler audioHandler;
+    private GenericAudioSource audioSource;
 
     private StockGrabber grabbedBy = null;
     private GrabHandle grabHandle = null;
@@ -94,12 +96,10 @@ public class Stock : MonoBehaviour
 
     void Start()
     {
-        //foreach (Text t in GetComponentsInChildren<Text>())
-        //    if (t.gameObject.name.Equals("debug"))
-        //        debug = t;
-
         ownCollider = GetComponent<BoxCollider>();
         rigidBody = GetComponent<Rigidbody>();
+        audioHandler = GetComponent<GenericAudioHandler>();
+        audioSource = GetComponent<GenericAudioSource>();
         controlScheme = FindObjectOfType<ControlSchemeManager>();
         previousPosition = transform.position;
         material = GetComponent<MeshRenderer>().material;
@@ -380,6 +380,18 @@ public class Stock : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        var collisionForce = collision.impulse.magnitude / Time.fixedDeltaTime;
+        var audioMaxStrength = Mathf.Clamp(collisionForce, 1000f, 4000f).Map(1000f, 4000f, 0f, 1f);
+        var audioMinStrength = Mathf.Clamp(audioMaxStrength - 0.1f, 0f, 1f);
+
+        if (audioMaxStrength > 0f)
+        {
+            audioHandler.volumeMin = audioMinStrength;
+            audioHandler.volumeMax = audioMaxStrength;
+            audioSource.UpdateVariablesFromHandler();
+            audioSource.PlaySound();
+        }
+
         if (grabHandle && collision.collider is BoxCollider)
         {
             otherColliders.Add(collision.collider as BoxCollider);
