@@ -14,6 +14,14 @@ public abstract class StockGrabber : MonoBehaviour
     protected Stock focusedStock = null;
     protected Stock grabbedStock = null;
 
+    public bool IsGrabbing
+    {
+        get
+        {
+            return grabbedStock != null;
+        }
+    }
+
     //
     // Called by RayTool through HandsManager when it targets an object of Stock type
     //

@@ -9,13 +9,21 @@ public class ActivateKeypad : MonoBehaviour
     [SerializeField] GameObject keypad = null;
     [SerializeField] private bool right = false;
 
+    public bool IsActive
+    {
+        get
+        {
+            return OVRInput.Get(button);
+        }
+    }
+
     private OVRInput.Button button;
     void Start()
     {
         if (right)
-            button = OVRInput.Button.Two;
+            button = OVRInput.Button.One;
         else
-            button = OVRInput.Button.Four;
+            button = OVRInput.Button.Three;
     }
 
     // Update is called once per frame

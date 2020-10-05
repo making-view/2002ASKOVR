@@ -17,6 +17,7 @@ public class ControllerTeleporter : MonoBehaviour
     public float buttonReleaseBuffer = 0.4f;
 
     private Hand hand = null;
+    private ControllerStockGrabber grabber = null;
     private GameObject targetMarker = null;
     private Camera centerEyeAnchor = null;
     private Vector3 targetMarkerInitScale;
@@ -39,6 +40,7 @@ public class ControllerTeleporter : MonoBehaviour
     {
         centerEyeAnchor = cameraRig.GetComponentsInChildren<Camera>().ToList().FirstOrDefault(c => c.name == "CenterEyeAnchor");
         hand = GetComponent<Hand>();
+        grabber = GetComponent<ControllerStockGrabber>();
 
         targetMarker = Instantiate(targetMarkerPrefab);
         targetMarkerMaterial = targetMarker.GetComponent<MeshRenderer>().material;
@@ -73,7 +75,7 @@ public class ControllerTeleporter : MonoBehaviour
         //
         // Detects if the aiming direction intersects with the floor
         //
-        if (OVRInput.Get(OVRInput.Button.One, controller))
+        if (!grabber.IsGrabbing && OVRInput.Get(OVRInput.Button.One, controller))
         {
             //
             // Calculates the start and end point of the aiming ray
