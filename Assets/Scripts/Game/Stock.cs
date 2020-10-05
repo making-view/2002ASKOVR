@@ -384,7 +384,7 @@ public class Stock : MonoBehaviour
         var audioMaxStrength = Mathf.Clamp(collisionForce, 1000f, 4000f).Map(1000f, 4000f, 0f, 1f);
         var audioMinStrength = Mathf.Clamp(audioMaxStrength - 0.1f, 0f, 1f);
 
-        if (audioMaxStrength > 0f)
+        if (audioMaxStrength > 0f && audioHandler && audioSource)
         {
             audioHandler.volumeMin = audioMinStrength;
             audioHandler.volumeMax = audioMaxStrength;
