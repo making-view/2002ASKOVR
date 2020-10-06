@@ -311,8 +311,11 @@ MonoBehaviour:
   itemName: Havrekli
   loadCarryingSides: 0
   massDisplay: {fileID: 0}
-  stationaryTime: 1
   rotationTime: 0.25
+  tumbleThreshold: 3
+  highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  wrappedColor: {r: 0, g: 0, b: 0, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!54 &3157181199935924479
 Rigidbody:
   m_ObjectHideFlags: 0
