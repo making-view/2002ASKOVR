@@ -19,7 +19,7 @@ public class GenericAudioSource : MonoBehaviour
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f;
+        audioSource.spatialBlend = 0.5f;
         audioSource.minDistance = 0.1f;
         audioSource.maxDistance = 50f;
 
@@ -44,15 +44,12 @@ public class GenericAudioSource : MonoBehaviour
 
     virtual public void PlaySound()
     {
-        // Stop if already playing sound
-        if (audioSource.isPlaying)
-            return;
-
         // Add variations to sound
         audioSource.pitch = Random.Range(pitchMin, pitchMax);
         audioSource.volume = Random.Range(volumeMin, volumeMax);
 
         // Play sound
+        audioSource.Stop();
         audioSource.clip = audioHandler.GetAudioClip();
         audioSource.Play();
     }

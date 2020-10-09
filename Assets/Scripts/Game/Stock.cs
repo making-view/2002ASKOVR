@@ -376,9 +376,16 @@ public class Stock : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var collisionForce = collision.impulse.magnitude / Time.fixedDeltaTime;
-        var audioMaxStrength = Mathf.Clamp(collisionForce, 500f, 2000f).Map(500f, 2000f, 0f, 1f);
+        var collisionForce = collision.relativeVelocity.magnitude / Time.fixedDeltaTime;
+        if (collisionForce > 10)
+            collisionForce += 20;
+
+        var audioMaxStrength = Mathf.Clamp(collisionForce, 10f, 100f).Map(10f, 100f, 0f, 1f);
         var audioMinStrength = Mathf.Clamp(audioMaxStrength - 0.1f, 0f, 1f);
+
+        //Debug.Log("force: " + collisionForce);
+
+        //var col
 
         if (audioMaxStrength > 0f && audioHandler && audioSource)
         {

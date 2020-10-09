@@ -189,6 +189,8 @@ GameObject:
   - component: {fileID: 3157181199935924477}
   - component: {fileID: 3157181199935924478}
   - component: {fileID: 3157181199935924479}
+  - component: {fileID: 325606185661123926}
+  - component: {fileID: 855446756274442912}
   m_Layer: 9
   m_Name: Stock_OatBag
   m_TagString: Untagged
@@ -332,3 +334,46 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &325606185661123926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157181199935924476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d3b7eab0d77c946936ec6b3581fed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeMin: 0.8
+  volumeMax: 1
+  pitchMin: 0.9
+  pitchMax: 1.1
+  startingClips: Impacts
+  audioClips:
+  - name: Impacts
+    clip:
+    - {fileID: 8300000, guid: 735892fa0ea9db74c84fe0c257e5c93a, type: 3}
+    - {fileID: 8300000, guid: 97404fa70037549419aabe29fa6dd069, type: 3}
+    - {fileID: 8300000, guid: 364e341585911954d9ea7394ac0e7ac7, type: 3}
+    - {fileID: 8300000, guid: 58307ee54dd742449a3f837e7b69b6b9, type: 3}
+    - {fileID: 8300000, guid: 33b95d35eb6ef6745af12efd4ab850ad, type: 3}
+    - {fileID: 8300000, guid: 7e45cc010ab8dc449ba7e49f2421489b, type: 3}
+    - {fileID: 8300000, guid: a81a99303cff1dd4fb70b161311000c4, type: 3}
+    - {fileID: 8300000, guid: 1d1600d65f05d6c4dacf359041a74c42, type: 3}
+    - {fileID: 8300000, guid: 3de128e55e1017c40b0031af9ee007b1, type: 3}
+    - {fileID: 8300000, guid: eb662c963cd069c47b048fe259c929ff, type: 3}
+--- !u!114 &855446756274442912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157181199935924476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320158f172cee2743a5f682fe40251fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioHandler: {fileID: 325606185661123926}

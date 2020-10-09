@@ -508,8 +508,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeMin: 0.8
   volumeMax: 1
-  pitchMin: 0.6
-  pitchMax: 0.8
+  pitchMin: 0.9
+  pitchMax: 1.1
   startingClips: Impacts
   audioClips:
   - name: Impacts
