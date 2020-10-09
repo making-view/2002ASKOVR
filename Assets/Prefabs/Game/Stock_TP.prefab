@@ -354,11 +354,11 @@ MonoBehaviour:
   audioClips:
   - name: Impacts
     clip:
-    - {fileID: 8300000, guid: 3cbdd8eacd871e34fa21757cd2f248b4, type: 3}
-    - {fileID: 8300000, guid: ffe02ff3f0d071d4a87ed157a97cc363, type: 3}
-    - {fileID: 8300000, guid: 21501852b248229488f5e7afdfe7adda, type: 3}
-    - {fileID: 8300000, guid: 9201c2994a8d69949a625a1cf01ad43e, type: 3}
-    - {fileID: 8300000, guid: 5f5a77f7b718412439c31363edbb7b9f, type: 3}
+    - {fileID: 8300000, guid: da8c009989b0fa244a2d9377c253409f, type: 3}
+    - {fileID: 8300000, guid: bfb79f64df77843489312f7ac0ac4677, type: 3}
+    - {fileID: 8300000, guid: 37bb366f0def3e942a1b51c3ac8bc4fd, type: 3}
+    - {fileID: 8300000, guid: 83833fe8629671947aed50d893304275, type: 3}
+    - {fileID: 8300000, guid: 23374189f8cf2a6448b6cfbdf12479de, type: 3}
 --- !u!114 &1500008853042432133
 MonoBehaviour:
   m_ObjectHideFlags: 0

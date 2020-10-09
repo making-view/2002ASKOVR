@@ -354,16 +354,11 @@ MonoBehaviour:
   audioClips:
   - name: Impacts
     clip:
-    - {fileID: 8300000, guid: 735892fa0ea9db74c84fe0c257e5c93a, type: 3}
-    - {fileID: 8300000, guid: 97404fa70037549419aabe29fa6dd069, type: 3}
-    - {fileID: 8300000, guid: 364e341585911954d9ea7394ac0e7ac7, type: 3}
-    - {fileID: 8300000, guid: 58307ee54dd742449a3f837e7b69b6b9, type: 3}
-    - {fileID: 8300000, guid: 33b95d35eb6ef6745af12efd4ab850ad, type: 3}
-    - {fileID: 8300000, guid: 7e45cc010ab8dc449ba7e49f2421489b, type: 3}
-    - {fileID: 8300000, guid: a81a99303cff1dd4fb70b161311000c4, type: 3}
-    - {fileID: 8300000, guid: 1d1600d65f05d6c4dacf359041a74c42, type: 3}
-    - {fileID: 8300000, guid: 3de128e55e1017c40b0031af9ee007b1, type: 3}
-    - {fileID: 8300000, guid: eb662c963cd069c47b048fe259c929ff, type: 3}
+    - {fileID: 8300000, guid: 629f3644507c033479863a7201bec832, type: 3}
+    - {fileID: 8300000, guid: 7994c413dccfdc243bd1066c96445a86, type: 3}
+    - {fileID: 8300000, guid: 37d5bd85d97f28a41941a8566ccc3fc0, type: 3}
+    - {fileID: 8300000, guid: 5efc1983b3e6b50498b8669b68beca5a, type: 3}
+    - {fileID: 8300000, guid: 2d39d8a9f10e1e44884a1511a69cf1c2, type: 3}
 --- !u!114 &2527313164197892845
 MonoBehaviour:
   m_ObjectHideFlags: 0
