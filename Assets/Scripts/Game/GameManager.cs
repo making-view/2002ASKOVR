@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] ReportRow reportRowTemplate = null;
     [SerializeField] int maxImprecision = 25;
 
+    public bool ReadyForReport { get; set; } = false;
+
     bool finishedPicking = false;
     float timer = 0.0f;
 
@@ -63,11 +65,28 @@ public class GameManager : MonoBehaviour
     {
         finishedPicking = true;
         pickList.gameObject.SetActive(false); // Deactivated because game might end before PickList is complete
+
+        StartCoroutine(HandleEndState());
+    }
+
+    //
+    // Brings player to report when they confirm they want to end game or if the truck had stock fall off
+    //
+    private IEnumerator HandleEndState()
+    {
+        if (!truck.StockFellOff)
+        {
+            while (!ReadyForReport)
+            {
+                yield return null;
+            }
+        }
+
         truck.DisableTruck();
 
         GoToReport();
 
-        StartCoroutine(GenerateReport());
+        yield return StartCoroutine(GenerateReport());
     }
 
     //

@@ -21,6 +21,9 @@ public class KeypadButton : MonoBehaviour
     private Text text = null;
     private Keypad keypad = null;
 
+    private PickList picklist = null;
+    private GameManager gameManager = null;
+
     //
     // Assigns this button to the correct action on the correct keypad
     //
@@ -30,13 +33,16 @@ public class KeypadButton : MonoBehaviour
         button = GetComponentInChildren<PushableButton>();
         text = GetComponentInChildren<Text>();
 
+        picklist = FindObjectOfType<PickList>();
+        gameManager = FindObjectOfType<GameManager>();
+
         switch(buttonType)
         {
             case ButtonType.Number:
                 button.onButtonPushed.AddListener(SendTextToPad);
                 break;
             case ButtonType.Confirm:
-                button.onButtonPushed.AddListener(keypad.SendCommand);
+                button.onButtonPushed.AddListener(ConfirmButton);
                 break;
             case ButtonType.Backspace:
                 button.onButtonPushed.AddListener(keypad.Backspace);
@@ -52,6 +58,14 @@ public class KeypadButton : MonoBehaviour
                 button.onButtonReleased.AddListener(keypad.StopUnwrapping);
                 break;
         }
+    }
+
+    private void ConfirmButton()
+    {
+        if (picklist.gameObject.activeSelf)
+            keypad.SendCommand();
+        else
+            gameManager.ReadyForReport = true;
     }
 
     private void SendTextToPad()

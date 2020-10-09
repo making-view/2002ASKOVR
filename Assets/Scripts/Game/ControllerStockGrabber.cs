@@ -57,6 +57,8 @@ public class ControllerStockGrabber : StockGrabber
         if (grabbedStock != null && tryDrop)
             GrabEnd();
 
+
+#if (UNITY_EDITOR)
         if (CurrentDirection == Direction.Right && previousDirection != Direction.Right && currFlex <= grabEnd)
         {
             playerRig.gameObject.transform.RotateAround(playerHead.transform.position, Vector3.up, 45);
@@ -65,6 +67,7 @@ public class ControllerStockGrabber : StockGrabber
         {
             playerRig.gameObject.transform.RotateAround(playerHead.transform.position, Vector3.up, -45);
         }
+#endif
     }
 
     private void CalculateRequestedDirection()

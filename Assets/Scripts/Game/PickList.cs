@@ -92,6 +92,7 @@ public class PickList : MonoBehaviour
 
         if (currentItem >= orderItems.Count)
         {
+            voiceCommandLady.PlayEndStateCommand();
             FindObjectOfType<GameManager>().EndGame();
         }
         else

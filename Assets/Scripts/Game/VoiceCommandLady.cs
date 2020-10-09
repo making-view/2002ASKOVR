@@ -7,6 +7,7 @@ public class VoiceCommandLady : MonoBehaviour
 {
     [SerializeField] private List<AudioClip> cShelfNumbers = null;
     [SerializeField] private List<AudioClip> stockPickAmounts = null;
+    [SerializeField] private AudioClip endStateClip = null;
     [SerializeField] private AudioClip hehehoho = null;
 
     private AudioSource audioSource;
@@ -34,6 +35,13 @@ public class VoiceCommandLady : MonoBehaviour
             audioSource.clip = stockPickAmounts[numberOfStock - 1];
             audioSource.Play();
         }
+    }
+
+    public void PlayEndStateCommand()
+    {
+        audioSource.Stop();
+        audioSource.clip = endStateClip;
+        audioSource.Play();
     }
 
     public void Hehehoho()
