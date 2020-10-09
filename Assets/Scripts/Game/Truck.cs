@@ -23,6 +23,7 @@ public class Truck : MonoBehaviour
     [SerializeField] private float moveThreshold = 1.5f;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float truckEndPointZ = 0.0f;
+    [SerializeField] private float truckStartPointZ = 0.0f;
 
     public float TotalMovement { get; private set; } = 0.0f;
     public float UnsafeMovement { get; private set; } = 0.0f;
@@ -52,12 +53,13 @@ public class Truck : MonoBehaviour
             if (closestLane == 1)
             {
                 var currentZPos = transform.position.z - localOffset.localPosition.z;
+                var truckTargetZ = playerCamera.transform.position.z + localOffset.localPosition.z;
                 var zDiff = playerCamera.transform.position.z - currentZPos;
 
                 //
                 // Starts moving truck towards user if distance between self and user exceeds treshold in positive direction
                 //
-                if (currentZPos < truckEndPointZ && zDiff > 0.0f && Mathf.Abs(zDiff) > moveThreshold)
+                if (truckTargetZ < truckEndPointZ && truckTargetZ > truckStartPointZ && Mathf.Abs(zDiff) > moveThreshold)
                 {
                     StartCoroutine(MoveToZPoint(playerCamera.transform.position.z));
                 }
@@ -100,11 +102,13 @@ public class Truck : MonoBehaviour
 
         var initialPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
-        destinationZ = Mathf.Clamp(destinationZ, initialPos.z, truckEndPointZ - localOffset.localPosition.z);
         var targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
 
-        var range = targetPos.z - initialPos.z;
+        var range = Mathf.Abs(targetPos.z - initialPos.z);
         var totDeltaZ = 0.0f;
+
+        var diff = 0.0f;
+        var prevDiff = Mathf.Infinity;
         #endregion
 
         #region Audio setup
@@ -139,11 +143,11 @@ public class Truck : MonoBehaviour
         #endregion
 
         #region Movement loop
-        while (initialPos.z + totDeltaZ <= targetPos.z)
+        while (true)
         {
             var currentZ = initialPos.z + totDeltaZ;
-            var percent = (currentZ - initialPos.z) / range;
-            var newPos = Vector3.Lerp(initialPos, targetPos, Mathf.SmoothStep(0, 1, percent));
+            var factor = Mathf.Abs(currentZ - initialPos.z) / range;
+            var newPos = Vector3.Lerp(initialPos, targetPos, Mathf.SmoothStep(0, 1, factor));
             var posChange = newPos - transform.position;
 
             transform.position = newPos;
@@ -189,7 +193,7 @@ public class Truck : MonoBehaviour
             distanceToMove = (targetPos - transform.position).magnitude;
             moveTime = distanceToMove / moveSpeed;
 
-            if (moveTime < endSoundThreshold && longDrive && !stopping )
+            if (moveTime < endSoundThreshold && longDrive && !stopping)
             {
                 audioSources[LOOP].loop = false;
                 audioSources[CLIP].clip = endSound;
@@ -199,7 +203,15 @@ public class Truck : MonoBehaviour
 
             yield return null;
 
-            totDeltaZ += moveSpeed * Time.deltaTime;
+            var signedMoveSpeed = moveSpeed * Mathf.Sign(destinationZ - initialPos.z);
+            totDeltaZ += signedMoveSpeed * Time.deltaTime;
+
+            diff = Mathf.Abs(currentZ - destinationZ);
+
+            if (diff > prevDiff || diff <= 0.01)
+                break;
+
+            prevDiff = diff;
 
             #region Dynamic target update code
             //var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
