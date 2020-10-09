@@ -677,12 +677,6 @@ MonoBehaviour:
     shelfNo: 2
   - amount: 4
     shelfNo: 12
-  - amount: 4
-    shelfNo: 13
-  - amount: 4
-    shelfNo: 23
-  - amount: 3
-    shelfNo: 30
 --- !u!4 &41334664
 Transform:
   m_ObjectHideFlags: 0

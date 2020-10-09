@@ -33,12 +33,7 @@ public class Stock : MonoBehaviour
 
     public string StockCode { get; set; }
     public int ShelfNumber { get; set; }
-    public bool IsWrapped { 
-        get
-        {
-            return rigidBody.isKinematic;
-        }
-    }
+    public bool IsWrapped { get; private set; }
 
     public bool IsTumbling
     {
@@ -324,6 +319,7 @@ public class Stock : MonoBehaviour
         if (!IsTumbling)
         {
             rigidBody.isKinematic = isBelow;
+            IsWrapped = isBelow;
             GetComponent<ButtonController>().IsInteractable = !isBelow;
             var newColor = isBelow ? wrappedColor : initEmissionColor;
             material.SetColor("_EmissionColor", newColor);

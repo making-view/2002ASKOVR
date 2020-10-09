@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         report.entries = new List<ReportEntry>();
         reportManager.gameObject.SetActive(true);
 
-        if (!truck.StockFellOff)
+        if (!truck.StockFellOff && carryingArea.CarriedStock.Count() > 0)
         {
             var timeScore = Mathf.Clamp((int)((1000 - timer) / 2), 0, 500);
             report.entries.Add(new ReportEntry() { reason = "Tidsbonus: ", score = timeScore });
@@ -151,17 +151,26 @@ public class GameManager : MonoBehaviour
             var totStickyWares = 0;
             var stabilityScore = 0;
 
+            var wrapped = 0;
             foreach (var stock in carryingArea.CarriedStock)
             {
                 var currCount = stock.GetStockBelow().Count;
                 totStickyWares += currCount;
                 stabilityScore += currCount * 10;
+                wrapped += Convert.ToInt32(stock.IsWrapped);
             }
+
+            var totalStock = carryingArea.CarriedStock.Count();
+            var wrappedScore = (int)((float)(wrapped / totalStock) * 500);
+            report.entries.Add(new ReportEntry() { reason = "Plastede varer " + wrapped + "/" + totalStock + ": ", score = wrappedScore });
 
             if (totStickyWares > 0)
                 report.entries.Add(new ReportEntry() { reason = "Varebinding x" + totStickyWares + ": ", score = stabilityScore });
 
-            var driveScore = 250 * (1 - (truck.UnsafeMovement / truck.TotalMovement));
+            float driveScore = 250;
+            if(truck.TotalMovement > 0)
+                driveScore = 250 * (1 - (truck.UnsafeMovement / truck.TotalMovement));
+            
             var safeMovement = truck.TotalMovement - truck.UnsafeMovement;
             report.entries.Add(new ReportEntry() { reason = "Trygg kjøring " + safeMovement.ToString("0.0") 
                 + "m/" + truck.TotalMovement.ToString("0.0") + "m: ",
@@ -199,6 +208,14 @@ public class GameManager : MonoBehaviour
         else if (report.imprecision > maxImprecision)
         {
             reportManager.messageText.text = "Varene dine er ikke stablet presist nok på pallen";
+            reportManager.messageText.text += Environment.NewLine;
+            reportManager.messageText.text += Environment.NewLine;
+            reportManager.messageText.text += "Diskvalifisert";
+            reportManager.messageText.gameObject.SetActive(true);
+        }
+        else if (carryingArea.CarriedStock.Count() == 0)
+        {
+            reportManager.messageText.text = "Du har ikke plukket noen varer";
             reportManager.messageText.text += Environment.NewLine;
             reportManager.messageText.text += Environment.NewLine;
             reportManager.messageText.text += "Diskvalifisert";
