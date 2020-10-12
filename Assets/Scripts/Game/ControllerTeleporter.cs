@@ -75,7 +75,7 @@ public class ControllerTeleporter : MonoBehaviour
         //
         // Detects if the aiming direction intersects with the floor
         //
-        if (!grabber.IsGrabbing && OVRInput.Get(OVRInput.Button.One, controller))
+        if (!grabber.IsFlexed && OVRInput.Get(OVRInput.Button.One, controller))
         {
             //
             // Calculates the start and end point of the aiming ray

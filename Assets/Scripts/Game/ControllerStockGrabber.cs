@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using OVRTouchSample;
+using OculusSampleFramework;
 
 public enum Direction
 {
@@ -28,6 +29,7 @@ public class ControllerStockGrabber : StockGrabber
     private float currFlex = 0.0f;
 
     private Hand _hand;
+
     public OVRHand.Hand HandType
     {
         get
@@ -50,6 +52,11 @@ public class ControllerStockGrabber : StockGrabber
 
         var tryGrab = currFlex >= grabBegin && prevFlex < grabBegin;
         var tryDrop = currFlex <= grabEnd && prevFlex > grabEnd;
+
+        if (currFlex > grabBegin)
+            IsFlexed = true;
+        else
+            IsFlexed = false;
 
         if (grabbedStock == null && focusedStock != null && tryGrab)
             GrabBegin();

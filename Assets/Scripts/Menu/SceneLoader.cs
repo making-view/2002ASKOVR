@@ -7,6 +7,8 @@ public class SceneLoader : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
+        Debug.Log("Attempt to load scene");
+
         var scene = SceneManager.GetSceneByName(sceneName);
 
         if (scene.IsValid())

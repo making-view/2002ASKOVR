@@ -42,6 +42,7 @@ namespace OculusSampleFramework
 		private PinchStateModule _pinchStateModule = new PinchStateModule();
 		private Interactable _focusedInteractable;
 		private GameManager _gameManager = null;
+		private StockGrabber _stockGrabber = null;
 		private ActivateKeypad[] _keypadActivators = null;
 
         private OVRHand.Hand _handType;
@@ -50,6 +51,10 @@ namespace OculusSampleFramework
 		{
 			get
 			{
+				if (_stockGrabber != null && _stockGrabber.IsFlexed)
+                {
+					return ToolInputState.PrimaryInputDownStay;
+				}
 				if (_pinchStateModule.PinchDownOnFocusedObject)
 				{
 					return ToolInputState.PrimaryInputDown;
@@ -131,10 +136,15 @@ namespace OculusSampleFramework
 			_gameManager = FindObjectOfType<GameManager>();
 			_keypadActivators = FindObjectsOfType<ActivateKeypad>();
 
-
 			_handType = IsRightHandedTool
 				? OVRHand.Hand.HandRight
 				: OVRHand.Hand.HandLeft;
+
+			if (!IsHandTool)
+            {
+				var cGrabbers = FindObjectsOfType<ControllerStockGrabber>();
+				_stockGrabber = cGrabbers.FirstOrDefault(g => g.HandType == _handType);
+            }
 		}
 
 		private void OnDestroy()
