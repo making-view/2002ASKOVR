@@ -29,14 +29,14 @@ public class Keypad : MonoBehaviour
 
     public void SendCommand()
     {
-        pickList.ReceiveCommand(command.Trim());
+        pickList?.ReceiveCommand(command.Trim());
         command = "";
         display.text = command;
     }
 
     public void Repeat()
     {
-        pickList.ReceiveCommand("Repeat");
+        pickList?.ReceiveCommand("Repeat");
     }
 
     public void Backspace()
@@ -47,21 +47,21 @@ public class Keypad : MonoBehaviour
 
     public void ToggleWrapping()
     {
-        wrapper.ToggleWrapping();
+        wrapper?.ToggleWrapping();
     }
 
     public void StartUnwrapping()
     {
-        wrapper.SetUnwrapping(true);
+        wrapper?.SetUnwrapping(true);
     }
 
     public void StopUnwrapping()
     {
-        wrapper.SetUnwrapping(false);
+        wrapper?.SetUnwrapping(false);
     }
 
     public void StopWrapActions()
     {
-        wrapper.StopWrapActions();
+        wrapper?.StopWrapActions();
     }
 }

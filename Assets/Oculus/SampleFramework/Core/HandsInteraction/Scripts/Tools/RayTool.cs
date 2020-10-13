@@ -43,7 +43,6 @@ namespace OculusSampleFramework
 		private Interactable _focusedInteractable;
 		private GameManager _gameManager = null;
 		private StockGrabber _stockGrabber = null;
-		private ActivateKeypad[] _keypadActivators = null;
 
         private OVRHand.Hand _handType;
 
@@ -91,6 +90,12 @@ namespace OculusSampleFramework
 					return;
 				}
 
+				if (_focusedInteractable?.GetComponent<InteractableButton>())
+                {
+					_rayToolView.EnableState = value;
+					return;
+                }
+
                 bool isPerformingAction = false;
 
                 if (IsHandTool)
@@ -101,13 +106,10 @@ namespace OculusSampleFramework
                 {
                     var controller = IsRightHandedTool ? HandsManager.Instance.RightController.Controller : HandsManager.Instance.LeftController.Controller;
 
-                    isPerformingAction = OVRInput.Get(OVRInput.Button.One, controller);
+                    isPerformingAction = OVRInput.Get(OVRInput.Button.One);
+					isPerformingAction |= OVRInput.Get(OVRInput.Button.Three);
 					isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, controller) > 0.55f;
-
-					foreach (var keypadActivator in _keypadActivators)
-                    {
-						isPerformingAction |= keypadActivator.IsActive;
-                    }
+					isPerformingAction |= OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, controller) > 0.55f;
                 }
 
                 if (isPerformingAction)
@@ -134,7 +136,6 @@ namespace OculusSampleFramework
 			_coneAngleReleaseDegrees = _coneAngleDegrees * 1.2f;
 			_initialized = true;
 			_gameManager = FindObjectOfType<GameManager>();
-			_keypadActivators = FindObjectsOfType<ActivateKeypad>();
 
 			_handType = IsRightHandedTool
 				? OVRHand.Hand.HandRight
