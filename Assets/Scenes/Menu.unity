@@ -16383,7 +16383,7 @@ PrefabInstance:
     - target: {fileID: 5939166814926361529, guid: 4284bd6d7910be044a7fcd9821b7032e,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwapHandedness
+      value: SwapHandDominance
       objectReference: {fileID: 0}
     - target: {fileID: 5939166814926361529, guid: 4284bd6d7910be044a7fcd9821b7032e,
         type: 3}
