@@ -19,10 +19,14 @@ public class ControllerStockGrabber : StockGrabber
     [SerializeField] private GameObject playerHead;
 
     [Header("Controller")]
-    public float grabBegin = 0.55f;
-    public float grabEnd = 0.35f;
+    [SerializeField] private float grabBegin = 0.55f;
+    [SerializeField] private float grabEnd = 0.35f;
 
+    [HideInInspector]
     public Direction CurrentDirection { get; private set; }
+    [HideInInspector]
+    public OVRInput.Axis1D GripButton { get; set; } = OVRInput.Axis1D.PrimaryHandTrigger;
+
     private Direction previousDirection;
 
     private float dirThreshold = 0.85f;
@@ -43,12 +47,17 @@ public class ControllerStockGrabber : StockGrabber
         }
     }
 
+    private void Start()
+    {
+        GripButton = FindObjectOfType<Settings>().CurrentGripButton;
+    }
+
     void Update()
     {
         CalculateRequestedDirection();
 
         float prevFlex = currFlex;
-        currFlex = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, _hand.Controller);
+        currFlex = OVRInput.Get(GripButton, _hand.Controller);
 
         var tryGrab = currFlex >= grabBegin && prevFlex < grabBegin;
         var tryDrop = currFlex <= grabEnd && prevFlex > grabEnd;
