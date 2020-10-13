@@ -39,7 +39,7 @@ public class Settings : MonoBehaviour
         }
     }
 
-    public void SwapHandedness(Text text)
+    public void SwapHandDominance(Text text)
     {
         RightHanded = !RightHanded;
 

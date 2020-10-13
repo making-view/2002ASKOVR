@@ -11770,7 +11770,7 @@ GameObject:
   - component: {fileID: 900084574}
   - component: {fileID: 900084573}
   m_Layer: 0
-  m_Name: SwapHandednessText
+  m_Name: SwapHandDominanceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16293,7 +16293,7 @@ PrefabInstance:
     - target: {fileID: 5426842193343642012, guid: 4284bd6d7910be044a7fcd9821b7032e,
         type: 3}
       propertyPath: m_Name
-      value: SwapHandedness
+      value: SwapHandDominance
       objectReference: {fileID: 0}
     - target: {fileID: 5426842193359400256, guid: 4284bd6d7910be044a7fcd9821b7032e,
         type: 3}

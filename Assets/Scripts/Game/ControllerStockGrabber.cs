@@ -49,7 +49,7 @@ public class ControllerStockGrabber : StockGrabber
 
     private void Start()
     {
-        GripButton = FindObjectOfType<Settings>().CurrentGripButton;
+        GripButton = FindObjectOfType<Settings>()?.CurrentGripButton ?? GripButton;
     }
 
     void Update()
