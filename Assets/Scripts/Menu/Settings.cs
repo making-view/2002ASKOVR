@@ -17,7 +17,7 @@ public class Settings : MonoBehaviour
     public OVRInput.Axis1D OtherGripButton = OVRInput.Axis1D.PrimaryIndexTrigger;
     public List<Difficulty> difficulties;
 
-    public int DifficultyIndex { get; set; } = 0;
+    public int DifficultyIndex { get; set; } = 1;
     public bool RightHanded { get; set; } = true;
 
     private void Start()
@@ -57,6 +57,13 @@ public class Settings : MonoBehaviour
 
         var newText = RightHanded ? "Høyrehendt" : "Venstrehendt";
         text.text = newText;
+    }
+
+    public void SwapDifficulty(Text text)
+    {
+        DifficultyIndex = (DifficultyIndex + 1) % difficulties.Count;
+
+        text.text = difficulties[DifficultyIndex].name;
     }
 
     private void EnableOrDisableHandScripts()
