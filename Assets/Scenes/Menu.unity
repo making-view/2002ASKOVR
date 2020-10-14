@@ -16163,6 +16163,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentGripButton: 4
   OtherGripButton: 1
+  difficulties:
+  - index: 0
+    name: Lett
+    pickList:
+    - amount: 3
+      shelfNo: 2
+    - amount: 1
+      shelfNo: 18
+    - amount: 24
+      shelfNo: 3
+    - amount: 4
+      shelfNo: 32
+  - index: 1
+    name: Normal
+    pickList:
+    - amount: 2
+      shelfNo: 2
+    - amount: 3
+      shelfNo: 7
+    - amount: 4
+      shelfNo: 11
+    - amount: 3
+      shelfNo: 15
+    - amount: 2
+      shelfNo: 20
+    - amount: 4
+      shelfNo: 23
+  - index: 2
+    name: Vanskelig
+    pickList:
+    - amount: 3
+      shelfNo: 7
+    - amount: 3
+      shelfNo: 8
+    - amount: 5
+      shelfNo: 10
+    - amount: 4
+      shelfNo: 13
+    - amount: 6
+      shelfNo: 19
+    - amount: 2
+      shelfNo: 20
+    - amount: 3
+      shelfNo: 27
+    - amount: 5
+      shelfNo: 26
+    - amount: 3
+      shelfNo: 34
 --- !u!1001 &1358596330
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,13 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+
+[Serializable]
+public struct Difficulty {
+    public int index;
+    public string name;
+    public List<OrderItem> pickList;
+}
 
 public class Settings : MonoBehaviour
 {
     public OVRInput.Axis1D CurrentGripButton = OVRInput.Axis1D.PrimaryHandTrigger;
     public OVRInput.Axis1D OtherGripButton = OVRInput.Axis1D.PrimaryIndexTrigger;
+    public List<Difficulty> difficulties;
 
+    public int DifficultyIndex { get; set; } = 0;
     public bool RightHanded { get; set; } = true;
 
     private void Start()

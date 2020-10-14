@@ -42,6 +42,12 @@ public class PickList : MonoBehaviour
     {
         voiceCommandLady.PlayCShelfCommand(orderItems[currentItem].shelfNo);
         currentStockCode = shelves.FirstOrDefault(s => s.shelfNo.Equals(orderItems[currentItem].shelfNo)).stockCode;
+
+        var settings = FindObjectOfType<Settings>();
+        if (settings && settings.difficulties.Count > 0)
+        {
+            orderItems = settings.difficulties[settings.DifficultyIndex].pickList;
+        }
     }
 
     //
