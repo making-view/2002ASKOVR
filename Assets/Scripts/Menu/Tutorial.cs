@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
+    [SerializeField] private GameObject tutorialGoals = null;
+
     public void StartTutorial()
     {
 
