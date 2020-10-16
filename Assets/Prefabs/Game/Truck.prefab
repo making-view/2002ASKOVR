@@ -613,12 +613,11 @@ MonoBehaviour:
   truckLanes: {fileID: 0}
   localOffset: {fileID: 7428429146370650221}
   playerCamera: {fileID: 0}
-  startSound: {fileID: 8300000, guid: 6c4a50d3b41ef9b49a2eaee06506f7db, type: 3}
-  loopSound: {fileID: 8300000, guid: 7190fff5f43fa174e83500bd9c0a8dd0, type: 3}
-  endSound: {fileID: 8300000, guid: e904ed503694ebc419a43a70751dc84b, type: 3}
+  engineSound: {fileID: 8300000, guid: 7190fff5f43fa174e83500bd9c0a8dd0, type: 3}
   moveThreshold: 1.5
   moveSpeed: 1
   truckEndPointZ: 12.866
+  truckStartPointZ: 0
 --- !u!54 &7428429145934766034
 Rigidbody:
   m_ObjectHideFlags: 0

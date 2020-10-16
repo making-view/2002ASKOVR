@@ -5,19 +5,12 @@ using UnityEngine;
 
 public class Truck : MonoBehaviour
 {
-    const int CLIP = 0;
-    const int LOOP = 1;
-
     [Header("Config")]
     [SerializeField] private CarryingArea carryingArea = null;
     [SerializeField] private TruckLanes truckLanes = null;
     [SerializeField] private Transform localOffset = null;
     [SerializeField] private Camera playerCamera = null;
-
-    [Header("Audio")]
-    [SerializeField] AudioClip startSound;
-    [SerializeField] AudioClip loopSound;
-    [SerializeField] AudioClip endSound;
+    [SerializeField] private AudioClip engineSound;
 
     [Header("Settings")]
     [SerializeField] private float moveThreshold = 1.5f;
@@ -30,12 +23,16 @@ public class Truck : MonoBehaviour
     public bool StockFellOff { get; private set; } = false;
 
     private bool moving = false;
-    AudioSource[] audioSources;
+    private AudioSource audioSource = null;
 
-    private void Awake()
+    private void Start()
     {
-        audioSources = GetComponentsInChildren<AudioSource>();
-        audioSources[LOOP].clip = loopSound;
+        audioSource = GetComponentInChildren<AudioSource>();
+        audioSource.clip = engineSound;
+
+        audioSource.volume = 0;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     //
@@ -94,13 +91,13 @@ public class Truck : MonoBehaviour
     IEnumerator MoveToZPoint(float targetZ)
     {
         moving = true;
-        var stopping = false;
 
         #region Initial state and move target setup
         var initStock = carryingArea.CarriedStock.ToList();
         var isMovementSafe = IsMovementSafe();
 
         var initialPos = transform.position;
+        var prevPos = transform.position;
         var destinationZ = targetZ + localOffset.localPosition.z;
         var targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
 
@@ -109,37 +106,6 @@ public class Truck : MonoBehaviour
 
         var diff = 0.0f;
         var prevDiff = Mathf.Infinity;
-        #endregion
-
-        #region Audio setup
-        StopSounds();
-
-        audioSources[CLIP].clip = startSound;
-        audioSources[CLIP].Play();
-
-        var distanceToMove = (targetPos - initialPos).magnitude;
-        var moveTime = distanceToMove / moveSpeed;
-        var completeSequenceDuration = startSound.length + endSound.length + (loopSound.length / 2);
-        var endSoundThreshold = endSound.length + (loopSound.length / 2);
-
-        //
-        // Skips the looping part if the drive is short (less time than the start and stop sounds combined)
-        //
-        bool longDrive;
-        if (moveTime > completeSequenceDuration)
-        {
-            audioSources[LOOP].clip = loopSound;
-            audioSources[LOOP].loop = true;
-            audioSources[LOOP].PlayDelayed(startSound.length);
-            longDrive = true;
-        }
-        else
-        {
-            audioSources[LOOP].clip = endSound;
-            audioSources[LOOP].loop = false;
-            audioSources[LOOP].PlayDelayed(startSound.length);
-            longDrive = false;
-        }
         #endregion
 
         #region Movement loop
@@ -159,7 +125,7 @@ public class Truck : MonoBehaviour
             if (!stockStaying)
             {
                 StockFellOff = true;
-                StopSounds();
+                audioSource.Stop();
                 FindObjectOfType<GameManager>().EndGame();
                 targetPos = transform.position;
                 break;
@@ -184,24 +150,41 @@ public class Truck : MonoBehaviour
                     stock.transform.parent = transform;
                 }
 
-                StopSounds();
+                audioSource.Stop();
                 FindObjectOfType<GameManager>().EndGame();
                 targetPos = transform.position;
                 break;
             }
 
-            distanceToMove = (targetPos - transform.position).magnitude;
-            moveTime = distanceToMove / moveSpeed;
+            var currentPos = transform.position;
+            var velocity = (currentPos - prevPos).magnitude / Time.deltaTime;
+            var moveSpeedFactor = Mathf.Clamp(velocity / moveSpeed, 0f, 1f);
 
-            if (moveTime < endSoundThreshold && longDrive && !stopping)
-            {
-                audioSources[LOOP].loop = false;
-                audioSources[CLIP].clip = endSound;
-                audioSources[CLIP].PlayDelayed(loopSound.length - audioSources[LOOP].time);
-                stopping = true;
-            }
+            audioSource.volume = Mathf.Clamp(moveSpeedFactor * 2, 0f, 1f);
+            audioSource.pitch = moveSpeedFactor.Map(0f, 1f, 0.5f, 1.0f);
+
+            prevPos = currentPos;
 
             yield return null;
+
+            #region Dynamic target update code
+            //var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
+
+            //if (closestLane == 1)
+            //{
+            //    var zDiff = playerCamera.transform.position.z - destinationZ;
+
+            //    if (Mathf.Abs(zDiff) > moveThreshold)
+            //    {
+            //        var currentZPos = transform.position.z - localOffset.localPosition.z;
+            //        targetZ = playerCamera.transform.position.z;
+            //        destinationZ = targetZ + localOffset.localPosition.z;
+            //        destinationZ = Mathf.Clamp(destinationZ, currentZPos, truckEndPointZ - localOffset.localPosition.z);
+            //        targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
+            //        range = targetPos.z - initialPos.z;
+            //    }
+            //}
+            #endregion
 
             var signedMoveSpeed = moveSpeed * Mathf.Sign(destinationZ - initialPos.z);
             totDeltaZ += signedMoveSpeed * Time.deltaTime;
@@ -213,44 +196,14 @@ public class Truck : MonoBehaviour
 
             prevDiff = diff;
 
-            #region Dynamic target update code
-            //var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
-
-            //if (closestLane == 1)
-            //{
-            //    var currentZPos = transform.position.z - localOffset.localPosition.z;
-            //    destinationZ = targetZ + localOffset.localPosition.z;
-            //    destinationZ = Mathf.Clamp(destinationZ, currentZPos, truckEndPointZ - localOffset.localPosition.z);
-
-            //    var zDiff = playerCamera.transform.position.z - destinationZ;
-
-            //    if (Mathf.Abs(zDiff) > moveThreshold)
-            //    {
-            //        targetZ = playerCamera.transform.position.z;
-            //        destinationZ = targetZ + localOffset.localPosition.z;
-            //        destinationZ = Mathf.Clamp(destinationZ, currentZPos, truckEndPointZ - localOffset.localPosition.z);
-            //        targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
-            //        range = targetPos.z - initialPos.z;
-            //    }
-            //}
-            #endregion
         }
         #endregion
 
         transform.position = targetPos;
+        audioSource.volume = 0f;
+        audioSource.pitch = 0.5f;
 
         moving = false;
-    }
-
-    //
-    // Stops any currently playing sounds
-    //
-    private void StopSounds()
-    {
-        foreach (var source in audioSources)
-        {
-            source.Stop();
-        }
     }
 
     //
