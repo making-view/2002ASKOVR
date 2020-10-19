@@ -172,29 +172,48 @@ public class Truck : MonoBehaviour
 
             //if (closestLane == 1)
             //{
-            //    var zDiff = playerCamera.transform.position.z - destinationZ;
+            //    var zDiff = Mathf.Abs(playerCamera.transform.position.z - destinationZ);
 
-            //    if (Mathf.Abs(zDiff) > moveThreshold)
+            //    if (zDiff > moveThreshold)
             //    {
+            //        var currDir = Mathf.Sign(destinationZ - initialPos.z);
             //        var currentZPos = transform.position.z - localOffset.localPosition.z;
             //        targetZ = playerCamera.transform.position.z;
             //        destinationZ = targetZ + localOffset.localPosition.z;
-            //        destinationZ = Mathf.Clamp(destinationZ, currentZPos, truckEndPointZ - localOffset.localPosition.z);
+            //        destinationZ = Mathf.Clamp(destinationZ, truckStartPointZ - localOffset.localPosition.z, truckEndPointZ - localOffset.localPosition.z);
+
+            //        var newDir = Mathf.Sign(destinationZ - currentZPos);
+
+            //        if (!currDir.Equals(newDir))
+            //        {
+            //            initialPos.z = transform.position.z;
+            //            totDeltaZ = 0;
+            //        }
+
             //        targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
             //        range = targetPos.z - initialPos.z;
             //    }
             //}
             #endregion
 
-            var signedMoveSpeed = moveSpeed * Mathf.Sign(destinationZ - initialPos.z);
+            var targetDeltaZ = destinationZ - initialPos.z;
+            var moveDir = Mathf.Sign(targetDeltaZ);
+            var signedMoveSpeed = moveSpeed * moveDir;
             totDeltaZ += signedMoveSpeed * Time.deltaTime;
 
-            diff = Mathf.Abs(currentZ - destinationZ);
+            var currZToTargetZDir = Mathf.Sign(targetDeltaZ - totDeltaZ);
 
-            if (diff > prevDiff || diff <= 0.01)
+            if (currZToTargetZDir != moveDir)
+            {
                 break;
+            }
 
-            prevDiff = diff;
+            ////////////diff = Mathf.Abs(currentZ - destinationZ);
+
+            ////////////if (diff > prevDiff || diff <= 0.01)
+            ////////////    break;
+
+            ////////////prevDiff = diff;
 
         }
         #endregion
