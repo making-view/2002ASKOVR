@@ -15,7 +15,7 @@ enum ButtonType
 
 public class KeypadButton : MonoBehaviour
 {
-    [SerializeField] ButtonType buttonType;
+    [SerializeField] ButtonType buttonType = ButtonType.Number;
 
     private PushableButton button = null; 
     private Text text = null;

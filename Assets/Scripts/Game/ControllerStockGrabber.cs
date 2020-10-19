@@ -15,8 +15,8 @@ public enum Direction
 
 public class ControllerStockGrabber : StockGrabber
 {
-    [SerializeField] private OVRCameraRig playerRig;
-    [SerializeField] private GameObject playerHead;
+    [SerializeField] private OVRCameraRig playerRig = null;
+    [SerializeField] private GameObject playerHead = null;
 
     [Header("Controller")]
     [SerializeField] private float grabBegin = 0.55f;

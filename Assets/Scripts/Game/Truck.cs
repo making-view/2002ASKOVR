@@ -10,7 +10,7 @@ public class Truck : MonoBehaviour
     [SerializeField] private TruckLanes truckLanes = null;
     [SerializeField] private Transform localOffset = null;
     [SerializeField] private Camera playerCamera = null;
-    [SerializeField] private AudioClip engineSound;
+    [SerializeField] private AudioClip engineSound = null;
 
     [Header("Settings")]
     [SerializeField] private float moveThreshold = 1.5f;
@@ -103,9 +103,6 @@ public class Truck : MonoBehaviour
 
         var range = Mathf.Abs(targetPos.z - initialPos.z);
         var totDeltaZ = 0.0f;
-
-        var diff = 0.0f;
-        var prevDiff = Mathf.Infinity;
         #endregion
 
         #region Movement loop
@@ -120,6 +117,7 @@ public class Truck : MonoBehaviour
             TotalMovement += posChange.magnitude;
             UnsafeMovement += isMovementSafe ? 0.0f : posChange.magnitude;
 
+            #region Handle stock and check security
             var stockStaying = MoveStock(posChange);
 
             if (!stockStaying)
@@ -155,45 +153,47 @@ public class Truck : MonoBehaviour
                 targetPos = transform.position;
                 break;
             }
+            #endregion
 
+            #region Audio
             var currentPos = transform.position;
             var velocity = (currentPos - prevPos).magnitude / Time.deltaTime;
             var moveSpeedFactor = Mathf.Clamp(velocity / moveSpeed, 0f, 1f);
 
             audioSource.volume = Mathf.Clamp(moveSpeedFactor * 2, 0f, 1f);
             audioSource.pitch = moveSpeedFactor.Map(0f, 1f, 0.5f, 1.0f);
+            #endregion
 
             prevPos = currentPos;
 
             yield return null;
 
             #region Dynamic target update code
-            //var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
+            var closestLane = truckLanes.FindLaneClosestToPoint(playerCamera.transform.position);
 
-            //if (closestLane == 1)
-            //{
-            //    var zDiff = Mathf.Abs(playerCamera.transform.position.z - destinationZ);
+            if (closestLane == 1)
+            {
+                var zDiff = Mathf.Abs(playerCamera.transform.position.z - destinationZ);
 
-            //    if (zDiff > moveThreshold)
-            //    {
-            //        var currDir = Mathf.Sign(destinationZ - initialPos.z);
-            //        var currentZPos = transform.position.z - localOffset.localPosition.z;
-            //        targetZ = playerCamera.transform.position.z;
-            //        destinationZ = targetZ + localOffset.localPosition.z;
-            //        destinationZ = Mathf.Clamp(destinationZ, truckStartPointZ - localOffset.localPosition.z, truckEndPointZ - localOffset.localPosition.z);
+                if (zDiff > moveThreshold)
+                {
+                    targetZ = playerCamera.transform.position.z;
+                    destinationZ = targetZ + localOffset.localPosition.z;
+                    destinationZ = Mathf.Clamp(destinationZ, truckStartPointZ, truckEndPointZ);
 
-            //        var newDir = Mathf.Sign(destinationZ - currentZPos);
+                    var currDir = Mathf.Sign(destinationZ - initialPos.z);
+                    var newDir = Mathf.Sign(destinationZ - transform.position.z);
 
-            //        if (!currDir.Equals(newDir))
-            //        {
-            //            initialPos.z = transform.position.z;
-            //            totDeltaZ = 0;
-            //        }
+                    if (!currDir.Equals(newDir))
+                    {
+                        initialPos = transform.position;
+                        totDeltaZ = 0;
+                    }
 
-            //        targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
-            //        range = targetPos.z - initialPos.z;
-            //    }
-            //}
+                    targetPos = new Vector3(initialPos.x, initialPos.y, destinationZ);
+                    range = Mathf.Abs(targetPos.z - initialPos.z);
+                }
+            }
             #endregion
 
             var targetDeltaZ = destinationZ - initialPos.z;
@@ -204,17 +204,7 @@ public class Truck : MonoBehaviour
             var currZToTargetZDir = Mathf.Sign(targetDeltaZ - totDeltaZ);
 
             if (currZToTargetZDir != moveDir)
-            {
                 break;
-            }
-
-            ////////////diff = Mathf.Abs(currentZ - destinationZ);
-
-            ////////////if (diff > prevDiff || diff <= 0.01)
-            ////////////    break;
-
-            ////////////prevDiff = diff;
-
         }
         #endregion
 
