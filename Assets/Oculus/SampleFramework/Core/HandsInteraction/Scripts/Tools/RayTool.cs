@@ -50,10 +50,15 @@ namespace OculusSampleFramework
 		{
 			get
 			{
-				if (_stockGrabber != null && _stockGrabber.IsFlexed)
+				if (_stockGrabber)
                 {
-					return ToolInputState.PrimaryInputDownStay;
-				}
+					var csGrabber = (ControllerStockGrabber)_stockGrabber;
+					
+					if (csGrabber && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, csGrabber.Controller) > 0.55f)
+                    {
+						return ToolInputState.PrimaryInputDownStay;
+					}
+                }
 				if (_pinchStateModule.PinchDownOnFocusedObject)
 				{
 					return ToolInputState.PrimaryInputDown;

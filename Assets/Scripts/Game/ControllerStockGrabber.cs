@@ -26,6 +26,14 @@ public class ControllerStockGrabber : StockGrabber
     public Direction CurrentDirection { get; private set; }
     [HideInInspector]
     public OVRInput.Axis1D GripButton { get; set; } = OVRInput.Axis1D.PrimaryHandTrigger;
+    [HideInInspector]
+    public OVRInput.Controller Controller
+    {
+        get
+        {
+            return _hand.Controller;
+        }
+    }
 
     private Direction previousDirection;
 

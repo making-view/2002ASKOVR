@@ -29,6 +29,21 @@ public class Settings : MonoBehaviour
     {
         Debug.Log("Settings level load");
         EnableOrDisableHandScripts();
+
+        var swapDiff = GameObject.Find("SwapDifficultyText");
+        var swapHand = GameObject.Find("SwapHandDominanceText");
+
+        if (swapDiff)
+        {
+            var text = swapDiff.GetComponent<Text>();
+            text.text = difficulties[DifficultyIndex].name;
+        }
+
+        if (swapHand)
+        {
+            var text = swapHand.GetComponent<Text>();
+            text.text = RightHanded ? "Høyrehendt" : "Venstrehendt";
+        }
     }
 
     public void SwapGripControls(Text text)
