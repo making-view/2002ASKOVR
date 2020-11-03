@@ -15,7 +15,7 @@ public class TeleportGoal : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (!isDying && tutorial && tutorial.IsTutorialOngoing)
         {
@@ -30,9 +30,9 @@ public class TeleportGoal : MonoBehaviour
     {
         isDying = true;
          
-        var didAction = tutorial.DoAction(Tutorial.ToDo.Teleport);
+        var didTask = tutorial.DoTask(Tutorial.Task.Teleport);
 
-        if (didAction)
+        if (didTask)
         {
             audioSource.Play();
 

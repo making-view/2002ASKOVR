@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
-    public enum ToDo
+    public enum Task
     {
         Teleport,
         Grab,
@@ -23,7 +23,7 @@ public class Tutorial : MonoBehaviour
     private class Event
     {
         [SerializeField] public string name = "default";
-        [SerializeField] public ToDo task = ToDo.None;
+        [SerializeField] public Task task = Task.None;
         [SerializeField] public AudioClip narration = null;
         [SerializeField] public int numberOfTimes = 4;
         [SerializeField] public float delayOnComplete = 2.0f;
@@ -51,18 +51,18 @@ public class Tutorial : MonoBehaviour
     public void StartPopupshit()
     {
         eventIndex = 0;
-        waitingForNextEvent = false;
+        waitingForNextEvent = true;
         IsTutorialOngoing = true;
-        StartCoroutine(StartTask(0));
+        StartCoroutine(StartEvent(eventIndex));
     }
 
-    public bool DoAction(ToDo action)
+    public bool DoTask(Task action)
     {
-        var didAction = false;
+        var didTask = false;
 
         if (!waitingForNextEvent && eventIndex < events.Count)
         {
-            didAction = true;
+            didTask = true;
 
             if (events[eventIndex].task.Equals(action))
                 events[eventIndex].numberOfTimes--;
@@ -70,14 +70,14 @@ public class Tutorial : MonoBehaviour
             if (events[eventIndex].numberOfTimes <= 0)
             {
                 waitingForNextEvent = true;
-                StartCoroutine(StartTask(eventIndex));
+                StartCoroutine(StartEvent(eventIndex));
             }
         }
 
-        return didAction;
+        return didTask;
     }
 
-    private IEnumerator StartTask(int newIndex)
+    private IEnumerator StartEvent(int newIndex)
     {
         //if donzo
         if (newIndex >= events.Count)
@@ -86,7 +86,7 @@ public class Tutorial : MonoBehaviour
         }
         else
         {
-            if (eventIndex > 0)
+            if (newIndex > 0)
             {
                 Debug.Log("starting task " + events[newIndex].name + " in " + events[newIndex - 1].delayOnComplete + " seconds after audio");
                 yield return new WaitForSeconds(events[newIndex - 1].delayOnComplete);
@@ -108,7 +108,7 @@ public class Tutorial : MonoBehaviour
             if (++eventIndex >= events.Count)
                 SceneManager.LoadScene("Scenes/Menu");
 
-            DoAction(ToDo.None);
+            DoTask(Task.None);
         }
     }
 }
