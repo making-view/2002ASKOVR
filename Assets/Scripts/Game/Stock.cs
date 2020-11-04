@@ -43,6 +43,29 @@ public class Stock : MonoBehaviour
         }
     }
 
+    public bool IsGrabbed
+    {
+        get
+        {
+            return grabbedBy != null;
+        }
+    }
+
+    public bool HasRotatedSinceLastQuery
+    {
+        get
+        {
+            var curr = HasRotatedSinceLastQuery;
+            HasRotatedSinceLastQuery = false;
+
+            return curr;
+        }
+        private set
+        {
+            HasRotatedSinceLastQuery = value;
+        }
+    }
+
     private float angleAdjustCooldownTime = 0.75f;
     private float angleAdjustVelocity = 500;
 
@@ -245,6 +268,8 @@ public class Stock : MonoBehaviour
     //
     private void RotateInDirection(Direction direction)
     {
+        HasRotatedSinceLastQuery = true;
+
         var handleForward = new Vector3(-grabHandle.lastSpringCoil.transform.up.x, 0, -grabHandle.lastSpringCoil.transform.up.z);
         var handleYaw = Vector3.SignedAngle(Vector3.forward, handleForward, Vector3.up);
         var closestRightAngle = WrapAngle(Mathf.RoundToInt(handleYaw / 90) * 90);
