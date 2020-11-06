@@ -13,11 +13,25 @@ public class Tutorial : MonoBehaviour
         Grab,
         RotateStock,
         Stack,
-        EnterCommand,
+        NumberKey,
+        RepeatKey,
+        ConfirmKey,
+        BackspaceKey,
         None
     }
 
+    private int[] scale = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 };
+
     public bool IsTutorialOngoing { get; private set; } = false;
+    public ButtonType? HighlightKey { get; private set; } = null;
+    public bool HighlightStockCode { get; set; } = false;
+    public bool HighlightStockAmount { get; set; } = false;
+
+    public void ParseHighlightKey(string buttonType)
+    {
+        HighlightKey = Enum.TryParse(
+            buttonType, out ButtonType highlightType) ? highlightType : (ButtonType?)null;
+    }
 
     [Serializable]
     private class Event
@@ -26,20 +40,25 @@ public class Tutorial : MonoBehaviour
         [SerializeField] public Task task = Task.None;
         [SerializeField] public AudioClip narration = null;
         [SerializeField] public int numberOfTimes = 4;
+        
         [SerializeField] public float delayOnComplete = 2.0f;
-
         [SerializeField] public UnityEvent onStartOfEvent = null;
     }
 
+    private int maxTask = 0;
     private int eventIndex = 0;
     [SerializeField] private List<Event> events = null;
-    private bool waitingForNextEvent = true;
-    private AudioSource audioSource = null;
+    public bool waitingForNextEvent = true;
+    private AudioSource narrationSource = null;
+    private AudioSource feedbackSource = null;
+    [SerializeField] private AudioClip feedback = null;
 
     // Start is called before the first frame update
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        narrationSource = gameObject.AddComponent<AudioSource>();
+        feedbackSource = gameObject.AddComponent<AudioSource>();
+        feedbackSource.clip = feedback;
     }
 
     void Awake()
@@ -65,10 +84,28 @@ public class Tutorial : MonoBehaviour
             didTask = true;
 
             if (events[eventIndex].task.Equals(action))
+            {
+                feedbackSource.Stop();
                 events[eventIndex].numberOfTimes--;
+
+                float step = 0.0f;
+                if (maxTask == 1)
+                    step = 0;
+                else
+                    step = (maxTask - 1.0f - events[eventIndex].numberOfTimes) / (maxTask - 1.0f);
+                
+                //step goes from 0 to 1 based on tasks done
+                var tone = Mathf.Pow(1.05946f, scale[Mathf.RoundToInt(step * 7)]);
+
+                feedbackSource.pitch = tone;
+
+                feedbackSource.Play();
+            }
 
             if (events[eventIndex].numberOfTimes <= 0)
             {
+                ++eventIndex;
+
                 waitingForNextEvent = true;
                 StartCoroutine(StartEvent(eventIndex));
             }
@@ -82,31 +119,28 @@ public class Tutorial : MonoBehaviour
         //if donzo
         if (newIndex >= events.Count)
         {
+            yield return new WaitForSeconds(events[newIndex - 1].delayOnComplete);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         }
         else
         {
             if (newIndex > 0)
-            {
-                Debug.Log("starting task " + events[newIndex].name + " in " + events[newIndex - 1].delayOnComplete + " seconds after audio");
                 yield return new WaitForSeconds(events[newIndex - 1].delayOnComplete);
-            }
 
             if (events[newIndex].narration != null)
             {
-                audioSource.clip = events[newIndex].narration;
-                audioSource.Play();
+                narrationSource.clip = events[newIndex].narration;
+                narrationSource.Play();
             }
 
             events[newIndex].onStartOfEvent.Invoke();
 
-            while (audioSource.isPlaying)
+            while (narrationSource.isPlaying)
                 yield return null;
 
-            waitingForNextEvent = false;
+            maxTask = events[newIndex].numberOfTimes;
 
-            if (++eventIndex >= events.Count)
-                SceneManager.LoadScene("Scenes/Menu");
+            waitingForNextEvent = false;
 
             DoTask(Task.None);
         }

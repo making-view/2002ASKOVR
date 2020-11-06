@@ -35,13 +35,13 @@ public class Settings : MonoBehaviour
 
         if (swapDiff)
         {
-            var text = swapDiff.GetComponent<Text>();
+            var text = swapDiff.GetComponentInChildren<Text>();
             text.text = difficulties[DifficultyIndex].name;
         }
 
         if (swapHand)
         {
-            var text = swapHand.GetComponent<Text>();
+            var text = swapHand.GetComponentInChildren<Text>();
             text.text = RightHanded ? "Høyrehendt" : "Venstrehendt";
         }
     }

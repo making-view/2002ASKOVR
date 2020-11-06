@@ -5,14 +5,12 @@ using UnityEngine;
 public class TeleportGoal : MonoBehaviour
 {
     private Tutorial tutorial = null;
-    private AudioSource audioSource = null;
 
     private bool isDying = false;
 
     private void Start()
     {
         tutorial = FindObjectOfType<Tutorial>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerStay(Collider other)
@@ -34,12 +32,9 @@ public class TeleportGoal : MonoBehaviour
 
         if (didTask)
         {
-            audioSource.Play();
+            yield return null;
 
-            while (audioSource.isPlaying)
-                yield return null;
-
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else
             isDying = false;

@@ -13,25 +13,25 @@ public class Keypad : MonoBehaviour
     [SerializeField] PickList pickList = null;
     [SerializeField] Wrapper wrapper = null;
 
-    private string command = "";
+    public string Command { get; private set; } = "";
 
     private void Start()
     {
-        command = "";
-        display.text = command;
+        Command = "";
+        display.text = Command;
     }
 
     public void AddToCommand(string add)
     {
-        command += add;
-        display.text = command;
+        Command += add;
+        display.text = Command;
     }
 
     public void SendCommand()
     {
-        pickList?.ReceiveCommand(command.Trim());
-        command = "";
-        display.text = command;
+        pickList?.ReceiveCommand(Command.Trim());
+        Command = "";
+        display.text = Command;
     }
 
     public void Repeat()
@@ -41,8 +41,8 @@ public class Keypad : MonoBehaviour
 
     public void Backspace()
     {
-        command = command.Substring(0, Mathf.Clamp(command.Length - 1, 0, 999));
-        display.text = command;
+        Command = Command.Substring(0, Mathf.Clamp(Command.Length - 1, 0, 999));
+        display.text = Command;
     }
 
     public void ToggleWrapping()

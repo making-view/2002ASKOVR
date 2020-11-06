@@ -51,18 +51,19 @@ public class Stock : MonoBehaviour
         }
     }
 
+    private bool _hasRotatedSinceLastQuery = false;
     public bool HasRotatedSinceLastQuery
     {
         get
         {
-            var curr = HasRotatedSinceLastQuery;
-            HasRotatedSinceLastQuery = false;
+            var curr = _hasRotatedSinceLastQuery;
+            _hasRotatedSinceLastQuery = false;
 
             return curr;
         }
         private set
         {
-            HasRotatedSinceLastQuery = value;
+            _hasRotatedSinceLastQuery = value;
         }
     }
 
