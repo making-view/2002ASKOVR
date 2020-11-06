@@ -6,16 +6,22 @@ using UnityEngine;
 public class TutorialKeypad : MonoBehaviour
 {
     public string commandToLookFor = "123";
+    public string amountToLookFor = "5";
+    private bool receivedCommand = false;
 
     private Tutorial tutorial = null;
     private Keypad keypad = null;
     private List<KeypadButton> buttons;
 
-    private ButtonType prevHighlightKey = ButtonType.Wrap;
+    private ButtonType? prevHighlightKey = ButtonType.Wrap;
     private bool prevStockCodeHighlight = false;
     private bool prevStockAmountHighlight = false;
 
     private bool hasInitialized = false;
+
+    [SerializeField] private float keypadTime = 1.0f;
+    private float keypadTimer = 0.0f;
+    private bool keypadStepDone = false;
 
     private void Start()
     {
@@ -29,14 +35,35 @@ public class TutorialKeypad : MonoBehaviour
     private void Update()
     {
         HandleHighlight();
+
+        keypadTimer += Time.deltaTime;
+
+        if (!keypadStepDone && keypadTimer >= keypadTime)
+        {
+            tutorial.DoTask(Tutorial.Task.OpenKeypad);
+            keypadStepDone = true;
+        }
     }
 
     public void Confirm()
     {
-        if (keypad.Command.Equals(commandToLookFor))
+        if (!receivedCommand)
         {
-            tutorial.DoTask(Tutorial.Task.ConfirmKey);
+            if (keypad.Command.Equals(commandToLookFor))
+            {
+                tutorial.DoTask(Tutorial.Task.ConfirmKey);
+                receivedCommand = true;
+            }
         }
+        else
+        {
+            if (keypad.Command.Equals(amountToLookFor))
+            {
+                tutorial.DoTask(Tutorial.Task.ConfirmKey);
+            }
+        }
+
+        keypad.SendCommand();
     }
 
     public void Repeat()
@@ -57,6 +84,8 @@ public class TutorialKeypad : MonoBehaviour
 
     private void OnEnable()
     {
+        keypadTimer = 0.0f;
+
         if (!hasInitialized)
         {
             tutorial = FindObjectOfType<Tutorial>();
@@ -96,11 +125,20 @@ public class TutorialKeypad : MonoBehaviour
         }
         else if (tutorial.HighlightKey.HasValue && !prevHighlightKey.Equals(tutorial.HighlightKey.Value))
         {
-            prevHighlightKey = tutorial.HighlightKey.Value;
+            prevHighlightKey = tutorial.HighlightKey;
 
             foreach (var button in GetComponentsInChildren<KeypadButton>())
             {
                 button.Highlight(button.buttonType.Equals(tutorial.HighlightKey.Value));
+            }
+        }
+        else if (!tutorial.HighlightKey.HasValue && !tutorial.HighlightStockAmount && !tutorial.HighlightStockCode)
+        {
+            prevHighlightKey = tutorial.HighlightKey;
+
+            foreach (var button in GetComponentsInChildren<KeypadButton>())
+            {
+                button.Highlight(false);
             }
         }
     }

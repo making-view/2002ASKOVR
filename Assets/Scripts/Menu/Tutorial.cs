@@ -13,6 +13,7 @@ public class Tutorial : MonoBehaviour
         Grab,
         RotateStock,
         Stack,
+        OpenKeypad,
         NumberKey,
         RepeatKey,
         ConfirmKey,
@@ -33,6 +34,13 @@ public class Tutorial : MonoBehaviour
             buttonType, out ButtonType highlightType) ? highlightType : (ButtonType?)null;
     }
 
+    public void RemoveHighlightKey()
+    {
+        HighlightKey = null;
+        HighlightStockCode = false;
+        HighlightStockAmount = false;
+    }
+
     [Serializable]
     private class Event
     {
@@ -43,12 +51,13 @@ public class Tutorial : MonoBehaviour
         
         [SerializeField] public float delayOnComplete = 2.0f;
         [SerializeField] public UnityEvent onStartOfEvent = null;
+        [SerializeField] public UnityEvent onBeforeEventNarration = null;
     }
 
     private int maxTask = 0;
     private int eventIndex = 0;
     [SerializeField] private List<Event> events = null;
-    public bool waitingForNextEvent = true;
+    [HideInInspector] public bool waitingForNextEvent = true;
     private AudioSource narrationSource = null;
     private AudioSource feedbackSource = null;
     [SerializeField] private AudioClip feedback = null;
@@ -133,10 +142,12 @@ public class Tutorial : MonoBehaviour
                 narrationSource.Play();
             }
 
-            events[newIndex].onStartOfEvent.Invoke();
+            events[newIndex].onBeforeEventNarration.Invoke();
 
             while (narrationSource.isPlaying)
                 yield return null;
+
+            events[newIndex].onStartOfEvent.Invoke();
 
             maxTask = events[newIndex].numberOfTimes;
 
