@@ -547,7 +547,7 @@ MonoBehaviour:
   events:
   - name: Teleport
     task: 0
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 4acc4a7c24520d34795b0633c0ad0877, type: 3}
     numberOfTimes: 3
     delayOnComplete: 0
     onStartOfEvent:
@@ -591,7 +591,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Grab
     task: 1
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 494f9a7307e7b044096119ffddbb0a42, type: 3}
     numberOfTimes: 1
     delayOnComplete: 0
     onStartOfEvent:
@@ -646,7 +646,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Rotate Stock
     task: 2
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 977ddd924defb124097cbc557562343f, type: 3}
     numberOfTimes: 8
     delayOnComplete: 0
     onStartOfEvent:
@@ -679,7 +679,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Stack
     task: 3
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 79ec042c783154a4aa061d933a7ffc71, type: 3}
     numberOfTimes: 3
     delayOnComplete: 0
     onStartOfEvent:
@@ -712,7 +712,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Open Keypad
     task: 4
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 82de1b601e56dde4c945a091392ad151, type: 3}
     numberOfTimes: 1
     delayOnComplete: 0
     onStartOfEvent:
@@ -734,7 +734,7 @@ MonoBehaviour:
         m_Calls: []
   - name: Number
     task: 5
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 280fbaec289673e49a1006b951705e50, type: 3}
     numberOfTimes: 3
     delayOnComplete: 0
     onStartOfEvent:
@@ -767,7 +767,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Backspace
     task: 8
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 5655c0617ee74e24694a80d65b6b3f34, type: 3}
     numberOfTimes: 3
     delayOnComplete: 0
     onStartOfEvent:
@@ -800,7 +800,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Repeat
     task: 6
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 822f5aa40871fa04d93f0ba1a1b18f8e, type: 3}
     numberOfTimes: 1
     delayOnComplete: 0
     onStartOfEvent:
@@ -833,7 +833,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Stock Code
     task: 7
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 146a7ec8bba52fd4cb583715f9518896, type: 3}
     numberOfTimes: 1
     delayOnComplete: 0
     onStartOfEvent:
@@ -866,7 +866,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: Stock Amount
     task: 7
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 5db0ad6e50c5aeb4baa4005fa5579ef7, type: 3}
     numberOfTimes: 1
     delayOnComplete: 0
     onStartOfEvent:
@@ -899,7 +899,7 @@ MonoBehaviour:
           m_CallState: 2
   - name: End
     task: 9
-    narration: {fileID: 8300000, guid: 5bda6c2dd7bcbe041b7e5b40787fa192, type: 3}
+    narration: {fileID: 8300000, guid: 02571ff80d94fcc4989c186a039e45b6, type: 3}
     numberOfTimes: 1
     delayOnComplete: 0
     onStartOfEvent:
