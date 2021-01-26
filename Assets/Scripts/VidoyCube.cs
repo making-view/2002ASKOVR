@@ -15,7 +15,7 @@ public class VidoyCube : MonoBehaviour
 
     private string url;
     private bool fading = false;
-    private LangyAudio langyAudio = null;
+    //private LangyAudio langyAudio = null;
 
     public bool IsVideoPlaying
     {
@@ -43,8 +43,8 @@ public class VidoyCube : MonoBehaviour
         Debug.Log("video set: " + gameObject.name + " - " + url);
 
         mediaPlayer.Events.AddListener(OnVideoEvent);
-        mediaPlayer.m_Volume = 0;
-        langyAudio = FindObjectOfType<LangyAudio>();
+        //mediaPlayer.m_Volume = 0;
+        //langyAudio = FindObjectOfType<LangyAudio>();
 
     }
 
@@ -83,8 +83,8 @@ public class VidoyCube : MonoBehaviour
 
         yield return new WaitForSeconds(1.1f);
 
-        langyAudio.No();
-        FindObjectOfType<VideoNotification>().ShowNotification();
+        //langyAudio.No();
+        //FindObjectOfType<VideoNotification>().ShowNotification();
 
 
         videoSphere.SetActive(true);
@@ -95,15 +95,15 @@ public class VidoyCube : MonoBehaviour
             renderer.enabled = false;
         }
 
-        mediaPlayer.OpenVideoFromFile(MediaPlayer.FileLocation.AbsolutePathOrURL,
-            url, true);
+        //mediaPlayer.OpenVideoFromFile(MediaPlayer.FileLocation.AbsolutePathOrURL,
+            //url, true);
 
         while (!mediaPlayer.Control.IsPlaying())
             yield return null;
 
         fade.FadeIn();
 
-        langyAudio.PlayAduio(fileName);
+        //langyAudio.PlayAduio(fileName);
 
         yield return new WaitForSeconds(1.1f);
 
@@ -122,7 +122,7 @@ public class VidoyCube : MonoBehaviour
 
         yield return new WaitForSeconds(1.1f);
 
-        langyAudio.No();
+        //langyAudio.No();
 
         videoSphere.SetActive(false);
         tower.SetActive(true);
