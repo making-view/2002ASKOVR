@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
 public class JourneyHandler : MonoBehaviour
@@ -17,12 +18,14 @@ public class JourneyHandler : MonoBehaviour
         }
 
         public string name = "event";
+        public float duration = 1f;
         public EventType type;
-        public Animator animator = null;
+        public Animation animation = null;
         public MoveThing moveThing = null;
         public AudioClip narration = null;
+        public ParticleSystem particles = null;
+        public UnityEvent actions = null;
 
-        public float timeToNext = 1f; 
     }
 
     private BezierSolution.BezierSqauencer sequencer;
@@ -37,24 +40,29 @@ public class JourneyHandler : MonoBehaviour
     void Start()
     {
         BeginPlay();
+        Debug.Log("Starting Journey");
     }
 
     void BeginPlay()
     {
         currentEvent = 0;
         if (journey.Count > currentEvent)
-            StartCoroutine(NextEvent(nextEvent));
+            StartCoroutine(PlayEvent());
     }
 
-    private void PlayEvent()
+    private IEnumerator PlayEvent()
     {
-        nextEvent = journey[currentEvent].timeToNext;
+        nextEvent = journey[currentEvent].duration;
 
-        if (journey[currentEvent].animator != null)
-            journey[currentEvent].animator.Play(0);
+        if (journey[currentEvent].animation != null)
+            journey[currentEvent].animation.Play();
 
         if (journey[currentEvent].moveThing != null)
             journey[currentEvent].moveThing.Play();
+
+        if (journey[currentEvent].particles != null)
+            journey[currentEvent].particles.Play();
+
 
         if (journey[currentEvent].narration != null)
         {
@@ -62,17 +70,17 @@ public class JourneyHandler : MonoBehaviour
             nextEvent += narrator.clip.length;
         }
 
+        journey[currentEvent].actions.Invoke();
+
+        yield return new WaitForSeconds(nextEvent);
 
         if (journey.Count > currentEvent + 1)
         {
             currentEvent++;
-            StartCoroutine(NextEvent(nextEvent));
+            StartCoroutine(PlayEvent());
         }
-    }
 
-    private IEnumerator NextEvent(float time)
-    {
-        yield return new WaitForSeconds(time);
-        PlayEvent();
+        if (journey[currentEvent].particles != null)
+            journey[currentEvent].particles.Stop();
     }
 }
