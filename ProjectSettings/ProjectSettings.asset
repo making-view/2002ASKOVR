@@ -671,7 +671,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: SUBSTANCE_PLUGIN_ENABLED
+    1: SUBSTANCE_PLUGIN_ENABLED;AMPLIFY_SHADER_EDITOR
     7: SUBSTANCE_PLUGIN_ENABLED;AMPLIFY_SHADER_EDITOR
   platformArchitecture: {}
   scriptingBackend: {}
