@@ -41,7 +41,7 @@ public class FlatVideoTrigger : MonoBehaviour
             mediaPlayer.url = Path.Combine(path, fileName + extension);
         }
 
-        StartCoroutine(StartVideoAsync());
+        //StartCoroutine(StartVideoAsync());
     }
 
     public void StopVideo()
