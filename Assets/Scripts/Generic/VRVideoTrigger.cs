@@ -84,13 +84,14 @@ public class VRVideoTrigger : MonoBehaviour
 
         //video notication removed from here
 
+        RenderSettings.fog = false;
         videoSphere.SetActive(true);
         surroundings.SetActive(false);
 
-        foreach (var renderer in transform.parent.GetComponentsInChildren<MeshRenderer>())
-        {
-            renderer.enabled = false;
-        }
+        //foreach (var renderer in transform.parent.GetComponentsInChildren<MeshRenderer>())
+        //{
+        //    renderer.enabled = false;
+        //}
 
         mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, url, true);
 
@@ -119,13 +120,13 @@ public class VRVideoTrigger : MonoBehaviour
         videoSphere.SetActive(false);
         surroundings.SetActive(true);
 
-        foreach (var renderer in transform.parent.GetComponentsInChildren<MeshRenderer>())
-        {
-            renderer.enabled = true;
-        }
+        //foreach (var renderer in transform.parent.GetComponentsInChildren<MeshRenderer>())
+        //{
+        //    renderer.enabled = true;
+        //}
 
         mediaPlayer.Stop();
-
+        RenderSettings.fog = true;
         fade.FadeIn();
 
         yield return new WaitForSeconds(1.1f);
