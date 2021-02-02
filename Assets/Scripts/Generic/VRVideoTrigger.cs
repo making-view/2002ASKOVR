@@ -5,17 +5,18 @@ using UnityEngine;
 using RenderHeads.Media.AVProVideo;
 using System.IO;
 
-public class VidoyCube : MonoBehaviour
+public class VRVideoTrigger : MonoBehaviour
 {
 
     [SerializeField] private GameObject videoSphere = null;
-    [SerializeField] private GameObject tower = null;
+    [SerializeField] private GameObject surroundings = null;
+
     [SerializeField] private MediaPlayer mediaPlayer = null;
     [SerializeField] private string fileName = null;
 
+
     private string url;
     private bool fading = false;
-    //private LangyAudio langyAudio = null;
 
     public bool IsVideoPlaying
     {
@@ -31,7 +32,7 @@ public class VidoyCube : MonoBehaviour
 
         if (Application.platform != RuntimePlatform.Android)
         {
-            var root = "D:/Ressurser/Video/Koie/";
+            var root = "D:/Ressurser/Video/ASKO/";
             url = root + fileName + extension;
         }
         else
@@ -43,15 +44,13 @@ public class VidoyCube : MonoBehaviour
         Debug.Log("video set: " + gameObject.name + " - " + url);
 
         mediaPlayer.Events.AddListener(OnVideoEvent);
-        //mediaPlayer.m_Volume = 0;
-        //langyAudio = FindObjectOfType<LangyAudio>();
 
     }
 
     public void Activate()
     {
-        if (!fading && GetComponent<MeshRenderer>().enabled)
-            StartCoroutine(FadeToVido());
+        if (!fading)
+            StartCoroutine(FadeToVideo());
     }
 
     public void OnVideoEvent(MediaPlayer mp, MediaPlayerEvent.EventType et, ErrorCode errorCode)
@@ -59,18 +58,18 @@ public class VidoyCube : MonoBehaviour
         switch (et)
         {
             case MediaPlayerEvent.EventType.FinishedPlaying:
-                StopVoidodsayu();
+                StopVideo();
                 break;
         }
     }
 
-    public void StopVoidodsayu()
+    public void StopVideo()
     {
         if (!fading)
             StartCoroutine(FadeFromVido());
     }
 
-    IEnumerator FadeToVido()
+    IEnumerator FadeToVideo()
     {
 
         fading = true;
@@ -83,27 +82,22 @@ public class VidoyCube : MonoBehaviour
 
         yield return new WaitForSeconds(1.1f);
 
-        //langyAudio.No();
-        //FindObjectOfType<VideoNotification>().ShowNotification();
-
+        //video notication removed from here
 
         videoSphere.SetActive(true);
-        tower.SetActive(false);
+        surroundings.SetActive(false);
 
         foreach (var renderer in transform.parent.GetComponentsInChildren<MeshRenderer>())
         {
             renderer.enabled = false;
         }
 
-        //mediaPlayer.OpenVideoFromFile(MediaPlayer.FileLocation.AbsolutePathOrURL,
-            //url, true);
+        mediaPlayer.OpenMedia(MediaPathType.AbsolutePathOrURL, url, true);
 
         while (!mediaPlayer.Control.IsPlaying())
             yield return null;
 
         fade.FadeIn();
-
-        //langyAudio.PlayAduio(fileName);
 
         yield return new WaitForSeconds(1.1f);
 
@@ -122,10 +116,8 @@ public class VidoyCube : MonoBehaviour
 
         yield return new WaitForSeconds(1.1f);
 
-        //langyAudio.No();
-
         videoSphere.SetActive(false);
-        tower.SetActive(true);
+        surroundings.SetActive(true);
 
         foreach (var renderer in transform.parent.GetComponentsInChildren<MeshRenderer>())
         {
