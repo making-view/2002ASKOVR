@@ -1182,11 +1182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.62541974, y: -2.591, z: 2.0922222}
+  m_position: {x: 0.62541974, y: 0.409, z: 2.0922222}
   m_precedingControlPointLocalPosition: {x: -0.23534846, y: -0.048145592, z: -0.033798218}
-  m_precedingControlPointPosition: {x: 0.39007127, y: -2.6391456, z: 2.058424}
+  m_precedingControlPointPosition: {x: 0.39007127, y: 0.36085442, z: 2.058424}
   m_followingControlPointLocalPosition: {x: 0.23534846, y: 0.048145592, z: 0.033798218}
-  m_followingControlPointPosition: {x: 0.8607682, y: -2.5428543, z: 2.1260204}
+  m_followingControlPointPosition: {x: 0.8607682, y: 0.4571456, z: 2.1260204}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -1315,11 +1315,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.5315905, y: -2.2310665, z: 3.0447118}
+  m_position: {x: 1.5315905, y: 0.76893353, z: 3.0447118}
   m_precedingControlPointLocalPosition: {x: 0.08144808, y: 0.025765702, z: 0.0032037497}
-  m_precedingControlPointPosition: {x: 1.5346019, y: -2.2068467, z: 2.9681506}
+  m_precedingControlPointPosition: {x: 1.5346019, y: 0.7931533, z: 2.9681506}
   m_followingControlPointLocalPosition: {x: -0.08144809, y: -0.025765687, z: -0.0032031536}
-  m_followingControlPointPosition: {x: 1.5285795, y: -2.2552862, z: 3.121273}
+  m_followingControlPointPosition: {x: 1.5285795, y: 0.7447138, z: 3.121273}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -1786,18 +1786,6 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &85783028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85783026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe8705b4fe0c6c44ab140ce41ec60aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &98526407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2528,11 +2516,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.303324, y: -2.2530003, z: 3.0362988}
+  m_position: {x: 1.303324, y: 0.7469996, z: 3.0362988}
   m_precedingControlPointLocalPosition: {x: -0.0634239, y: 0.038273595, z: -0.15993202}
-  m_precedingControlPointPosition: {x: 1.1529877, y: -2.2170231, z: 3.0959172}
+  m_precedingControlPointPosition: {x: 1.1529877, y: 0.7829768, z: 3.0959172}
   m_followingControlPointLocalPosition: {x: 0.06342393, y: -0.038273603, z: 0.15993273}
-  m_followingControlPointPosition: {x: 1.4536607, y: -2.2889776, z: 2.9766803}
+  m_followingControlPointPosition: {x: 1.4536607, y: 0.71102244, z: 2.9766803}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -2753,11 +2741,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: -0.49262172, y: -2.4668703, z: 2.2763684}
+  m_position: {x: -0.49262172, y: 0.5331297, z: 2.2763684}
   m_precedingControlPointLocalPosition: {x: -0.21750945, y: 0, z: 0.22673297}
-  m_precedingControlPointPosition: {x: -0.71013117, y: -2.4668703, z: 2.5031013}
+  m_precedingControlPointPosition: {x: -0.71013117, y: 0.5331297, z: 2.5031013}
   m_followingControlPointLocalPosition: {x: 0.21750945, y: 0, z: -0.22673297}
-  m_followingControlPointPosition: {x: -0.27511227, y: -2.4668703, z: 2.0496354}
+  m_followingControlPointPosition: {x: -0.27511227, y: 0.5331297, z: 2.0496354}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -5110,11 +5098,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 2.3918447, y: -2.4493072, z: 3.187459}
+  m_position: {x: 2.3918447, y: 0.55069286, z: 3.187459}
   m_precedingControlPointLocalPosition: {x: 0.03384614, y: 0, z: -0.06353402}
-  m_precedingControlPointPosition: {x: 2.425691, y: -2.4493072, z: 3.123925}
+  m_precedingControlPointPosition: {x: 2.425691, y: 0.55069286, z: 3.123925}
   m_followingControlPointLocalPosition: {x: -0.03384614, y: 0, z: 0.06353402}
-  m_followingControlPointPosition: {x: 2.3579986, y: -2.4493072, z: 3.250993}
+  m_followingControlPointPosition: {x: 2.3579986, y: 0.55069286, z: 3.250993}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -7348,11 +7336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.752078, y: -2.1832542, z: 2.8641124}
+  m_position: {x: 1.752078, y: 0.81674564, z: 2.8641124}
   m_precedingControlPointLocalPosition: {x: -0.09045768, y: 0.011311412, z: -0.043014765}
-  m_precedingControlPointPosition: {x: 1.6616204, y: -2.171943, z: 2.8210976}
+  m_precedingControlPointPosition: {x: 1.6616204, y: 0.82805705, z: 2.8210976}
   m_followingControlPointLocalPosition: {x: 0.09045768, y: -0.011311412, z: 0.043014765}
-  m_followingControlPointPosition: {x: 1.8425357, y: -2.1945658, z: 2.9071271}
+  m_followingControlPointPosition: {x: 1.8425357, y: 0.8054342, z: 2.9071271}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -8039,11 +8027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.665792, y: -2.4067667, z: 2.8822353}
+  m_position: {x: 0.665792, y: 0.5932333, z: 2.8822353}
   m_precedingControlPointLocalPosition: {x: -0.1288892, y: 0.03156936, z: 0.08362675}
-  m_precedingControlPointPosition: {x: 0.5369028, y: -2.3751974, z: 2.965862}
+  m_precedingControlPointPosition: {x: 0.5369028, y: 0.62480265, z: 2.965862}
   m_followingControlPointLocalPosition: {x: 0.1288892, y: -0.03156936, z: -0.08362675}
-  m_followingControlPointPosition: {x: 0.7946812, y: -2.4383361, z: 2.7986085}
+  m_followingControlPointPosition: {x: 0.7946812, y: 0.5616639, z: 2.7986085}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -9974,11 +9962,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.8668479, y: -2.4699783, z: 2.6020787}
+  m_position: {x: 0.8668479, y: 0.5300216, z: 2.6020787}
   m_precedingControlPointLocalPosition: {x: 0.37544024, y: -0.016921818, z: -0.15045023}
-  m_precedingControlPointPosition: {x: 1.2422881, y: -2.4869003, z: 2.4516284}
+  m_precedingControlPointPosition: {x: 1.2422881, y: 0.5130998, z: 2.4516284}
   m_followingControlPointLocalPosition: {x: -0.37544024, y: 0.016921818, z: 0.15045023}
-  m_followingControlPointPosition: {x: 0.49140763, y: -2.4530566, z: 2.752529}
+  m_followingControlPointPosition: {x: 0.49140763, y: 0.5469434, z: 2.752529}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -10268,11 +10256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.46311003, y: -2.2649171, z: 3.5661821}
+  m_position: {x: 0.46311003, y: 0.7350828, z: 3.5661821}
   m_precedingControlPointLocalPosition: {x: 0.010347873, y: -0.017578557, z: 0.11749077}
-  m_precedingControlPointPosition: {x: 0.5735514, y: -2.281441, z: 3.5564551}
+  m_precedingControlPointPosition: {x: 0.5735514, y: 0.71855897, z: 3.5564551}
   m_followingControlPointLocalPosition: {x: -0.010347858, y: 0.017578542, z: -0.11749065}
-  m_followingControlPointPosition: {x: 0.35266882, y: -2.2483933, z: 3.5759091}
+  m_followingControlPointPosition: {x: 0.35266882, y: 0.75160664, z: 3.5759091}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -12837,11 +12825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.2870219, y: -2.3541737, z: 2.7896245}
+  m_position: {x: 1.2870219, y: 0.6458262, z: 2.7896245}
   m_precedingControlPointLocalPosition: {x: -0.29601765, y: -0.11100626, z: -0.10379672}
-  m_precedingControlPointPosition: {x: 0.9910042, y: -2.46518, z: 2.6858277}
+  m_precedingControlPointPosition: {x: 0.9910042, y: 0.53481996, z: 2.6858277}
   m_followingControlPointLocalPosition: {x: 0.29601765, y: 0.11100626, z: 0.10379672}
-  m_followingControlPointPosition: {x: 1.5830395, y: -2.2431674, z: 2.8934212}
+  m_followingControlPointPosition: {x: 1.5830395, y: 0.7568325, z: 2.8934212}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -16185,11 +16173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.76061034, y: -2.310165, z: 3.552367}
+  m_position: {x: 0.76061034, y: 0.68983513, z: 3.552367}
   m_precedingControlPointLocalPosition: {x: 0.03791032, y: 0, z: 0.17809504}
-  m_precedingControlPointPosition: {x: 0.9280197, y: -2.310165, z: 3.5167313}
+  m_precedingControlPointPosition: {x: 0.9280197, y: 0.68983513, z: 3.5167313}
   m_followingControlPointLocalPosition: {x: -0.037910298, y: 0, z: -0.17809492}
-  m_followingControlPointPosition: {x: 0.59320104, y: -2.310165, z: 3.5880027}
+  m_followingControlPointPosition: {x: 0.59320104, y: 0.68983513, z: 3.5880027}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -17192,11 +17180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 2.300652, y: -2.4213948, z: 3.3801568}
+  m_position: {x: 2.300652, y: 0.57860523, z: 3.3801568}
   m_precedingControlPointLocalPosition: {x: 0.05951214, y: 0.01113081, z: -0.1139729}
-  m_precedingControlPointPosition: {x: 2.3601642, y: -2.410264, z: 3.2661839}
+  m_precedingControlPointPosition: {x: 2.3601642, y: 0.58973604, z: 3.2661839}
   m_followingControlPointLocalPosition: {x: -0.05951214, y: -0.01113081, z: 0.1139729}
-  m_followingControlPointPosition: {x: 2.24114, y: -2.4325256, z: 3.4941297}
+  m_followingControlPointPosition: {x: 2.24114, y: 0.5674744, z: 3.4941297}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -18232,11 +18220,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.71625865, y: -2.1747375, z: 3.271248}
+  m_position: {x: 0.71625865, y: 0.8252624, z: 3.271248}
   m_precedingControlPointLocalPosition: {x: 0.0006508641, y: 0, z: -0.18919356}
-  m_precedingControlPointPosition: {x: 0.5384166, y: -2.1747375, z: 3.2706363}
+  m_precedingControlPointPosition: {x: 0.5384166, y: 0.8252624, z: 3.2706363}
   m_followingControlPointLocalPosition: {x: -0.00065083057, y: 0, z: 0.18919376}
-  m_followingControlPointPosition: {x: 0.89410084, y: -2.1747375, z: 3.27186}
+  m_followingControlPointPosition: {x: 0.89410084, y: 0.8252624, z: 3.27186}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -18441,11 +18429,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.6183541, y: -2.6393938, z: 2.0119238}
+  m_position: {x: 1.6183541, y: 0.3606061, z: 2.0119238}
   m_precedingControlPointLocalPosition: {x: -0.13507438, y: 0, z: 0.0855037}
-  m_precedingControlPointPosition: {x: 1.4832795, y: -2.6393938, z: 2.0974274}
+  m_precedingControlPointPosition: {x: 1.4832795, y: 0.3606061, z: 2.0974274}
   m_followingControlPointLocalPosition: {x: 0.13507438, y: 0, z: -0.0855037}
-  m_followingControlPointPosition: {x: 1.7534282, y: -2.6393938, z: 1.9264201}
+  m_followingControlPointPosition: {x: 1.7534282, y: 0.3606061, z: 1.9264201}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -18892,7 +18880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046634464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1034092646}
@@ -21678,11 +21666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 2.1853034, y: -2.5063035, z: 3.576436}
+  m_position: {x: 2.1853034, y: 0.4936964, z: 3.576436}
   m_precedingControlPointLocalPosition: {x: 0.07122159, y: 0, z: -0.13492608}
-  m_precedingControlPointPosition: {x: 2.256525, y: -2.5063035, z: 3.44151}
+  m_precedingControlPointPosition: {x: 2.256525, y: 0.4936964, z: 3.44151}
   m_followingControlPointLocalPosition: {x: -0.07122159, y: 0, z: 0.13492608}
-  m_followingControlPointPosition: {x: 2.1140819, y: -2.5063035, z: 3.7113621}
+  m_followingControlPointPosition: {x: 2.1140819, y: 0.4936964, z: 3.7113621}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -22363,11 +22351,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.4634771, y: -2.455958, z: 2.5080614}
+  m_position: {x: 1.4634771, y: 0.54404205, z: 2.5080614}
   m_precedingControlPointLocalPosition: {x: 0.025302172, y: -0.064896524, z: -0.10713434}
-  m_precedingControlPointPosition: {x: 1.4887793, y: -2.5208545, z: 2.400927}
+  m_precedingControlPointPosition: {x: 1.4887793, y: 0.47914553, z: 2.400927}
   m_followingControlPointLocalPosition: {x: -0.025302172, y: 0.064896524, z: 0.10713434}
-  m_followingControlPointPosition: {x: 1.438175, y: -2.3910613, z: 2.6151958}
+  m_followingControlPointPosition: {x: 1.438175, y: 0.6089386, z: 2.6151958}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -29424,11 +29412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 2.3272579, y: -2.4370463, z: 2.9260862}
+  m_position: {x: 2.3272579, y: 0.56295365, z: 2.9260862}
   m_precedingControlPointLocalPosition: {x: -0.12596154, y: 0, z: -0.07741165}
-  m_precedingControlPointPosition: {x: 2.2012963, y: -2.4370463, z: 2.8486745}
+  m_precedingControlPointPosition: {x: 2.2012963, y: 0.56295365, z: 2.8486745}
   m_followingControlPointLocalPosition: {x: 0.12596154, y: 0, z: 0.07741165}
-  m_followingControlPointPosition: {x: 2.4532194, y: -2.4370463, z: 3.0034978}
+  m_followingControlPointPosition: {x: 2.4532194, y: 0.56295365, z: 3.0034978}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -30590,11 +30578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 2.2489195, y: -2.663591, z: 1.9637336}
+  m_position: {x: 2.2489195, y: 0.33640915, z: 1.9637336}
   m_precedingControlPointLocalPosition: {x: -0.3361801, y: 0, z: -0.018234253}
-  m_precedingControlPointPosition: {x: 1.9127395, y: -2.663591, z: 1.9454993}
+  m_precedingControlPointPosition: {x: 1.9127395, y: 0.33640915, z: 1.9454993}
   m_followingControlPointLocalPosition: {x: 0.3361802, y: 0, z: 0.018234253}
-  m_followingControlPointPosition: {x: 2.5850997, y: -2.663591, z: 1.9819678}
+  m_followingControlPointPosition: {x: 2.5850997, y: 0.33640915, z: 1.9819678}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -30774,11 +30762,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.0657465, y: -2.6073573, z: 2.140712}
+  m_position: {x: 1.0657465, y: 0.39264283, z: 2.140712}
   m_precedingControlPointLocalPosition: {x: -0.18084931, y: -0.0058499575, z: -0.008142471}
-  m_precedingControlPointPosition: {x: 0.88489723, y: -2.613207, z: 2.1325696}
+  m_precedingControlPointPosition: {x: 0.88489723, y: 0.38679287, z: 2.1325696}
   m_followingControlPointLocalPosition: {x: 0.18084931, y: 0.0058499575, z: 0.008142471}
-  m_followingControlPointPosition: {x: 1.2465959, y: -2.6015072, z: 2.1488545}
+  m_followingControlPointPosition: {x: 1.2465959, y: 0.39849278, z: 2.1488545}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -33354,11 +33342,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.34661835, y: -2.0580928, z: 3.3031063}
+  m_position: {x: 0.34661835, y: 0.9419071, z: 3.3031063}
   m_precedingControlPointLocalPosition: {x: -0.044930972, y: 0, z: -0.12493547}
-  m_precedingControlPointPosition: {x: 0.22917897, y: -2.0580928, z: 3.3453414}
+  m_precedingControlPointPosition: {x: 0.22917897, y: 0.9419071, z: 3.3453414}
   m_followingControlPointLocalPosition: {x: 0.044930976, y: 0, z: 0.12493547}
-  m_followingControlPointPosition: {x: 0.46405774, y: -2.0580928, z: 3.2608712}
+  m_followingControlPointPosition: {x: 0.46405774, y: 0.9419071, z: 3.2608712}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -33488,11 +33476,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: -0.8440581, y: -2.605307, z: 2.636751}
+  m_position: {x: -0.8440581, y: 0.39469302, z: 2.636751}
   m_precedingControlPointLocalPosition: {x: -0.1835081, y: -0.01611185, z: 0.15225029}
-  m_precedingControlPointPosition: {x: -1.0275662, y: -2.621419, z: 2.7890012}
+  m_precedingControlPointPosition: {x: -1.0275662, y: 0.37858117, z: 2.7890012}
   m_followingControlPointLocalPosition: {x: 0.1835081, y: 0.01611185, z: -0.15225029}
-  m_followingControlPointPosition: {x: -0.66055, y: -2.5891953, z: 2.4845006}
+  m_followingControlPointPosition: {x: -0.66055, y: 0.41080487, z: 2.4845006}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -33542,11 +33530,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 2.2359195, y: -2.663591, z: 1.9437336}
+  m_position: {x: 2.2359195, y: 0.33640915, z: 1.9437336}
   m_precedingControlPointLocalPosition: {x: 0.40479088, y: 0, z: -0.0011743307}
-  m_precedingControlPointPosition: {x: 2.6407104, y: -2.663591, z: 1.9425592}
+  m_precedingControlPointPosition: {x: 2.6407104, y: 0.33640915, z: 1.9425592}
   m_followingControlPointLocalPosition: {x: -0.40479088, y: 0, z: 0.0011743307}
-  m_followingControlPointPosition: {x: 1.8311286, y: -2.663591, z: 1.9449079}
+  m_followingControlPointPosition: {x: 1.8311286, y: 0.33640915, z: 1.9449079}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -35934,11 +35922,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.0443454, y: -2.0675426, z: 3.21638}
+  m_position: {x: 1.0443454, y: 0.9324574, z: 3.21638}
   m_precedingControlPointLocalPosition: {x: -0.051816467, y: 0, z: -0.13662773}
-  m_precedingControlPointPosition: {x: 0.9159153, y: -2.0675426, z: 3.2650874}
+  m_precedingControlPointPosition: {x: 0.9159153, y: 0.9324574, z: 3.2650874}
   m_followingControlPointLocalPosition: {x: 0.05181641, y: 0, z: 0.13662809}
-  m_followingControlPointPosition: {x: 1.172776, y: -2.0675426, z: 3.1676724}
+  m_followingControlPointPosition: {x: 1.172776, y: 0.9324574, z: 3.1676724}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -37129,11 +37117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.0380104, y: -2.6196795, z: 2.162003}
+  m_position: {x: 1.0380104, y: 0.38032046, z: 2.162003}
   m_precedingControlPointLocalPosition: {x: 0.024298191, y: 0, z: -0.3075626}
-  m_precedingControlPointPosition: {x: 1.0623085, y: -2.6196795, z: 1.8544405}
+  m_precedingControlPointPosition: {x: 1.0623085, y: 0.38032046, z: 1.8544405}
   m_followingControlPointLocalPosition: {x: -0.024298191, y: 0, z: 0.3075626}
-  m_followingControlPointPosition: {x: 1.0137122, y: -2.6196795, z: 2.4695656}
+  m_followingControlPointPosition: {x: 1.0137122, y: 0.38032046, z: 2.4695656}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -37263,11 +37251,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.9158947, y: -2.3385456, z: 2.9390883}
+  m_position: {x: 1.9158947, y: 0.6614545, z: 2.9390883}
   m_precedingControlPointLocalPosition: {x: 0.017436504, y: 0.072794735, z: -0.16961002}
-  m_precedingControlPointPosition: {x: 1.9333313, y: -2.265751, z: 2.7694783}
+  m_precedingControlPointPosition: {x: 1.9333313, y: 0.73424923, z: 2.7694783}
   m_followingControlPointLocalPosition: {x: -0.017436504, y: -0.072794735, z: 0.16961002}
-  m_followingControlPointPosition: {x: 1.8984582, y: -2.4113402, z: 3.1086984}
+  m_followingControlPointPosition: {x: 1.8984582, y: 0.58865976, z: 3.1086984}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -41837,6 +41825,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1952528364}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1955179389 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 808419cf1f00a3a4d8f0cfd7555f044f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1937434491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1955179390
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955179389}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 9ba96d113ed1feb4c8a876f6f71fc211, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 9ba96d113ed1feb4c8a876f6f71fc211, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &1962830789
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42746,11 +42756,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.043580294, y: -2.591, z: 1.941609}
+  m_position: {x: 0.043580294, y: 0.409, z: 1.941609}
   m_precedingControlPointLocalPosition: {x: -0.2946372, y: 0.019120276, z: -0.09335029}
-  m_precedingControlPointPosition: {x: -0.2510569, y: -2.5718796, z: 1.8482587}
+  m_precedingControlPointPosition: {x: -0.2510569, y: 0.4281203, z: 1.8482587}
   m_followingControlPointLocalPosition: {x: 0.2946372, y: -0.019120276, z: 0.09335029}
-  m_followingControlPointPosition: {x: 0.3382175, y: -2.6101203, z: 2.0349593}
+  m_followingControlPointPosition: {x: 0.3382175, y: 0.38987973, z: 2.0349593}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -43272,11 +43282,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.2364924, y: -2.3121798, z: 3.396068}
+  m_position: {x: 1.2364924, y: 0.68782026, z: 3.396068}
   m_precedingControlPointLocalPosition: {x: 0.06827724, y: -0.01678297, z: 0.13476217}
-  m_precedingControlPointPosition: {x: 1.3631687, y: -2.3279557, z: 3.3318875}
+  m_precedingControlPointPosition: {x: 1.3631687, y: 0.6720443, z: 3.3318875}
   m_followingControlPointLocalPosition: {x: -0.068277225, y: 0.016782954, z: -0.13476163}
-  m_followingControlPointPosition: {x: 1.1098163, y: -2.296404, z: 3.4602487}
+  m_followingControlPointPosition: {x: 1.1098163, y: 0.70359623, z: 3.4602487}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -43973,11 +43983,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.5368388, y: -2.548758, z: 3.9380293}
+  m_position: {x: 1.5368388, y: 0.45124197, z: 3.9380293}
   m_precedingControlPointLocalPosition: {x: 0.20527196, y: 0, z: -0.11947203}
-  m_precedingControlPointPosition: {x: 1.7421107, y: -2.548758, z: 3.8185573}
+  m_precedingControlPointPosition: {x: 1.7421107, y: 0.45124197, z: 3.8185573}
   m_followingControlPointLocalPosition: {x: -0.20527196, y: 0, z: 0.11947203}
-  m_followingControlPointPosition: {x: 1.3315668, y: -2.548758, z: 4.0575013}
+  m_followingControlPointPosition: {x: 1.3315668, y: 0.45124197, z: 4.0575013}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -44528,11 +44538,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: -1.522652, y: -2.6368742, z: 2.7734158}
+  m_position: {x: -1.522652, y: 0.3631259, z: 2.7734158}
   m_precedingControlPointLocalPosition: {x: -0.29889476, y: -0.07286152, z: 0.013476372}
-  m_precedingControlPointPosition: {x: -1.8215468, y: -2.7097356, z: 2.7868922}
+  m_precedingControlPointPosition: {x: -1.8215468, y: 0.29026437, z: 2.7868922}
   m_followingControlPointLocalPosition: {x: 0.29889476, y: 0.07286149, z: -0.013476372}
-  m_followingControlPointPosition: {x: -1.2237573, y: -2.5640125, z: 2.7599394}
+  m_followingControlPointPosition: {x: -1.2237573, y: 0.43598738, z: 2.7599394}
   m_handleMode: 2
   extraData:
     c1: 0

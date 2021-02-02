@@ -13,11 +13,18 @@ public class FlatVideoTrigger : MonoBehaviour
     [SerializeField] private string fileName = null;
     private VideoPlayer mediaPlayer = null;
     private string url;
+    private float popupTime = 2f;
+
+    private GameObject monitorMesh = null;
+    private Vector3 startScale = Vector3.zero;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        monitorMesh = transform.parent.parent.transform.gameObject;
+        startScale = monitorMesh.transform.localScale;
+        monitorMesh.transform.localScale = Vector3.zero;
 
         mediaPlayer = GetComponent<VideoPlayer>();
 
@@ -33,6 +40,8 @@ public class FlatVideoTrigger : MonoBehaviour
             var path = Path.Combine(Application.persistentDataPath, "Movies");
             mediaPlayer.url = Path.Combine(path, fileName + extension);
         }
+
+        StartCoroutine(StartVideoAsync());
     }
 
     public void StopVideo()
@@ -42,6 +51,23 @@ public class FlatVideoTrigger : MonoBehaviour
 
     public void StartVideo()
     {
+        StartCoroutine(StartVideoAsync());
+    }
+
+    IEnumerator StartVideoAsync()
+    {
+        var wait = popupTime;
+
+
+        monitorMesh.GetComponent<Animation>().Play();
+
+        yield return new WaitForSeconds(1);
+
+        mediaPlayer.Prepare();
+
+        while(!mediaPlayer.isPrepared)
+            yield return null;
+
         mediaPlayer.Play();
     }
 }
