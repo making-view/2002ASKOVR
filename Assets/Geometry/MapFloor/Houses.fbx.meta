@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 95daeeef48df2ce46b85c5c8dff5d4e3
+guid: c5220d2aa25df014d9eb4b2f613d2500
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ASKO_TruckCar_nat
-    second: {fileID: 2100000, guid: 03ff4c18fdc369246916a38e5caa3899, type: 2}
+      name: Houses_mat
+    second: {fileID: 2100000, guid: 315a83de994004b41aa06f4753194eb6, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
