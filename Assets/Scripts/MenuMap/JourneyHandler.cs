@@ -40,6 +40,7 @@ public class JourneyHandler : MonoBehaviour
     void Start()
     {
         narrator = GetComponent<AudioSource>();
+        BeginPlay();
     }
 
     public void BeginPlay()
