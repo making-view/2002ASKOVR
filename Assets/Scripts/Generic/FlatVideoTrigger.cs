@@ -13,6 +13,7 @@ public class FlatVideoTrigger : MonoBehaviour
     [SerializeField] private string fileName = null;
     private VideoPlayer mediaPlayer = null;
     private string url;
+    [SerializeField] private string pc_root = "D:/";
 
     private GameObject monitorMesh = null;
     private Vector3 startScale = Vector3.zero;
@@ -34,7 +35,7 @@ public class FlatVideoTrigger : MonoBehaviour
 
         if (Application.platform != RuntimePlatform.Android)
         {
-            var root = "D:/Ressurser/Video/ASKO/";
+            var root = pc_root + "Ressurser/Video/ASKO/";
             mediaPlayer.url = root + fileName + extension;
         }
         else

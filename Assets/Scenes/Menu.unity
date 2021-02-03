@@ -1154,11 +1154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.5315905, y: -2.2310665, z: 3.0447118}
+  m_position: {x: 1.5315905, y: -2.3195066, z: 3.0447118}
   m_precedingControlPointLocalPosition: {x: 0.08144808, y: 0.025765702, z: 0.0032037497}
-  m_precedingControlPointPosition: {x: 1.5346019, y: -2.2068467, z: 2.9681506}
+  m_precedingControlPointPosition: {x: 1.5346019, y: -2.2952867, z: 2.9681506}
   m_followingControlPointLocalPosition: {x: -0.08144809, y: -0.025765687, z: -0.0032031536}
-  m_followingControlPointPosition: {x: 1.5285795, y: -2.2552862, z: 3.121273}
+  m_followingControlPointPosition: {x: 1.5285795, y: -2.3437262, z: 3.121273}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -2143,11 +2143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.303324, y: -2.2530003, z: 3.0362988}
+  m_position: {x: 1.303324, y: -2.3414404, z: 3.0362988}
   m_precedingControlPointLocalPosition: {x: -0.0634239, y: 0.038273595, z: -0.15993202}
-  m_precedingControlPointPosition: {x: 1.1529877, y: -2.2170231, z: 3.0959172}
+  m_precedingControlPointPosition: {x: 1.1529877, y: -2.3054633, z: 3.0959172}
   m_followingControlPointLocalPosition: {x: 0.06342393, y: -0.038273603, z: 0.15993273}
-  m_followingControlPointPosition: {x: 1.4536607, y: -2.2889776, z: 2.9766803}
+  m_followingControlPointPosition: {x: 1.4536607, y: -2.3774176, z: 2.9766803}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   surroundings: {fileID: 1429528357}
   mediaPlayer: {fileID: 55084270}
   fileName: 360Kiwiintro
-  PC_root: D:/
+  PC_root: E:/
 --- !u!1 &181113457
 GameObject:
   m_ObjectHideFlags: 0
@@ -7222,7 +7222,7 @@ MonoBehaviour:
   topPoint: {fileID: 357186061}
   bottomPoint: {fileID: 747519603}
   minSpeed: 0.2
-  maxSpeed: 1
+  maxSpeed: 0.8
 --- !u!114 &442801727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8207,7 +8207,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &511162892
 Transform:
@@ -8279,11 +8279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.46311003, y: -2.2649171, z: 3.5661821}
+  m_position: {x: 0.46311003, y: -2.3533573, z: 3.5661821}
   m_precedingControlPointLocalPosition: {x: 0.010347873, y: -0.017578557, z: 0.11749077}
-  m_precedingControlPointPosition: {x: 0.5735514, y: -2.281441, z: 3.5564551}
+  m_precedingControlPointPosition: {x: 0.5735514, y: -2.3698812, z: 3.5564551}
   m_followingControlPointLocalPosition: {x: -0.010347858, y: 0.017578542, z: -0.11749065}
-  m_followingControlPointPosition: {x: 0.35266882, y: -2.2483933, z: 3.5759091}
+  m_followingControlPointPosition: {x: 0.35266882, y: -2.3368335, z: 3.5759091}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -9374,7 +9374,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 808419cf1f00a3a4d8f0cfd7555f044f,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 808419cf1f00a3a4d8f0cfd7555f044f, type: 3}
@@ -10235,7 +10235,7 @@ MonoBehaviour:
   surroundings: {fileID: 1429528357}
   mediaPlayer: {fileID: 55084270}
   fileName: 360Kiwiavslutning
-  PC_root: D:/
+  PC_root: E:/
 --- !u!4 &628771722
 Transform:
   m_ObjectHideFlags: 0
@@ -11501,6 +11501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: 2DJohJohansson
+  pc_root: E:/
   quitVideo: 0
 --- !u!1001 &771181311
 PrefabInstance:
@@ -11696,7 +11697,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 78acfd0333f0193488148c3234ac43d8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.7617002
+      value: 0.28370023
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 78acfd0333f0193488148c3234ac43d8,
         type: 3}
@@ -11771,7 +11772,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 78acfd0333f0193488148c3234ac43d8,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78acfd0333f0193488148c3234ac43d8, type: 3}
@@ -12426,7 +12427,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!224 &846155953
 RectTransform:
@@ -12743,11 +12744,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.76061034, y: -2.310165, z: 3.552367}
+  m_position: {x: 0.76061034, y: -2.3986049, z: 3.552367}
   m_precedingControlPointLocalPosition: {x: 0.03791032, y: 0, z: 0.17809504}
-  m_precedingControlPointPosition: {x: 0.9280197, y: -2.310165, z: 3.5167313}
+  m_precedingControlPointPosition: {x: 0.9280197, y: -2.3986049, z: 3.5167313}
   m_followingControlPointLocalPosition: {x: -0.037910298, y: 0, z: -0.17809492}
-  m_followingControlPointPosition: {x: 0.59320104, y: -2.310165, z: 3.5880027}
+  m_followingControlPointPosition: {x: 0.59320104, y: -2.3986049, z: 3.5880027}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -13064,7 +13065,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - name: Coffee video
-    duration: 613
+    duration: 41
     type: 1
     animation: {fileID: 0}
     moveThing: {fileID: 0}
@@ -14293,11 +14294,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.71625865, y: -2.1747375, z: 3.271248}
+  m_position: {x: 0.71625865, y: -2.2631776, z: 3.271248}
   m_precedingControlPointLocalPosition: {x: 0.0006508641, y: 0, z: -0.18919356}
-  m_precedingControlPointPosition: {x: 0.5384166, y: -2.1747375, z: 3.2706363}
+  m_precedingControlPointPosition: {x: 0.5384166, y: -2.2631776, z: 3.2706363}
   m_followingControlPointLocalPosition: {x: -0.00065083057, y: 0, z: 0.18919376}
-  m_followingControlPointPosition: {x: 0.89410084, y: -2.1747375, z: 3.27186}
+  m_followingControlPointPosition: {x: 0.89410084, y: -2.2631776, z: 3.27186}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -15771,7 +15772,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e8ba7263833349046ac6e2d3a34a1189,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.021
+      value: -0.491
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8ba7263833349046ac6e2d3a34a1189,
         type: 3}
@@ -27511,7 +27512,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.861
+      value: -0.617
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
@@ -27736,7 +27737,7 @@ PrefabInstance:
     - target: {fileID: 375517915199365746, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 464279957562279057, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
@@ -27801,7 +27802,7 @@ PrefabInstance:
     - target: {fileID: 1378922297957006227, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1600371534556982141, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
@@ -27946,7 +27947,7 @@ PrefabInstance:
     - target: {fileID: 8623626763608699364, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8831567065216400070, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
@@ -31557,7 +31558,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551111060}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.6226368, y: -0.018059969, z: -0.17376208}
+  m_LocalPosition: {x: -0.6226368, y: -0.1065, z: -0.17376208}
   m_LocalScale: {x: 0.94000024, y: 0.94, z: 0.94000024}
   m_Children:
   - {fileID: 1575152649}
@@ -32075,11 +32076,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 0.34661835, y: -2.0580928, z: 3.3031063}
+  m_position: {x: 0.34661835, y: -2.146533, z: 3.3031063}
   m_precedingControlPointLocalPosition: {x: -0.044930972, y: 0, z: -0.12493547}
-  m_precedingControlPointPosition: {x: 0.22917897, y: -2.0580928, z: 3.3453414}
+  m_precedingControlPointPosition: {x: 0.22917897, y: -2.146533, z: 3.3453414}
   m_followingControlPointLocalPosition: {x: 0.044930976, y: 0, z: 0.12493547}
-  m_followingControlPointPosition: {x: 0.46405774, y: -2.0580928, z: 3.2608712}
+  m_followingControlPointPosition: {x: 0.46405774, y: -2.146533, z: 3.2608712}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -32103,7 +32104,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!224 &1585771645
 RectTransform:
@@ -32137,6 +32138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: 2DASKOintro
+  pc_root: E:/
   quitVideo: 0
 --- !u!82 &1585771647
 AudioSource:
@@ -32800,7 +32802,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 51cf8a46a34d5c0468de2a77967a79f4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.715
+      value: 0.237
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51cf8a46a34d5c0468de2a77967a79f4,
         type: 3}
@@ -32870,7 +32872,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 51cf8a46a34d5c0468de2a77967a79f4,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 51cf8a46a34d5c0468de2a77967a79f4,
         type: 3}
@@ -34132,11 +34134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.0443454, y: -2.0675426, z: 3.21638}
+  m_position: {x: 1.0443454, y: -2.1559825, z: 3.21638}
   m_precedingControlPointLocalPosition: {x: -0.051816467, y: 0, z: -0.13662773}
-  m_precedingControlPointPosition: {x: 0.9159153, y: -2.0675426, z: 3.2650874}
+  m_precedingControlPointPosition: {x: 0.9159153, y: -2.1559825, z: 3.2650874}
   m_followingControlPointLocalPosition: {x: 0.05181641, y: 0, z: 0.13662809}
-  m_followingControlPointPosition: {x: 1.172776, y: -2.0675426, z: 3.1676724}
+  m_followingControlPointPosition: {x: 1.172776, y: -2.1559825, z: 3.1676724}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -39918,11 +39920,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cf9c5931a3b3c4ba456c8213d7ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_position: {x: 1.2364924, y: -2.3121798, z: 3.396068}
+  m_position: {x: 1.2364924, y: -2.4006197, z: 3.396068}
   m_precedingControlPointLocalPosition: {x: 0.06827724, y: -0.01678297, z: 0.13476217}
-  m_precedingControlPointPosition: {x: 1.3631687, y: -2.3279557, z: 3.3318875}
+  m_precedingControlPointPosition: {x: 1.3631687, y: -2.4163957, z: 3.3318875}
   m_followingControlPointLocalPosition: {x: -0.068277225, y: 0.016782954, z: -0.13476163}
-  m_followingControlPointPosition: {x: 1.1098163, y: -2.296404, z: 3.4602487}
+  m_followingControlPointPosition: {x: 1.1098163, y: -2.3848438, z: 3.4602487}
   m_handleMode: 2
   extraData:
     c1: 0
@@ -39944,7 +39946,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c5220d2aa25df014d9eb4b2f613d2500,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.9420002
+      value: 0.459
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c5220d2aa25df014d9eb4b2f613d2500,
         type: 3}
@@ -39999,7 +40001,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5220d2aa25df014d9eb4b2f613d2500,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5220d2aa25df014d9eb4b2f613d2500, type: 3}
@@ -40562,7 +40564,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!224 &2065420630
 RectTransform:
