@@ -13,6 +13,7 @@ public class VRVideoTrigger : MonoBehaviour
 
     [SerializeField] private MediaPlayer mediaPlayer = null;
     [SerializeField] private string fileName = null;
+    [SerializeField] private string PC_root = "D:/";
 
 
     private string url;
@@ -32,7 +33,7 @@ public class VRVideoTrigger : MonoBehaviour
 
         if (Application.platform != RuntimePlatform.Android)
         {
-            var root = "D:/Ressurser/Video/ASKO/";
+            var root = PCroot + "Ressurser/Video/ASKO/";
             url = root + fileName + extension;
         }
         else
