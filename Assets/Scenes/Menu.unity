@@ -9382,7 +9382,7 @@ GameObject:
   - component: {fileID: 628771722}
   - component: {fileID: 628771721}
   m_Layer: 0
-  m_Name: ASKOVideo
+  m_Name: TestVideo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9403,7 +9403,7 @@ MonoBehaviour:
   videoSphere: {fileID: 259779698}
   surroundings: {fileID: 1429528357}
   mediaPlayer: {fileID: 55084270}
-  fileName: Test360
+  fileName: bjarne
 --- !u!4 &628771722
 Transform:
   m_ObjectHideFlags: 0
