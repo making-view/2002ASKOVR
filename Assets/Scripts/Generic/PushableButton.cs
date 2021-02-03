@@ -18,6 +18,8 @@ public class PushableButton : MonoBehaviour
 
     private Vector3 initLocalPos;
 
+    [SerializeField] private KeyCode debugPress = KeyCode.None;
+
     public bool IsButtonPressed()
     {
         return pressed;
@@ -28,6 +30,22 @@ public class PushableButton : MonoBehaviour
         rigidboody = GetComponent<Rigidbody>();
         midPoint = (topPoint.transform.localPosition + bottomPoint.transform.localPosition) / 2;
         initLocalPos = transform.localPosition;
+
+        if (debugPress != KeyCode.None)
+            StartCoroutine(DebugKeyCheck());
+    }
+
+    private IEnumerator DebugKeyCheck()
+    {
+        while(true)
+        {
+            if (Input.GetKeyDown(debugPress))
+            {
+                onButtonPushed.Invoke();
+                Debug.Log(gameObject.name + "'s debug putton pushed");
+            }
+            yield return null;
+        }
     }
 
     void Update()

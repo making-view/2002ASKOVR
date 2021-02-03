@@ -13,10 +13,12 @@ public class FlatVideoTrigger : MonoBehaviour
     [SerializeField] private string fileName = null;
     private VideoPlayer mediaPlayer = null;
     private string url;
-    private float popupTime = 2f;
 
     private GameObject monitorMesh = null;
     private Vector3 startScale = Vector3.zero;
+
+    public bool quitVideo = false;
+    private float popupTime = 1f;
 
 
     // Start is called before the first frame update
@@ -47,21 +49,20 @@ public class FlatVideoTrigger : MonoBehaviour
     public void StopVideo()
     {
         mediaPlayer.Stop();
+        monitorMesh.GetComponent<Animation>().Play("MonitorAway");
     }
 
     public void StartVideo()
     {
+        quitVideo = false;
         StartCoroutine(StartVideoAsync());
     }
 
     IEnumerator StartVideoAsync()
     {
-        var wait = popupTime;
+        monitorMesh.GetComponent<Animation>().Play("MonitorAppear");
 
-
-        monitorMesh.GetComponent<Animation>().Play();
-
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(popupTime);
 
         mediaPlayer.Prepare();
 
@@ -69,5 +70,21 @@ public class FlatVideoTrigger : MonoBehaviour
             yield return null;
 
         mediaPlayer.Play();
+
+
+        while(mediaPlayer.isPlaying && !quitVideo)
+        {
+            yield return null;
+        }
+
+        StopVideo();
     }
+
+
+    //DEBUG update:
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //        quitVideo = true;
+    //}
 }
