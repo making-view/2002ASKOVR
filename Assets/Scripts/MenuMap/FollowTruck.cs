@@ -6,7 +6,7 @@ public class FollowTruck : MonoBehaviour
 {
     [SerializeField] Transform frontMount = null;
     [SerializeField] Transform backMount = null;
-    [SerializeField] Transform middlePoint = null;
+    //[SerializeField] Transform middlePoint = null;
 
     [SerializeField] public BezierSolution.BezierSpline spline = null;
     [SerializeField] BezierSolution.BezierWalkerWithTime cabin = null;

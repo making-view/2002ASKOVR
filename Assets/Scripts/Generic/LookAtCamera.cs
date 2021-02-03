@@ -5,19 +5,19 @@ using UnityEngine.Animations;
 
 public class LookAtCamera : MonoBehaviour
 {
-    private GameObject camera;
+    private GameObject playerCamera;
     // Start is called before the first frame update
     void Start()
     {
-        camera = GameObject.FindObjectOfType<Camera>().gameObject;
+        playerCamera = GameObject.FindObjectOfType<Camera>().gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 targetPostition = new Vector3(camera.transform.position.x,
+        Vector3 targetPostition = new Vector3(playerCamera.transform.position.x,
                                this.transform.position.y,
-                               camera.transform.position.z);
+                               playerCamera.transform.position.z);
 
         this.transform.LookAt(targetPostition);
     }

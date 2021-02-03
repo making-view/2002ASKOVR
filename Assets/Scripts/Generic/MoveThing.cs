@@ -8,7 +8,7 @@ public class MoveThing : MonoBehaviour
     float duration = 20;
 
     [SerializeField]
-    GameObject endposGO;
+    GameObject endposGO = null;
 
     Vector3 startPos;
     Vector3 endPos;
@@ -18,7 +18,7 @@ public class MoveThing : MonoBehaviour
 
     [SerializeField]
     private bool started = false;
-    private bool soundPlayed = false;
+    //private bool soundPlayed = false;
     private float timeElapsed = 0;
 
     [SerializeField]
