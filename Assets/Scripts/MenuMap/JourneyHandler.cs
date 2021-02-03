@@ -39,15 +39,42 @@ public class JourneyHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BeginPlay();
-        Debug.Log("Starting Journey");
+        narrator = GetComponent<AudioSource>();
     }
 
-    void BeginPlay()
+    public void BeginPlay()
     {
+        StopCoroutine(PlayEvent());
+        StopEvent();
+
         currentEvent = 0;
         if (journey.Count > currentEvent)
             StartCoroutine(PlayEvent());
+    }
+
+
+    public void BeginPlay(int eventnum)
+    {
+        StopCoroutine(PlayEvent());
+        StopEvent();
+
+        currentEvent = eventnum;
+        if (journey.Count > currentEvent)
+            StartCoroutine(PlayEvent());
+    }
+
+    private void StopEvent()
+    {
+        if (journey[currentEvent].animation != null)
+            journey[currentEvent].animation.Stop();
+
+        //if (journey[currentEvent].moveThing != null)
+
+
+        if (journey[currentEvent].particles != null)
+            journey[currentEvent].particles.Stop();
+
+        narrator.Stop();
     }
 
     private IEnumerator PlayEvent()
