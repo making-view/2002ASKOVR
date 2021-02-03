@@ -30,9 +30,9 @@ public class DeathRay : MonoBehaviour
         if(angle > maxAngle)
         {
             targetVector = Vector3.Lerp(startForward, targetVector, maxAngle / angle);
-            
-            //if (debugLog)
-            //    Debug.Log("angle af: " + Vector3.Angle(startForward, targetVector));
+
+            if (debugLog)
+                Debug.Log("angle af: " + Vector3.Angle(startForward, targetVector));
 
             transform.LookAt(transform.position + targetVector);
         }
