@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class JourneyHandler : MonoBehaviour
@@ -40,7 +41,7 @@ public class JourneyHandler : MonoBehaviour
     void Start()
     {
         narrator = GetComponent<AudioSource>();
-        BeginPlay();
+        //BeginPlay();
     }
 
     public void BeginPlay()
@@ -116,9 +117,17 @@ public class JourneyHandler : MonoBehaviour
         else
         {
             done = true;
+            ReloadScene();
         }
 
         if (journey[currentEvent].particles != null)
             journey[currentEvent].particles.Stop();
+    }
+
+
+    public void ReloadScene()
+    {
+        //TODO maybe change this so that it resets elements and lowers the map
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
