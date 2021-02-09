@@ -23,11 +23,11 @@ public class LookAtTruck : MonoBehaviour
         var targetVector = (target.transform.position - transform.position).normalized;
 
         var angle = Vector3.Angle(startForward, targetVector);
-        
-        //if(debugLog)
-        //    Debug.Log("angle b4: " + angle);
 
-        if(angle > maxAngle)
+        if (debugLog)
+            Debug.Log("angle b4: " + angle);
+
+        if (angle > maxAngle)
         {
             targetVector = Vector3.Lerp(startForward, targetVector, maxAngle / angle);
 
