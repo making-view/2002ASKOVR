@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathRay : MonoBehaviour
+public class LookAtTruck : MonoBehaviour
 {
     GameObject target = null;
     Vector3 startForward;
