@@ -32,6 +32,9 @@ ExportedObj/
 *.opendb
 *.VC.db
 
+#Cache files for substance
+*.SourceCache*
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta

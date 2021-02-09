@@ -58,7 +58,7 @@ public class InteractableButton : MonoBehaviour
         isPressed = false;
     }
 
-    private void OnPressed()
+    public void OnPressed()
     {
         buttonImage.color = pressedColor;
 
