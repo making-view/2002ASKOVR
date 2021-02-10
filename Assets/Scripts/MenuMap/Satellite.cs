@@ -57,7 +57,7 @@ public class Satellite : MonoBehaviour
         while (time > 0.0f)
         {
             audioSource.volume = Mathf.Sin((time / maxTime) * Mathf.PI);
-            Debug.Log("volume: " + audioSource.volume);
+            //Debug.Log("volume: " + audioSource.volume);
 
             PulseMaterial(askomaterial.material, true);
             PulseMaterial(kiwimaterial.material, false);
