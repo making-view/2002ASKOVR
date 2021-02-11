@@ -106,9 +106,9 @@ public class Satellite : MonoBehaviour
         float sinWave;
 
         if (!offset)
-            sinWave = Mathf.Sin((Time.timeSinceLevelLoad * speed) + 1) / 2;
+            sinWave = (Mathf.Sin(Time.timeSinceLevelLoad * speed) + 1) / 2;
         else
-            sinWave = Mathf.Sin((Time.timeSinceLevelLoad * speed + Mathf.PI) + 1) / 2;
+            sinWave = (Mathf.Sin(Time.timeSinceLevelLoad * speed + Mathf.PI) + 1) / 2;
 
 
         var color = material.GetColor("_Color0");

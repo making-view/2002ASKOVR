@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Highlight : MonoBehaviour
 {
+    [SerializeField] bool changeColor = true;
     [SerializeField] Color highlightColor = Color.white;
     [SerializeField] Color downlightColor = Color.black;
+    Color originalColor = Color.white;
     private Material material = null;
 
     [Range(1.0f, 10.0f)]
@@ -27,6 +29,7 @@ public class Highlight : MonoBehaviour
         }
 
         material = GetComponent<Renderer>().material;
+        originalColor = material.GetColor("_EmissionColor");
     }
 
     public void StartHighlight(float time)
@@ -46,8 +49,12 @@ public class Highlight : MonoBehaviour
         while(timePassed < time)
         {
             float lerpyboi = (Mathf.Sin(timePassed * speed) + 1) / 2;
-            Color newColor = Color.Lerp(downlightColor, highlightColor, lerpyboi);
-            material.SetColor("_EmissionColor", newColor);
+
+            if (changeColor)
+            {
+                Color newColor = Color.Lerp(downlightColor, highlightColor, lerpyboi);
+                material.SetColor("_EmissionColor", newColor);
+            }
 
             if(spotlight != null)
                 spotlight.intensity = Mathf.Lerp(0, intensity, lerpyboi);
@@ -56,6 +63,8 @@ public class Highlight : MonoBehaviour
 
             timePassed += Time.deltaTime;
         }
+
+        material.SetColor("_EmissionColor", originalColor);
 
         if (spotlight != null)
             spotlight.enabled = false;

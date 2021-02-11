@@ -72,9 +72,15 @@ public class MoveThing : MonoBehaviour
             audiosource.Play();
     }
 
-    public void GoBack()
+    public void SnapBack()
     {
+        //To reality, oh there goes gravity
+        var prevGrav = Physics.gravity;
+        Physics.gravity = Vector3.zero;
+
         started = false;
         this.transform.position = startPos;
+
+        Physics.gravity = prevGrav;
     }
 }
