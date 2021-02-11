@@ -24,9 +24,8 @@ public class Satellite : MonoBehaviour
 
         ActivateLazors(false);
 
-        sendData(5.0f);
-
-        ToggleTarget();
+        //sendData(5.0f);
+        //ToggleTarget();
     }
 
     public void sendData(float time)
