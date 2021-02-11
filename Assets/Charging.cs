@@ -8,9 +8,11 @@ using UnityEngine;
 /// </summary>
 public class Charging : MonoBehaviour
 {
-    [SerializeField] GameObject windmill1 = null;
-    [SerializeField] GameObject windmill2 = null;
-    [SerializeField] GameObject charger = null;
+    [SerializeField] float speed = 4.0f;
+
+    [SerializeField] Highlight windmill1 = null;
+    [SerializeField] Highlight windmill2 = null;
+    [SerializeField] Highlight charger = null;
 
     private Material cableMaterial = null;
     // Start is called before the first frame update
@@ -22,10 +24,23 @@ public class Charging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var sinWave = (Mathf.Sin(Time.timeSinceLevelLoad * 5) + 1) / 2;
-
-
+        //ladekabel pulserer
+        var sinWave = (Mathf.Sin(Time.timeSinceLevelLoad * speed) + 1) / 2;
         var color = cableMaterial.GetColor("_Color0");
         cableMaterial.SetColor("_Color0", new Color(color.r, color.g, color.b, sinWave));
+    }
+
+
+    IEnumerator Charge()
+    {
+        //TODO vindmøller begynner blinke og spinner opp gradvis
+        yield return new WaitForSeconds(0.5f);
+        //TODO Ladekabel fader inn og pulserer
+        yield return new WaitForSeconds(0.5f);
+        //TODO Ladestasjon lyser opp ved ASKO
+        yield return new WaitForSeconds(0.5f);
+        //TODO fade ut lys
+        yield return new WaitForSeconds(0.5f);
+        //TODO gjør ladekabel usynlig
     }
 }
