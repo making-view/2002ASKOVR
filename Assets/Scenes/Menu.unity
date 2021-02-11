@@ -2943,7 +2943,7 @@ MonoBehaviour:
   surroundings: {fileID: 1429528357}
   mediaPlayer: {fileID: 55084270}
   fileName: 360Kiwiintro
-  PC_root: D:/
+  PC_root: C:/Making View/
 --- !u!1 &181113457
 GameObject:
   m_ObjectHideFlags: 0
@@ -11031,7 +11031,7 @@ MonoBehaviour:
   surroundings: {fileID: 1429528357}
   mediaPlayer: {fileID: 55084270}
   fileName: 360Kiwiavslutning
-  PC_root: D:/
+  PC_root: C:/Making View/
 --- !u!4 &628771722
 Transform:
   m_ObjectHideFlags: 0
@@ -11336,7 +11336,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654176008}
-  m_LocalRotation: {x: 0.13678934, y: 0.83547425, z: -0.4746587, w: 0.24077082}
+  m_LocalRotation: {x: 0.13678919, y: 0.83547443, z: -0.47465855, w: 0.2407707}
   m_LocalPosition: {x: 0.071, y: -0.168, z: 0.006}
   m_LocalScale: {x: 1.0106658, y: 1.0106655, z: 1.0106657}
   m_Children:
@@ -14461,7 +14461,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885232026}
-  m_LocalRotation: {x: 0.21635951, y: -0.7773074, z: 0.35774186, w: 0.47010916}
+  m_LocalRotation: {x: 0.21635959, y: -0.77730733, z: 0.357742, w: 0.4701091}
   m_LocalPosition: {x: 0.07099987, y: -0.16799971, z: 0.005999973}
   m_LocalScale: {x: 1.0106658, y: 1.0106655, z: 1.0106657}
   m_Children:
@@ -15370,7 +15370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &959675862
 Transform:
   m_ObjectHideFlags: 0
@@ -33847,7 +33847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1569078382
 Transform:
   m_ObjectHideFlags: 0
