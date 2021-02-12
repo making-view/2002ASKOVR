@@ -30,6 +30,8 @@ public class Highlight : MonoBehaviour
 
         material = GetComponent<Renderer>().material;
         originalColor = material.GetColor("_EmissionColor");
+
+        //StartHighlight(5.0f);
     }
 
     public void StartHighlight(float time)
@@ -41,18 +43,22 @@ public class Highlight : MonoBehaviour
 
     IEnumerator HighLightAsync(float time)
     {
+        //------------------------------Pulse of Color/Light------------------------------//
+        float fadeOut = time / 4;
+
         if (spotlight != null)
             spotlight.enabled = true;
 
         float timePassed = 0.0f;
+        Color newColor = originalColor;
 
-        while(timePassed < time)
+        while (timePassed < time * 3 / 4)
         {
             float lerpyboi = (Mathf.Sin(timePassed * speed) + 1) / 2;
 
             if (changeColor)
             {
-                Color newColor = Color.Lerp(downlightColor, highlightColor, lerpyboi);
+                newColor = Color.Lerp(downlightColor, highlightColor, lerpyboi);
                 material.SetColor("_EmissionColor", newColor);
             }
 
@@ -63,6 +69,30 @@ public class Highlight : MonoBehaviour
 
             timePassed += Time.deltaTime;
         }
+
+        //-------------------------------Linear Fade out before end-------------------------//
+        timePassed = 0;
+        float currIntensity = 0;
+        if(spotlight != null)
+            currIntensity = spotlight.intensity;
+
+        Color currColor = newColor;
+
+        while(timePassed < fadeOut)
+        {
+            if (spotlight != null)
+                spotlight.intensity = Mathf.Lerp(currIntensity, 0, timePassed / fadeOut);
+
+            if (changeColor)
+            {
+                newColor = Color.Lerp(currColor, originalColor, timePassed / fadeOut);
+                material.SetColor("_EmissionColor", newColor);
+            }
+
+            yield return null;
+            timePassed += Time.deltaTime;
+        }
+
 
         material.SetColor("_EmissionColor", originalColor);
 

@@ -33,7 +33,7 @@ public class VRVideoTrigger : MonoBehaviour
 
         if (Application.platform != RuntimePlatform.Android)
         {
-            var root = PC_root + "Resources/Video/ASKO/";
+            var root = PC_root + "Ressurser/Video/ASKO/";
             url = root + fileName + extension;
         }
         else
