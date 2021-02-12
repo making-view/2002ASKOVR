@@ -30,7 +30,7 @@ public class Charging : MonoBehaviour
         highlights.AddRange(windmill1.GetComponentsInChildren<Highlight>());
         highlights.AddRange(windmill2.GetComponentsInChildren<Highlight>());
 
-        StartCharging(20.0f);
+        //StartCharging(20.0f);
     }
 
 

@@ -1715,6 +1715,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 9ce8b6d757d5bd247b9e690494c5f634, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 9ce8b6d757d5bd247b9e690494c5f634, type: 2}
+  - {fileID: 7400000, guid: c689588f960ed684ab2be32f20e3d32b, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -15227,10 +15228,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   journey:
   - name: ShadowsFall
-    duration: 5
+    duration: 0
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 1880350998}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15247,11 +15248,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1880350998}
+          m_MethodName: Play
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - name: HatchOpen
     duration: 5
     type: 0
     animation: {fileID: 85783027}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15272,17 +15284,28 @@ MonoBehaviour:
     duration: 15
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 1046634466}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1046634466}
+          m_MethodName: Play
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - name: LookAtKiwi
     duration: 10
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15314,7 +15337,7 @@ MonoBehaviour:
     duration: 35
     type: 1
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15335,7 +15358,7 @@ MonoBehaviour:
     duration: 7
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15356,7 +15379,7 @@ MonoBehaviour:
     duration: 7
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15388,7 +15411,7 @@ MonoBehaviour:
     duration: 3
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15409,7 +15432,7 @@ MonoBehaviour:
     duration: 10
     type: 0
     animation: {fileID: 120849490}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15419,7 +15442,7 @@ MonoBehaviour:
     duration: 5
     type: 0
     animation: {fileID: 1413766142}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15429,7 +15452,7 @@ MonoBehaviour:
     duration: 5
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15450,7 +15473,7 @@ MonoBehaviour:
     duration: 41
     type: 1
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15471,7 +15494,7 @@ MonoBehaviour:
     duration: 20
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15503,7 +15526,7 @@ MonoBehaviour:
     duration: 20
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15524,7 +15547,7 @@ MonoBehaviour:
     duration: 3
     type: 1
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15545,7 +15568,7 @@ MonoBehaviour:
     duration: 78
     type: 1
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15566,7 +15589,7 @@ MonoBehaviour:
     duration: 1
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15587,7 +15610,7 @@ MonoBehaviour:
     duration: 30
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15608,7 +15631,7 @@ MonoBehaviour:
     duration: 30
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15640,7 +15663,7 @@ MonoBehaviour:
     duration: 5
     type: 0
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15661,7 +15684,7 @@ MonoBehaviour:
     duration: 60
     type: 1
     animation: {fileID: 0}
-    moveThing: {fileID: 0}
+    animationName: 
     narration: {fileID: 0}
     particles: {fileID: 0}
     actions:
@@ -15670,6 +15693,48 @@ MonoBehaviour:
         - m_Target: {fileID: 628771721}
           m_MethodName: Activate
           m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: LowerMap
+    duration: 10
+    type: 0
+    animation: {fileID: 0}
+    animationName: 
+    narration: {fileID: 0}
+    particles: {fileID: 0}
+    actions:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1046634466}
+          m_MethodName: Play
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: HatchClose
+    duration: 10
+    type: 0
+    animation: {fileID: 85783027}
+    animationName: Hatch close
+    narration: {fileID: 0}
+    particles: {fileID: 0}
+    actions:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1880350998}
+          m_MethodName: Play
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -17801,7 +17866,6 @@ MonoBehaviour:
   duration: 10
   endposGO: {fileID: 2072987362}
   smooth: 1
-  started: 0
   audioclip: {fileID: 0}
 --- !u!1 &1048013901
 GameObject:
@@ -41464,7 +41528,6 @@ MonoBehaviour:
   duration: 10
   endposGO: {fileID: 1605232084}
   smooth: 1
-  started: 0
   audioclip: {fileID: 0}
 --- !u!1 &1883413782
 GameObject:
