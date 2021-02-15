@@ -13,7 +13,7 @@ public class VRVideoTrigger : MonoBehaviour
 
     [SerializeField] private MediaPlayer mediaPlayer = null;
     [SerializeField] private string fileName = null;
-    [SerializeField] private string PC_root = "C:/Making View/";
+    [SerializeField] private string PC_root = "D:/";
 
 
     private string url;
