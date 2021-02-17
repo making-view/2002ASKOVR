@@ -22,7 +22,7 @@ public class JourneyHandler : MonoBehaviour
         public float duration = 1f;
         public EventType type;
         public Animation animation = null;
-        public MoveThing moveThing = null;
+        public string animationName = "";
         public AudioClip narration = null;
         public ParticleSystem particles = null;
         public UnityEvent actions = null;
@@ -90,10 +90,15 @@ public class JourneyHandler : MonoBehaviour
         nextEvent = journey[currentEvent].duration;
 
         if (journey[currentEvent].animation != null)
-            journey[currentEvent].animation.Play();
+        {
+            var animname = journey[currentEvent].animationName;
 
-        if (journey[currentEvent].moveThing != null)
-            journey[currentEvent].moveThing.Play();
+            if (animname == "")
+                journey[currentEvent].animation.Play();
+            else
+                journey[currentEvent].animation.Play(animname);
+        }
+            
 
         if (journey[currentEvent].particles != null)
             journey[currentEvent].particles.Play();

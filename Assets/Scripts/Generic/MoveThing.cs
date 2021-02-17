@@ -14,12 +14,9 @@ public class MoveThing : MonoBehaviour
     Vector3 endPos;
 
     [SerializeField]
-    bool smooth = false;
+    bool smooth = true;
 
-    [SerializeField]
-    private bool started = false;
     //private bool soundPlayed = false;
-    private float timeElapsed = 0;
 
     [SerializeField]
     AudioClip audioclip = null;
@@ -36,45 +33,59 @@ public class MoveThing : MonoBehaviour
         audiosource.clip = audioclip;
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator Move(bool forward)
     {
-        if (started)
-        {
-            timeElapsed += Time.deltaTime;
+        Vector3 startPoint = Vector3.zero;
+        Vector3 endPoint = Vector3.zero;
 
-            if (!(timeElapsed > duration))
+        if (forward)
+        {
+            startPoint = startPos;
+            endPoint = endPos;
+        }
+        else
+        {
+            startPoint = endPos;
+            endPoint = startPos;
+        }
+
+        float timePassed = 0.0f;
+
+        while (timePassed < duration)
+        {
+            if (!smooth)
             {
-                if (!smooth)
-                {
-                    this.transform.position = Vector3.Lerp(startPos, endPos, timeElapsed / duration);
-                }
-                else
-                {
-                    this.transform.position = Vector3.Lerp(startPos, endPos, Mathf.SmoothStep(0, 1, timeElapsed / duration));
-                }
+                this.transform.position = Vector3.Lerp(startPoint, endPoint, timePassed / duration);
             }
             else
             {
-                started = false;
+                this.transform.position = Vector3.Lerp(startPoint, endPoint, Mathf.SmoothStep(0, 1, timePassed / duration));
             }
+
+            yield return null;
+            timePassed += Time.deltaTime;
         }
+
+        this.transform.position = endPoint;
     }
 
         //functions to play the movement
-        public void Play()
+        public void Play(bool forward)
     {
-        this.transform.position = startPos;
-        started = true;
-        timeElapsed = 0;
+        StartCoroutine(Move(forward));
 
         if (audiosource != null)
             audiosource.Play();
     }
 
-    public void GoBack()
+    public void SnapBack()
     {
-        started = false;
+        //To reality, oh there goes gravity
+        var prevGrav = Physics.gravity;
+        Physics.gravity = Vector3.zero;
+
         this.transform.position = startPos;
+
+        Physics.gravity = prevGrav;
     }
 }
