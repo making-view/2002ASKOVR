@@ -48,8 +48,8 @@ public class Charging : MonoBehaviour
         foreach (Highlight h in highlights)
             h.StartHighlight(step);
 
-        windmill1.gameObject.GetComponentInChildren<Animation>().Play();
-        windmill2.gameObject.GetComponentInChildren<Animation>().Play();
+        windmill1.gameObject.GetComponentInChildren<SpinBoi>().startSpin();
+        windmill2.gameObject.GetComponentInChildren<SpinBoi>().startSpin();
 
         StartCoroutine(CableBlinking(step));
 

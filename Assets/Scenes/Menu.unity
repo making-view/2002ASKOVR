@@ -2248,7 +2248,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.55
-  MaxDistance: 6.18
+  MaxDistance: 5.44
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -2276,8 +2276,8 @@ AudioSource:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.40957412
-      value: 0.1541748
+      time: 0.3830696
+      value: 0.12579346
       inSlope: -0.60705996
       outSlope: -0.60705996
       tangentMode: 0
@@ -2285,14 +2285,14 @@ AudioSource:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.79503936
+      time: 0.7685501
       value: 0.03274536
-      inSlope: -0.2639064
-      outSlope: -0.2639064
+      inSlope: -0.04009542
+      outSlope: -0.04009542
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.30216467
-      outWeight: 0
+      outWeight: 0.4594747
     - serializedVersion: 3
       time: 1
       value: 0
@@ -13234,7 +13234,7 @@ GameObject:
   - component: {fileID: 716360270}
   - component: {fileID: 716360272}
   m_Layer: 0
-  m_Name: Windmill2 (1)
+  m_Name: Windmill2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13317,7 +13317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeColor: 1
   highlightColor: {r: 1, g: 1, b: 1, a: 1}
-  downlightColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  downlightColor: {r: 0, g: 0, b: 0, a: 1}
   speed: 4
 --- !u!1001 &721785301
 PrefabInstance:
@@ -16734,10 +16734,10 @@ GameObject:
   - component: {fileID: 920434900}
   - component: {fileID: 920434903}
   - component: {fileID: 920434902}
-  - component: {fileID: 920434901}
   - component: {fileID: 920434904}
+  - component: {fileID: 920434901}
   m_Layer: 0
-  m_Name: Cube.006
+  m_Name: WindmillBlade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16757,22 +16757,23 @@ Transform:
   m_Father: {fileID: 716360269}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &920434901
-Animation:
+--- !u!114 &920434901
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920434899}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 62b750217811e7d4c9100cdb8115dd03, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 62b750217811e7d4c9100cdb8115dd03, type: 2}
-  m_WrapMode: 2
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e5e159260ee5e44a8a847a1f1d181e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 1
+  y: 0
+  z: 0
+  speed: -95
+  spinUpTime: 5
 --- !u!23 &920434902
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17142,22 +17143,23 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1296018070}
   m_PrefabAsset: {fileID: 0}
---- !u!111 &966574497
-Animation:
+--- !u!114 &966574497
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966574495}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 62b750217811e7d4c9100cdb8115dd03, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 62b750217811e7d4c9100cdb8115dd03, type: 2}
-  m_WrapMode: 2
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e5e159260ee5e44a8a847a1f1d181e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 1
+  y: 0
+  z: 0
+  speed: -100
+  spinUpTime: 10
 --- !u!114 &966574498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31289,6 +31291,41 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: -6269495120276896493, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.9992655
+      objectReference: {fileID: 0}
+    - target: {fileID: -6269495120276896493, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.00903646
+      objectReference: {fileID: 0}
+    - target: {fileID: -6269495120276896493, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0361288
+      objectReference: {fileID: 0}
+    - target: {fileID: -6269495120276896493, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -175.85
+      objectReference: {fileID: 0}
+    - target: {fileID: -6269495120276896493, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00903646
+      objectReference: {fileID: 0}
+    - target: {fileID: -6269495120276896493, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6269495120276896493, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -5477749408508380018, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31464,6 +31501,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 370406918257104390, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_Name
+      value: WindmillInvis
+      objectReference: {fileID: 0}
     - target: {fileID: 375517915199365746, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -31539,6 +31581,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1600371534556982141, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_Name
+      value: WindmillBlade1
+      objectReference: {fileID: 0}
     - target: {fileID: 2567307158301988216, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
       propertyPath: m_CastShadows
@@ -31589,6 +31636,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163656869268019545, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
+        type: 3}
+      propertyPath: m_Name
+      value: Windmill1
       objectReference: {fileID: 0}
     - target: {fileID: 4832492099466503464, guid: 3959089bf39f6ae4f85367d59f0f6e8f,
         type: 3}
@@ -33358,7 +33410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1412452899
 Transform:
   m_ObjectHideFlags: 0
@@ -44274,9 +44326,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_position: {x: -0.11286497, y: -2.6657462, z: 1.9437633}
   m_precedingControlPointLocalPosition: {x: -0.17478025, y: 0.0011851788, z: 0.10493684}
-  m_precedingControlPointPosition: {x: -0.2876452, y: -2.664561, z: 2.0487}
+  m_precedingControlPointPosition: {x: -0.28764522, y: -2.664561, z: 2.0487}
   m_followingControlPointLocalPosition: {x: 0.17478025, y: -0.0011851788, z: -0.10493684}
-  m_followingControlPointPosition: {x: 0.06191525, y: -2.6669314, z: 1.8388264}
+  m_followingControlPointPosition: {x: 0.06191528, y: -2.6669314, z: 1.8388264}
   m_handleMode: 2
   extraData:
     c1: 0
