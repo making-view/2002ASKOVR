@@ -37,7 +37,7 @@ namespace BezierSolution
         // Could make this async and more effective
         void Update()
         {
-            if (walker.NormalizedT <= 0.0 && walker.NormalizedT >= 1.0f)
+            if (walker.NormalizedT <= 0.0 || walker.NormalizedT >= 1.0f)
             {
                 audioSource.Stop();
             }

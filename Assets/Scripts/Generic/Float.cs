@@ -6,6 +6,7 @@ public class Float : MonoBehaviour
 {
     public float verticalRange = 1.0f;
     public float spin = 10.0f;
+    public float speedModifier = 1.0f;
 
     private float offset;
 
@@ -21,7 +22,7 @@ public class Float : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float newY = position.y + Mathf.Sin(Time.timeSinceLevelLoad + offset) * verticalRange;
+        float newY = position.y + Mathf.Sin(Time.timeSinceLevelLoad * speedModifier + offset) * verticalRange;
         
         if(spin != 0)
         {

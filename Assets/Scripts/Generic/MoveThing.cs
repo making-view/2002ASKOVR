@@ -29,7 +29,10 @@ public class MoveThing : MonoBehaviour
         startPos = this.gameObject.transform.position;
         endPos = endposGO.transform.position;
 
-        audiosource = gameObject.AddComponent<AudioSource>();
+        if (GetComponent<AudioSource>() == null)
+            audiosource = gameObject.AddComponent<AudioSource>();
+        else audiosource = GetComponent<AudioSource>();
+
         audiosource.clip = audioclip;
     }
 
