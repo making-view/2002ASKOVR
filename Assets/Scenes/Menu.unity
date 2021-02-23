@@ -2248,7 +2248,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.14
-  MaxDistance: 2.5219345
+  MaxDistance: 3.1921933
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -2287,15 +2287,15 @@ AudioSource:
     - serializedVersion: 3
       time: 0.44410354
       value: 0.125
-      inSlope: -0.28157845
-      outSlope: -0.28157845
+      inSlope: -0.3814956
+      outSlope: -0.3814956
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.5350209
+      outWeight: 0.27411273
     - serializedVersion: 3
-      time: 0.8882071
-      value: 0.019927979
+      time: 0.8809744
+      value: 0.030578613
       inSlope: -0.07039461
       outSlope: -0.07039461
       tangentMode: 0
@@ -2303,13 +2303,13 @@ AudioSource:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
+      time: 0.9975891
       value: 0
-      inSlope: -0.055535138
-      outSlope: -0.055535138
+      inSlope: -0.32397112
+      outSlope: -0.32397112
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 1
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -14113,7 +14113,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.688
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -16003,7 +16003,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - name: DriveBoat
-    duration: 10
+    duration: 10.5
     type: 0
     animation: {fileID: 120849490}
     animationName: 
@@ -36960,7 +36960,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.688
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
