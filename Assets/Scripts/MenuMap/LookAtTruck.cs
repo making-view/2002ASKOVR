@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class LookAtTruck : MonoBehaviour
 {
-    GameObject target = null;
+    [SerializeField] GameObject target = null;
     Vector3 startForward;
     [SerializeField] float maxAngle = 45.0f;
     [SerializeField] bool debugLog = false;
+    [SerializeField] AudioSource moo = null;
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.Find("FrontMount");
+        if(target == null)
+            target = GameObject.Find("FrontMount");
+
         startForward = transform.forward;
         //Debug.Log("start forward: " + startForward.ToString());
     }
@@ -38,5 +41,10 @@ public class LookAtTruck : MonoBehaviour
         }
         else
             transform.LookAt(target.transform);
+
+        if(moo != null && moo.enabled == false && angle < 42)
+        {
+            moo.enabled = true;
+        }
     }
 }

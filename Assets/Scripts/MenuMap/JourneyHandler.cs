@@ -31,8 +31,9 @@ public class JourneyHandler : MonoBehaviour
 
     private BezierSolution.BezierSqauencer sequencer;
     private AudioSource narrator;
-
+    [SerializeField] int debugStartAtEvent = 0;
     [SerializeField] List<JourneyEvent> journey = null;
+
     private int currentEvent = 0;
     private float nextEvent = 5.0f;
     bool done = false;
@@ -42,22 +43,10 @@ public class JourneyHandler : MonoBehaviour
     {
         narrator = GetComponent<AudioSource>();
         //BeginPlay();
-    }
-
-    public void BeginPlay()
-    {
-        if(done)
-        {
-            Debug.Log(gameObject.name + " should reset scene completely or manually. TODO");
-        }
 
 
-        StopCoroutine(PlayEvent());
-        StopEvent();
-
-        currentEvent = 0;
-        if (journey.Count > currentEvent)
-            StartCoroutine(PlayEvent());
+        if (Application.isEditor)
+            currentEvent = debugStartAtEvent;
     }
 
 
@@ -66,7 +55,11 @@ public class JourneyHandler : MonoBehaviour
         StopCoroutine(PlayEvent());
         StopEvent();
 
-        currentEvent = eventnum;
+        if (Application.isEditor && debugStartAtEvent != 0)
+            currentEvent = debugStartAtEvent;
+        else
+            currentEvent = eventnum;
+
         if (journey.Count > currentEvent + 1)
             StartCoroutine(PlayEvent());
     }
@@ -87,6 +80,8 @@ public class JourneyHandler : MonoBehaviour
 
     private IEnumerator PlayEvent()
     {
+        //Debug.Log("playing event: " + currentEvent);
+
         nextEvent = journey[currentEvent].duration;
 
         if (journey[currentEvent].animation != null)

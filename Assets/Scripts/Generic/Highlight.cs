@@ -43,6 +43,10 @@ public class Highlight : MonoBehaviour
 
     IEnumerator HighLightAsync(float time)
     {
+        //haha this trick make your time irrelevant, but does make transition nicer
+        time = time % (Mathf.PI * speed) + Mathf.PI * 0.5f;
+ 
+
         //------------------------------Pulse of Color/Light------------------------------//
         float fadeOut = time / 4;
 
