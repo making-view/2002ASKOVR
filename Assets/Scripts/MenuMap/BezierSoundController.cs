@@ -7,8 +7,8 @@ using UnityEngine;
 /// </summary>
 namespace BezierSolution
 {
-    [RequireComponent(typeof(BezierSolution.BezierWalker))]
-    [RequireComponent(typeof(AudioSource))]
+    //[RequireComponent(typeof(BezierSolution.BezierWalker))]
+    //[RequireComponent(typeof(AudioSource))]
     public class BezierSoundController : MonoBehaviour
     {
         private BezierWalker walker = null;
@@ -37,7 +37,7 @@ namespace BezierSolution
         // Could make this async and more effective
         void Update()
         {
-            if (walker.NormalizedT <= 0.0 && walker.NormalizedT >= 1.0f)
+            if (walker.NormalizedT <= 0.0 || walker.NormalizedT >= 1.0f)
             {
                 audioSource.Stop();
             }

@@ -6,7 +6,7 @@ using UnityEngine;
 /// Interpolates the speed of a bezier walker based on height above bottom point relative to top point.
 /// Thing go down hill go faster
 /// </summary>
-[RequireComponent(typeof(BezierSolution.BezierWalkerWithSpeed))]
+//[RequireComponent(typeof(BezierSolution.BezierWalkerWithSpeed))]
 public class SkimanSpeedController : MonoBehaviour
 {
 
