@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpinBoi : MonoBehaviour
 {
+    [SerializeField] bool autostart = false;
     [SerializeField] bool x, y, z;
     [SerializeField] float speed = 10.0f;
     [SerializeField] float spinUpTime = 5.0f;
@@ -13,6 +14,12 @@ public class SpinBoi : MonoBehaviour
     private Vector3 xVec = new Vector3(1.0f, 0.0f, 0.0f);
     private Vector3 yVec = new Vector3(0.0f, 1.0f, 0.0f);
     private Vector3 zVec = new Vector3(0.0f, 0.0f, 1.0f);
+
+    private void Start()
+    {
+        if (autostart)
+            startSpin();
+    }
 
     public void startSpin()
     {
