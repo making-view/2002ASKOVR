@@ -42,6 +42,7 @@ public class LookAtTruck : MonoBehaviour
         else
             transform.LookAt(target.transform);
 
+        //play sfx when object looking at passing by
         if(moo != null && moo.enabled == false && angle < 42)
         {
             moo.enabled = true;

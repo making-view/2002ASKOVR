@@ -7792,7 +7792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 3949627579318001883}
   maxAngle: 45
-  debugLog: 1
+  debugLog: 0
   moo: {fileID: 427489938}
 --- !u!82 &427489938
 AudioSource:
