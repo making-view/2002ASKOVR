@@ -36,12 +36,23 @@ public class Highlight : MonoBehaviour
 
     public void StartHighlight(float time)
     {
-        StopCoroutine("HighLightAsync");
+        StopHighlight();
         StartCoroutine(HighLightAsync(time));
     }
 
+    public void StartHighlight()
+    {
+        StopHighlight();
+        StartCoroutine(HighLightAsync(999.0f));
+    }
 
-    IEnumerator HighLightAsync(float time)
+    public void StopHighlight()
+    {
+        StopCoroutine("HighLightAsync");
+        material.SetColor("_EmissionColor", originalColor);
+    }
+
+        IEnumerator HighLightAsync(float time)
     {
         //haha this trick make your time irrelevant, but does make transition nicer
         time = time % (Mathf.PI * speed) + Mathf.PI * 0.5f;

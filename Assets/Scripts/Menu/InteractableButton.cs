@@ -9,6 +9,10 @@ using OculusSampleFramework;
 [RequireComponent(typeof(Image))]
 public class InteractableButton : MonoBehaviour
 {
+    [Tooltip ("leave null if no 3D object to highlight")]
+    [SerializeField] private Highlight highlightObject = null;
+
+    [Space]
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color highlightedColor = Color.white;
     [SerializeField] private Color pressedColor = Color.white;
@@ -48,6 +52,9 @@ public class InteractableButton : MonoBehaviour
 
     private void OnHighlighted()
     {
+        if (highlightObject != null)
+            highlightObject.StartHighlight();
+
         buttonImage.color = highlightedColor;
 
         if (isPressed)
@@ -60,6 +67,9 @@ public class InteractableButton : MonoBehaviour
 
     public void OnPressed()
     {
+        if (highlightObject != null)
+            highlightObject.StopHighlight();
+
         buttonImage.color = pressedColor;
 
         isPressed = true;
@@ -67,6 +77,9 @@ public class InteractableButton : MonoBehaviour
 
     private void OnLostFocus()
     {
+        if (highlightObject != null)
+            highlightObject.StopHighlight();
+
         buttonImage.color = normalColor;
 
         isPressed = false;

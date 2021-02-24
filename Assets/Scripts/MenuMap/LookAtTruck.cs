@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class LookAtTruck : MonoBehaviour
 {
+
     [SerializeField] GameObject target = null;
     Vector3 startForward;
     [SerializeField] float maxAngle = 45.0f;
     [SerializeField] bool debugLog = false;
     [SerializeField] AudioSource moo = null;
+    private bool cooldown = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,9 +45,23 @@ public class LookAtTruck : MonoBehaviour
             transform.LookAt(target.transform);
 
         //play sfx when object looking at passing by
-        if(moo != null && moo.enabled == false && angle < 42)
+        if(moo != null && !cooldown && angle < 42)
+            PlayMoo();
+    }
+
+    public void PlayMoo()
+    {
+        if(!cooldown)
         {
-            moo.enabled = true;
+            moo.Play();
+            cooldown = true;
+            StartCoroutine(MooCooldown(3.0f));
         }
+    }
+
+    private IEnumerator MooCooldown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        cooldown = false;
     }
 }
