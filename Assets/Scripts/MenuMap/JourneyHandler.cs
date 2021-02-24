@@ -47,6 +47,7 @@ public class JourneyHandler : MonoBehaviour
 
     public void BeginPlay(int eventnum)
     {
+
         StopCoroutine(PlayEvent());
         StopEvent();
 
