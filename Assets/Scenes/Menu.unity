@@ -15671,7 +15671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &801392071
 Transform:
   m_ObjectHideFlags: 0
@@ -17638,7 +17638,7 @@ MonoBehaviour:
     actions:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 104734534}
+        - m_Target: {fileID: 801392070}
           m_MethodName: SetActive
           m_Mode: 6
           m_Arguments:
