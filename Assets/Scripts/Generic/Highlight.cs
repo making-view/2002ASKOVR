@@ -28,9 +28,11 @@ public class Highlight : MonoBehaviour
             spotlight.enabled = false;
         }
 
-        material = GetComponent<Renderer>().material;
-        originalColor = material.GetColor("_EmissionColor");
-
+        if (changeColor)
+        {
+            material = GetComponent<Renderer>().material;
+            originalColor = material.GetColor("_EmissionColor");
+        }
         //StartHighlight(5.0f);
     }
 
@@ -49,7 +51,8 @@ public class Highlight : MonoBehaviour
     public void StopHighlight()
     {
         StopCoroutine("HighLightAsync");
-        material.SetColor("_EmissionColor", originalColor);
+        if (changeColor)
+            material.SetColor("_EmissionColor", originalColor);
     }
 
         IEnumerator HighLightAsync(float time)
@@ -108,8 +111,8 @@ public class Highlight : MonoBehaviour
             timePassed += Time.deltaTime;
         }
 
-
-        material.SetColor("_EmissionColor", originalColor);
+        if (changeColor)
+            material.SetColor("_EmissionColor", originalColor);
 
         if (spotlight != null)
             spotlight.enabled = false;

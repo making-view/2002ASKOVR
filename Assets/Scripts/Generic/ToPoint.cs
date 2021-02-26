@@ -8,9 +8,9 @@ public class ToPoint : MonoBehaviour
 
 
     [SerializeField] bool testOnStart = false;
-    [SerializeField] bool shouldFade = true;
+    [SerializeField] public bool shouldFade = true;
     [Tooltip("Total time for fade-transition to happen")]
-    [SerializeField] float moveTimer = 1.5f;
+    [SerializeField] public float moveTimer = 1.5f;
     [SerializeField] bool parentToNewPosition = false;
 
     //tells us if the target rig to move is just a camera or the parent of a VR rig (rotation offset difference in calculations)
