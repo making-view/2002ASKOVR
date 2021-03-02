@@ -118,7 +118,6 @@ public class JourneyHandler : MonoBehaviour
         if (journey[currentEvent].narration != null)
         {
             narrator.PlayOneShot(journey[currentEvent].narration);
-            nextEvent += narrator.clip.length;
         }
 
         journey[currentEvent].actions.Invoke();

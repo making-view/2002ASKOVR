@@ -11,6 +11,7 @@ public class Satellite : MonoBehaviour
     private Renderer kiwimaterial;
 
     private AudioSource audioSource = null;
+    private float audioVolume = 1.0f;
     private LookAtConstraint lazorConstraint = null;
     [Range(0.1f, 20)] [SerializeField] float speed = 10.0f;
 
@@ -19,6 +20,7 @@ public class Satellite : MonoBehaviour
         lazorConstraint = OtherLazor.GetComponentInParent<LookAtConstraint>();
 
         audioSource = GetComponent<AudioSource>();
+        audioVolume = audioSource.volume;
         askomaterial = ASKOLazor.GetComponent<Renderer>();
         kiwimaterial = OtherLazor.GetComponent<Renderer>();
 
@@ -78,7 +80,7 @@ public class Satellite : MonoBehaviour
 
         while (time > 0.0f)
         {
-            audioSource.volume = Mathf.Sin((time / maxTime) * Mathf.PI);
+            audioSource.volume = Mathf.Sin((time / maxTime) * Mathf.PI) * audioVolume;
             //Debug.Log("volume: " + audioSource.volume);
 
             PulseMaterial(askomaterial.material, true);

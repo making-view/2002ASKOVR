@@ -73,9 +73,13 @@ public class ToPoint : MonoBehaviour
         var offset = new Vector3(camPos.x - cameraRig.transform.position.x, 0, camPos.z - cameraRig.transform.position.z);
 
         cameraRig.transform.position = transform.position - offset;
+        
         cameraRig.transform.rotation = transform.rotation;
 
-        if(parentToNewPosition)
+        //float diff = transform.eulerAngles.y - cameraRig.GetComponentInChildren<Camera>().transform.eulerAngles.y;
+
+
+        if (parentToNewPosition)
             cameraRig.transform.parent = transform;
 
         //fade in and wait
