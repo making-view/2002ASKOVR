@@ -53,7 +53,7 @@ public class InteractableButton : MonoBehaviour
     private void OnHighlighted()
     {
         if (highlightObject != null)
-            highlightObject.StartHighlight();
+            highlightObject.StartHighlight(0.5f);
 
         buttonImage.color = highlightedColor;
 

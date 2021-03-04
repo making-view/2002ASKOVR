@@ -34,6 +34,9 @@ public class JourneyHandler : MonoBehaviour
     [SerializeField] List<JourneyEvent> journey = null;
 
     private int currentEvent = 0;
+    private int targetEvent = 0;
+    private bool initialized = false;
+    private int nEvents = 1;
     private float nextEvent = 5.0f;
     bool done = false;
 
@@ -41,7 +44,30 @@ public class JourneyHandler : MonoBehaviour
     void Start()
     {
         narrator = GetComponent<AudioSource>();
-        //BeginPlay();
+        targetEvent = journey.Count + 1;
+        Debug.Log("target event set to: " + targetEvent);
+
+        initialized = true;
+    }
+
+    //Sets the amount of events to play during PlayFrom(int i) mode
+    public void SetEventGap(int nEvents)
+    {
+        this.nEvents = nEvents;
+    }
+
+    public void PlayFrom(string eventName)
+    {
+        StopCoroutine(PlayEvent());
+        StopEvent();
+
+        currentEvent = GetEventnum(eventName);
+        targetEvent = currentEvent + nEvents;
+
+        if (currentEvent <= targetEvent && targetEvent < journey.Count + 1)
+            StartCoroutine(PlayEvent());
+        else
+            Debug.LogError("tried playing event outside range. " + this.gameObject.name);
     }
 
 
@@ -62,9 +88,17 @@ public class JourneyHandler : MonoBehaviour
         StopCoroutine(PlayEvent());
         StopEvent();
 
+        int eventnum = GetEventnum(eventname);
+
+        currentEvent = eventnum;
+        StartCoroutine(PlayEvent());
+    }
+
+    private int GetEventnum(string eventname)
+    {
         int eventnum = 0;
 
-        for(int i = 0; i < journey.Count; i++)
+        for (int i = 0; i < journey.Count; i++)
         {
             if (journey[i].name.Equals(eventname))
             {
@@ -74,13 +108,10 @@ public class JourneyHandler : MonoBehaviour
         }
         if (eventnum == 0)
             Debug.Log("event " + eventname + " not found or first");
-
-        currentEvent = eventnum;
-        StartCoroutine(PlayEvent());
+        return eventnum;
     }
 
-
-        private void StopEvent()
+    private void StopEvent()
     {
         if (journey[currentEvent].animation != null)
             journey[currentEvent].animation.Stop();
@@ -96,7 +127,10 @@ public class JourneyHandler : MonoBehaviour
 
     private IEnumerator PlayEvent()
     {
-        //Debug.Log("playing event: " + currentEvent);
+        while (!initialized)
+            yield return null;
+
+        Debug.Log("playing event: " + journey[currentEvent].name + "\nTarget event: " + targetEvent);
 
         nextEvent = journey[currentEvent].duration;
 
@@ -109,30 +143,28 @@ public class JourneyHandler : MonoBehaviour
             else
                 journey[currentEvent].animation.Play(animname);
         }
-            
 
         if (journey[currentEvent].particles != null)
             journey[currentEvent].particles.Play();
 
-
         if (journey[currentEvent].narration != null)
-        {
             narrator.PlayOneShot(journey[currentEvent].narration);
-        }
 
         journey[currentEvent].actions.Invoke();
 
         yield return new WaitForSeconds(nextEvent);
 
-        if (journey.Count > currentEvent + 1)
+        if (targetEvent > currentEvent)
         {
+            Debug.Log("playing next event");
             currentEvent++;
             StartCoroutine(PlayEvent());
         }
         else
         {
             done = true;
-            ReloadScene();
+            //make exploration or reset available?
+            //ReloadScene();
         }
 
         if (journey[currentEvent].particles != null)

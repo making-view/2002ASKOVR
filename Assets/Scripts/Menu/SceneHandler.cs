@@ -8,21 +8,19 @@ public class SceneHandler : MonoBehaviour
 {
     [SerializeField] private OVRScreenFade fader = null;
 
-    public void LoadGame(Text text)
+    public void LoadGame(string scene)
     {
-        text.text = "Laster...";
-
-        StartCoroutine(FadeAndLoad());
+        StartCoroutine(FadeAndLoad(scene));
     }
 
-    IEnumerator FadeAndLoad()
+    IEnumerator FadeAndLoad(string scene)
     {
         fader.fadeTime = 1.0f;
         fader.FadeOut();
 
         yield return new WaitForSeconds(1.0f);
 
-        var operation = SceneManager.LoadSceneAsync("Scenes/Warehouse");
+        var operation = SceneManager.LoadSceneAsync(scene);
         operation.allowSceneActivation = true;
     }
 }
