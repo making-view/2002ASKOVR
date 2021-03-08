@@ -46,6 +46,9 @@ public class Tutorial : MonoBehaviour
     {
         [SerializeField] public string name = "default";
         [SerializeField] public Task task = Task.None;
+
+        [SerializeField] public Transform startPlacement = null;
+
         [SerializeField] public AudioClip narration = null;
         [SerializeField] public int numberOfTimes = 4;
         
@@ -62,18 +65,21 @@ public class Tutorial : MonoBehaviour
     private AudioSource feedbackSource = null;
     [SerializeField] private AudioClip feedback = null;
 
+    private ToPoint teleporter = null;
+
     // Start is called before the first frame update
     private void Start()
     {
         narrationSource = gameObject.AddComponent<AudioSource>();
         feedbackSource = gameObject.AddComponent<AudioSource>();
         feedbackSource.clip = feedback;
+        teleporter = GetComponent<ToPoint>();
     }
 
     void Awake()
     {
         if (events.Count <= 0)
-            throw new SystemException("haha, fuck you! CIA niggers \n\t\t\t\t\t\t-" + name);
+            throw new SystemException("No events added " + name); // RIP terry davis, greates programmer who ever lived
     }
 
     public void StartPopupshit()
@@ -135,6 +141,14 @@ public class Tutorial : MonoBehaviour
         {
             if (newIndex > 0)
                 yield return new WaitForSeconds(events[newIndex - 1].delayOnComplete);
+
+            //place player in  correct position
+            if(events[newIndex].startPlacement != null)
+                teleporter.StartTransition(events[newIndex].startPlacement);
+
+            //wait for fade to black b4 narration
+            yield return new WaitForSeconds(teleporter.moveTimer / 2);
+
 
             if (events[newIndex].narration != null)
             {

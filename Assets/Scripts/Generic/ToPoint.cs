@@ -46,13 +46,20 @@ public class ToPoint : MonoBehaviour
 
     public void StartTransition()
     {
-        StartCoroutine(GoToPoint());
+        StartCoroutine(GoToPoint(null));
     }
 
-    IEnumerator GoToPoint()
+    public void StartTransition(Transform specificTransform)
+    {
+        StartCoroutine(GoToPoint(specificTransform));
+    }
+
+    IEnumerator GoToPoint(Transform newTransform)
     {
         OVRScreenFade fade = null;
 
+        if (newTransform == null)
+            newTransform = transform;
 
         if (shouldFade)
         {
@@ -72,15 +79,15 @@ public class ToPoint : MonoBehaviour
         var camPos = cameraRig.GetComponentInChildren<Camera>().transform.position;
         var offset = new Vector3(camPos.x - cameraRig.transform.position.x, 0, camPos.z - cameraRig.transform.position.z);
 
-        cameraRig.transform.position = transform.position - offset;
+        cameraRig.transform.position = newTransform.position - offset;
         
-        cameraRig.transform.rotation = transform.rotation;
+        cameraRig.transform.rotation = newTransform.rotation;
 
         //float diff = transform.eulerAngles.y - cameraRig.GetComponentInChildren<Camera>().transform.eulerAngles.y;
 
 
         if (parentToNewPosition)
-            cameraRig.transform.parent = transform;
+            cameraRig.transform.parent = newTransform;
 
         //fade in and wait
         if (shouldFade)
