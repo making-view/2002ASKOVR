@@ -73,15 +73,17 @@ public class ToPoint : MonoBehaviour
         }
         //start fading and disable controller if there is one
 
-        //todo separate calculation for forward difference VR vs Camera
+        var camTran = cameraRig.GetComponentInChildren<Camera>().transform;
+        //fix rotation offset
+        cameraRig.transform.rotation = Quaternion.Euler(0, newTransform.eulerAngles.y - camTran.eulerAngles.y, 0);
+
 
         //move rig to point w rotation
-        var camPos = cameraRig.GetComponentInChildren<Camera>().transform.position;
-        var offset = new Vector3(camPos.x - cameraRig.transform.position.x, 0, camPos.z - cameraRig.transform.position.z);
+        var offset = new Vector3(camTran.position.x - cameraRig.transform.position.x, 0, camTran.position.z - cameraRig.transform.position.z);
 
         cameraRig.transform.position = newTransform.position - offset;
         
-        cameraRig.transform.rotation = newTransform.rotation;
+        
 
         //float diff = transform.eulerAngles.y - cameraRig.GetComponentInChildren<Camera>().transform.eulerAngles.y;
 
