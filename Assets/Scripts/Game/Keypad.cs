@@ -23,7 +23,9 @@ public class Keypad : MonoBehaviour
 
     public void AddToCommand(string add)
     {
-        Command += add;
+        if(Command.Length < 4)
+            Command += add;
+
         display.text = Command;
     }
 

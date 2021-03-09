@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
     {
         if (truck.StockFellOff)
         {
-            reportManager.messageText.text = "Usikrede varer falt av pallen din";
+            reportManager.messageText.text = "Du kjørte uten å plastre. Usikrede varer falt av pallen";
             reportManager.messageText.text += Environment.NewLine;
             reportManager.messageText.text += Environment.NewLine;
             reportManager.messageText.text += "Diskvalifisert";
@@ -207,7 +207,7 @@ public class GameManager : MonoBehaviour
         }
         else if (report.imprecision > maxImprecision)
         {
-            reportManager.messageText.text = "Varene dine er ikke stablet presist nok på pallen";
+            reportManager.messageText.text = "Varene dine er ikke stablet presist nok på pallen. Den kan ikke kjøres ut";
             reportManager.messageText.text += Environment.NewLine;
             reportManager.messageText.text += Environment.NewLine;
             reportManager.messageText.text += "Diskvalifisert";

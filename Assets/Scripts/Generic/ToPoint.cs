@@ -75,18 +75,13 @@ public class ToPoint : MonoBehaviour
 
         var camTran = cameraRig.GetComponentInChildren<Camera>().transform;
         //fix rotation offset
-        cameraRig.transform.rotation = Quaternion.Euler(0, newTransform.eulerAngles.y - camTran.eulerAngles.y, 0);
+        cameraRig.transform.rotation = Quaternion.Euler(0, cameraRig.transform.eulerAngles.y + newTransform.eulerAngles.y - camTran.eulerAngles.y, 0);
 
 
         //move rig to point w rotation
         var offset = new Vector3(camTran.position.x - cameraRig.transform.position.x, 0, camTran.position.z - cameraRig.transform.position.z);
 
         cameraRig.transform.position = newTransform.position - offset;
-        
-        
-
-        //float diff = transform.eulerAngles.y - cameraRig.GetComponentInChildren<Camera>().transform.eulerAngles.y;
-
 
         if (parentToNewPosition)
             cameraRig.transform.parent = newTransform;

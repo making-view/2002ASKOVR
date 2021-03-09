@@ -112,7 +112,7 @@ public class Tutorial : MonoBehaviour
                 //step goes from 0 to 1 based on tasks done
                 var tone = Mathf.Pow(1.05946f, scale[Mathf.RoundToInt(step * 7)]);
 
-                feedbackSource.pitch = tone;
+                feedbackSource.pitch = tone * 0.5f;
 
                 feedbackSource.Play();
             }
@@ -158,8 +158,9 @@ public class Tutorial : MonoBehaviour
 
             events[newIndex].onBeforeEventNarration.Invoke();
 
-            while (narrationSource.isPlaying)
-                yield return null;
+            //if (!Application.isEditor)
+            //    while (narrationSource.isPlaying)
+            //        yield return null;
 
             events[newIndex].onStartOfEvent.Invoke();
 

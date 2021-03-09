@@ -598,6 +598,7 @@ MonoBehaviour:
       m_Calls: []
   topPoint: {fileID: 3231198256280980136}
   bottomPoint: {fileID: 4392277713670124607}
+  debugPress: 0
 --- !u!65 &3184737662963200589
 BoxCollider:
   m_ObjectHideFlags: 0
