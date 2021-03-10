@@ -46,13 +46,20 @@ public class ToPoint : MonoBehaviour
 
     public void StartTransition()
     {
-        StartCoroutine(GoToPoint());
+        StartCoroutine(GoToPoint(null));
     }
 
-    IEnumerator GoToPoint()
+    public void StartTransition(Transform specificTransform)
+    {
+        StartCoroutine(GoToPoint(specificTransform));
+    }
+
+    IEnumerator GoToPoint(Transform newTransform)
     {
         OVRScreenFade fade = null;
 
+        if (newTransform == null)
+            newTransform = transform;
 
         if (shouldFade)
         {
@@ -66,21 +73,18 @@ public class ToPoint : MonoBehaviour
         }
         //start fading and disable controller if there is one
 
-        //todo separate calculation for forward difference VR vs Camera
+        var camTran = cameraRig.GetComponentInChildren<Camera>().transform;
+        //fix rotation offset
+        cameraRig.transform.rotation = Quaternion.Euler(0, cameraRig.transform.eulerAngles.y + newTransform.eulerAngles.y - camTran.eulerAngles.y, 0);
+
 
         //move rig to point w rotation
-        var camPos = cameraRig.GetComponentInChildren<Camera>().transform.position;
-        var offset = new Vector3(camPos.x - cameraRig.transform.position.x, 0, camPos.z - cameraRig.transform.position.z);
+        var offset = new Vector3(camTran.position.x - cameraRig.transform.position.x, 0, camTran.position.z - cameraRig.transform.position.z);
 
-        cameraRig.transform.position = transform.position - offset;
-        
-        cameraRig.transform.rotation = transform.rotation;
-
-        //float diff = transform.eulerAngles.y - cameraRig.GetComponentInChildren<Camera>().transform.eulerAngles.y;
-
+        cameraRig.transform.position = newTransform.position - offset;
 
         if (parentToNewPosition)
-            cameraRig.transform.parent = transform;
+            cameraRig.transform.parent = newTransform;
 
         //fade in and wait
         if (shouldFade)

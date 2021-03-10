@@ -46,6 +46,9 @@ public class Tutorial : MonoBehaviour
     {
         [SerializeField] public string name = "default";
         [SerializeField] public Task task = Task.None;
+
+        [SerializeField] public Transform startPlacement = null;
+
         [SerializeField] public AudioClip narration = null;
         [SerializeField] public int numberOfTimes = 4;
         
@@ -62,18 +65,21 @@ public class Tutorial : MonoBehaviour
     private AudioSource feedbackSource = null;
     [SerializeField] private AudioClip feedback = null;
 
+    private ToPoint teleporter = null;
+
     // Start is called before the first frame update
     private void Start()
     {
         narrationSource = gameObject.AddComponent<AudioSource>();
         feedbackSource = gameObject.AddComponent<AudioSource>();
         feedbackSource.clip = feedback;
+        teleporter = GetComponent<ToPoint>();
     }
 
     void Awake()
     {
         if (events.Count <= 0)
-            throw new SystemException("haha, fuck you! CIA niggers \n\t\t\t\t\t\t-" + name);
+            throw new SystemException("No events added " + name); // RIP terry davis, greates programmer who ever lived
     }
 
     public void StartPopupshit()
@@ -106,7 +112,7 @@ public class Tutorial : MonoBehaviour
                 //step goes from 0 to 1 based on tasks done
                 var tone = Mathf.Pow(1.05946f, scale[Mathf.RoundToInt(step * 7)]);
 
-                feedbackSource.pitch = tone;
+                feedbackSource.pitch = tone * 0.5f;
 
                 feedbackSource.Play();
             }
@@ -136,6 +142,14 @@ public class Tutorial : MonoBehaviour
             if (newIndex > 0)
                 yield return new WaitForSeconds(events[newIndex - 1].delayOnComplete);
 
+            //place player in  correct position
+            if(events[newIndex].startPlacement != null)
+                teleporter.StartTransition(events[newIndex].startPlacement);
+
+            //wait for fade to black b4 narration
+            yield return new WaitForSeconds(teleporter.moveTimer / 2);
+
+
             if (events[newIndex].narration != null)
             {
                 narrationSource.clip = events[newIndex].narration;
@@ -144,8 +158,9 @@ public class Tutorial : MonoBehaviour
 
             events[newIndex].onBeforeEventNarration.Invoke();
 
-            while (narrationSource.isPlaying)
-                yield return null;
+            //if (!Application.isEditor)
+            //    while (narrationSource.isPlaying)
+            //        yield return null;
 
             events[newIndex].onStartOfEvent.Invoke();
 
