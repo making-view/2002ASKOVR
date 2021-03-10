@@ -7164,7 +7164,7 @@ GameObject:
   - component: {fileID: 313148885}
   - component: {fileID: 313148884}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: HandsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10691,7 +10691,7 @@ RectTransform:
   m_GameObject: {fileID: 458682828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.0005, y: 0.0005, z: 0.0005}
   m_Children: []
   m_Father: {fileID: 313148883}
   m_RootOrder: 1
@@ -10699,7 +10699,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.7, y: -0.905}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 2486, y: 3513.6838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &458682830
 MonoBehaviour:
@@ -10720,9 +10720,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a4fac398ac285e84bb9dbf3d7518d234, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd4b26b3be9ed4b4ebe1a1eab30f5e5c, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -15277,7 +15277,7 @@ RectTransform:
   m_GameObject: {fileID: 641237653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 0.0005, y: 0.0005, z: 0.0005}
   m_Children: []
   m_Father: {fileID: 313148883}
   m_RootOrder: 0
@@ -15285,7 +15285,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1.7, y: -0.905}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 2486, y: 3513.6838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &641237655
 MonoBehaviour:
@@ -15306,9 +15306,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b643888ceb102f44499e455e8f28ee6e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b3929f5923b029640895de7c8fe32f60, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -39916,10 +39916,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightGraphic: {fileID: 641237655}
   leftGraphic: {fileID: 458682830}
-  none: {fileID: 21300000, guid: a4fac398ac285e84bb9dbf3d7518d234, type: 3}
-  grip: {fileID: 21300000, guid: cd27eb5d14fb42b4392c5d658a73ac77, type: 3}
-  one: {fileID: 21300000, guid: b643888ceb102f44499e455e8f28ee6e, type: 3}
-  stick: {fileID: 21300000, guid: 31a01b3bc1419b349a5a1ab4f1570fa5, type: 3}
+  r_neutral: {fileID: 21300000, guid: 06bb1dc78b1778440be9653d8cabda52, type: 3}
+  r_grip: {fileID: 21300000, guid: a87fd216b670a06469272672a31dc181, type: 3}
+  r_one: {fileID: 21300000, guid: b3929f5923b029640895de7c8fe32f60, type: 3}
+  r_stick: {fileID: 21300000, guid: b88d1e7087b4aa44f9a8f24d2cee8910, type: 3}
+  l_neutral: {fileID: 21300000, guid: 7c87ad3cd3820ad4687f5918d4db47dc, type: 3}
+  l_grip: {fileID: 21300000, guid: 2c92f8a28e7225947abc1f544faf7c53, type: 3}
+  l_one: {fileID: 21300000, guid: bd4b26b3be9ed4b4ebe1a1eab30f5e5c, type: 3}
+  l_stick: {fileID: 21300000, guid: e5dee539050eb5e45bc42d0619c0f2dd, type: 3}
 --- !u!1 &1476272217
 GameObject:
   m_ObjectHideFlags: 0
