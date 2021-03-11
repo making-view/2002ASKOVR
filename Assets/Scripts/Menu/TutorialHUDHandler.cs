@@ -8,10 +8,18 @@ public class TutorialHUDHandler : MonoBehaviour
     [SerializeField] private Image rightGraphic = null;
     [SerializeField] private Image leftGraphic = null;
 
-    [SerializeField] private Sprite none = null;
-    [SerializeField] private Sprite grip = null;
-    [SerializeField] private Sprite one = null;
-    [SerializeField] private Sprite stick = null;
+    [Space]
+    [SerializeField] private Sprite r_neutral = null;
+    [SerializeField] private Sprite r_grip = null;
+    [SerializeField] private Sprite r_one = null;
+    [SerializeField] private Sprite r_stick = null;
+
+    [Space]
+    [SerializeField] private Sprite l_neutral = null;
+    [SerializeField] private Sprite l_grip = null;
+    [SerializeField] private Sprite l_one = null;
+    [SerializeField] private Sprite l_stick = null;
+
 
     private Settings settings = null;
 
@@ -34,24 +42,24 @@ public class TutorialHUDHandler : MonoBehaviour
     {
         ShowHUD();
 
-        rightGraphic.sprite = none;
-        leftGraphic.sprite = none;
+        rightGraphic.sprite = r_neutral;
+        leftGraphic.sprite = l_neutral;
     }
 
     public void ShowRotateControls()
     {
         ShowHUD();
 
-        rightGraphic.sprite = stick;
-        leftGraphic.sprite = stick;
+        rightGraphic.sprite = r_stick;
+        leftGraphic.sprite = l_stick;
     }
 
     public void ShowGrabControls()
     {
         ShowHUD();
 
-        rightGraphic.sprite = grip;
-        leftGraphic.sprite = grip;
+        rightGraphic.sprite = r_grip;
+        leftGraphic.sprite = l_grip;
     }
 
     public void ShowTeleportControls()
@@ -60,13 +68,13 @@ public class TutorialHUDHandler : MonoBehaviour
 
         if (settings.RightHanded)
         {
-            rightGraphic.sprite = one;
-            leftGraphic.sprite = none;
+            rightGraphic.sprite = r_one;
+            leftGraphic.sprite = l_neutral;
         }
         else
         {
-            rightGraphic.sprite = none;
-            leftGraphic.sprite = one;
+            rightGraphic.sprite = r_neutral;
+            leftGraphic.sprite = l_one;
         }
     }
 
@@ -76,13 +84,13 @@ public class TutorialHUDHandler : MonoBehaviour
 
         if (settings.RightHanded)
         {
-            rightGraphic.sprite = none;
-            leftGraphic.sprite = one;
+            rightGraphic.sprite = r_neutral;
+            leftGraphic.sprite = l_one;
         }
         else
         {
-            rightGraphic.sprite = one;
-            leftGraphic.sprite = none;
+            rightGraphic.sprite = r_one;
+            leftGraphic.sprite = l_neutral;
         }
     }
 }
