@@ -110,6 +110,12 @@ public class Stock : MonoBehaviour
 
     public void SetFocused(bool focused)
     {
+        if (material == null)
+        {
+            Debug.LogWarning("Material == null in " + gameObject.name);
+            return;
+        }
+
         material.SetColor("_EmissionColor", focused ? highlightColor : initEmissionColor);
     }
 

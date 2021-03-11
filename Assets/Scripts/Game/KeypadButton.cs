@@ -32,10 +32,19 @@ public class KeypadButton : MonoBehaviour
     private Color initColor = Color.white;
     private bool highlighted = false;
 
+    [HideInInspector]
+    public bool initialized = false;
+
+    private void OnEnable()
+    {
+        if (!initialized)
+            Initialize();
+    }
+
     //
-    // Assigns this button to the correct action on the correct keypad
+    // called by parent keypad on start
     //
-    private void Start()
+    public void Initialize()
     {
         keypad = GetComponentInParent<Keypad>();
         button = GetComponentInChildren<PushableButton>();
@@ -54,10 +63,17 @@ public class KeypadButton : MonoBehaviour
         if (tutorialKeypad)
             AssignTutorialListeners();
 
+        initialized = true;
     }
 
     public void Highlight(bool highlight)
     {
+        if (material == null)
+        {
+            Debug.LogWarning("material = null - " + gameObject.name);
+            return;
+        }
+
         if (highlight && !highlighted)
             StartCoroutine(WhackyWavyLighting());
         else
@@ -129,6 +145,13 @@ public class KeypadButton : MonoBehaviour
                 break;
             case ButtonType.Repeat:
                 button.onButtonPushed.AddListener(tutorialKeypad.Repeat);
+                break;
+            case ButtonType.Wrap:
+                button.onButtonPushed.AddListener(keypad.ToggleWrapping);
+                break;
+            case ButtonType.Unwrap:
+                button.onButtonPushed.AddListener(keypad.StartUnwrapping);
+                button.onButtonReleased.AddListener(keypad.StopUnwrapping);
                 break;
         }
     }

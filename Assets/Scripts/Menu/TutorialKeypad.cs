@@ -66,10 +66,19 @@ public class TutorialKeypad : MonoBehaviour
         keypad.SendCommand();
     }
 
+    public void Plast()
+    {
+        tutorial.DoTask(Tutorial.Task.PlastKey);
+    }
+
+    public void CutPlast()
+    {
+        tutorial.DoTask(Tutorial.Task.CutKey);
+    }
+
     public void Repeat()
     {
         tutorial.DoTask(Tutorial.Task.RepeatKey);
-
     }
 
     public void Backspace()

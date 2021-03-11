@@ -19,6 +19,21 @@ public class Keypad : MonoBehaviour
     {
         Command = "";
         display.text = Command;
+
+        foreach (KeypadButton kpb in GetComponentsInChildren<KeypadButton>())
+        {
+            if(!kpb.initialized)
+                kpb.Initialize();
+        }
+
+        gameObject.SetActive(false);
+    }
+
+    //emtpy message when keypad is opened 
+    private void OnEnable()
+    {
+        Command = "";
+        display.text = Command;
     }
 
     public void AddToCommand(string add)

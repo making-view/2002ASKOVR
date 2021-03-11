@@ -18,6 +18,8 @@ public class Tutorial : MonoBehaviour
         RepeatKey,
         ConfirmKey,
         BackspaceKey,
+        PlastKey,
+        CutKey,
         None
     }
 
@@ -64,6 +66,7 @@ public class Tutorial : MonoBehaviour
     private AudioSource narrationSource = null;
     private AudioSource feedbackSource = null;
     [SerializeField] private AudioClip feedback = null;
+    [SerializeField] [Range(0.0f, 1.0f)] private float volume = 0.5f; 
 
     private ToPoint teleporter = null;
 
@@ -73,6 +76,7 @@ public class Tutorial : MonoBehaviour
         narrationSource = gameObject.AddComponent<AudioSource>();
         feedbackSource = gameObject.AddComponent<AudioSource>();
         feedbackSource.clip = feedback;
+        feedbackSource.volume = volume;
         teleporter = GetComponent<ToPoint>();
     }
 
@@ -112,7 +116,7 @@ public class Tutorial : MonoBehaviour
                 //step goes from 0 to 1 based on tasks done
                 var tone = Mathf.Pow(1.05946f, scale[Mathf.RoundToInt(step * 7)]);
 
-                feedbackSource.pitch = tone * 0.5f;
+                feedbackSource.pitch = tone * 0.75f;
 
                 feedbackSource.Play();
             }
