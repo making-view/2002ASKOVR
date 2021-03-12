@@ -148,10 +148,12 @@ public class KeypadButton : MonoBehaviour
                 break;
             case ButtonType.Wrap:
                 button.onButtonPushed.AddListener(keypad.ToggleWrapping);
+                button.onButtonPushed.AddListener(tutorialKeypad.Plast);
                 break;
             case ButtonType.Unwrap:
                 button.onButtonPushed.AddListener(keypad.StartUnwrapping);
                 button.onButtonReleased.AddListener(keypad.StopUnwrapping);
+                button.onButtonPushed.AddListener(tutorialKeypad.CutPlast);
                 break;
         }
     }

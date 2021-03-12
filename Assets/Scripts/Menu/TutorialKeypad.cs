@@ -68,12 +68,12 @@ public class TutorialKeypad : MonoBehaviour
 
     public void Plast()
     {
-        tutorial.DoTask(Tutorial.Task.PlastKey);
+        tutorial.DoTask(Tutorial.Task.Plast);
     }
 
     public void CutPlast()
     {
-        tutorial.DoTask(Tutorial.Task.CutKey);
+        tutorial.DoTask(Tutorial.Task.Cut);
     }
 
     public void Repeat()
@@ -126,6 +126,7 @@ public class TutorialKeypad : MonoBehaviour
 
             foreach (var button in buttons)
             {
+                //TODO rework dette til å være 5 stk
                 if (button.name.Equals("5"))
                     button.Highlight(true);
                 else

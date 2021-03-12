@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
 
         if (finishedPicking || timer > 0.0f)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            FindObjectOfType<SceneHandler>().LoadGame("Scenes/Menu");
         }
         else
         {

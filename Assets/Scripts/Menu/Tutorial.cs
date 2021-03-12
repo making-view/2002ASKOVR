@@ -18,8 +18,8 @@ public class Tutorial : MonoBehaviour
         RepeatKey,
         ConfirmKey,
         BackspaceKey,
-        PlastKey,
-        CutKey,
+        Plast,
+        Cut,
         None
     }
 
@@ -61,6 +61,11 @@ public class Tutorial : MonoBehaviour
 
     private int maxTask = 0;
     private int eventIndex = 0;
+
+    [Tooltip("Start event for editor testing purposes. Does not work in build")]
+    [SerializeField] private int startEvent = 0;
+    [Space]
+
     [SerializeField] private List<Event> events = null;
     [HideInInspector] public bool waitingForNextEvent = true;
     private AudioSource narrationSource = null;
@@ -88,7 +93,11 @@ public class Tutorial : MonoBehaviour
 
     public void StartPopupshit()
     {
-        eventIndex = 0;
+        if (Application.isEditor)
+            eventIndex = startEvent - 1;
+        else
+            eventIndex = 0;
+
         waitingForNextEvent = true;
         IsTutorialOngoing = true;
         StartCoroutine(StartEvent(eventIndex));
