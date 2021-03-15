@@ -79,7 +79,10 @@ public class Tutorial : MonoBehaviour
     private void Start()
     {
         narrationSource = gameObject.AddComponent<AudioSource>();
+        narrationSource.playOnAwake = false;
         feedbackSource = gameObject.AddComponent<AudioSource>();
+        feedbackSource.playOnAwake = false;
+
         feedbackSource.clip = feedback;
         feedbackSource.volume = volume;
         teleporter = GetComponent<ToPoint>();
@@ -126,8 +129,9 @@ public class Tutorial : MonoBehaviour
                 var tone = Mathf.Pow(1.05946f, scale[Mathf.RoundToInt(step * 7)]);
 
                 feedbackSource.pitch = tone * 0.75f;
-
-                feedbackSource.Play();
+                
+                if(action != Task.None)
+                    feedbackSource.Play();
             }
 
             if (events[eventIndex].numberOfTimes <= 0)

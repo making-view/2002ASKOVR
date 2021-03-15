@@ -50,10 +50,14 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
 
-        if (finishedPicking || timer > 0.0f)
+        if (timer > 0.0f)
         {
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             FindObjectOfType<SceneHandler>().LoadGame("Scenes/Menu");
+        }
+        else if(finishedPicking)
+        {
+            FindObjectOfType<SceneHandler>().LoadGame("Scenes/Warehouse");
         }
         else
         {
@@ -162,7 +166,7 @@ public class GameManager : MonoBehaviour
             }
 
             var totalStock = carryingArea.CarriedStock.Count();
-            var wrappedScore = (int)((float)(wrapped / totalStock) * 500);
+            var wrappedScore = (int)(((float)wrapped / totalStock) * 500.0f);
             report.entries.Add(new ReportEntry() { reason = "Plastede varer " + wrapped + "/" + totalStock + ": ", score = wrappedScore });
 
             if (totStickyWares > 0)
@@ -254,6 +258,8 @@ public class GameManager : MonoBehaviour
             reportManager.totalScoreText.gameObject.SetActive(true);
             //reportManager.totalGradeImage.gameObject.SetActive(true);
         }
+
+        reportManager.ScoreSystem.gameObject.SetActive(true);
     }
 
     //

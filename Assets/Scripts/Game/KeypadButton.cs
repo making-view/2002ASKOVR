@@ -166,6 +166,18 @@ public class KeypadButton : MonoBehaviour
             gameManager.ReadyForReport = true;
     }
 
+    //TODO make a skip button that fuctions in journey
+    private void InitializeSkip()
+    {
+        JourneyHandler jh = FindObjectOfType<JourneyHandler>();
+        RenderHeads.Media.AVProVideo.MediaPlayer mp = FindObjectOfType<RenderHeads.Media.AVProVideo.MediaPlayer>();
+    }
+
+    private void SkipButton()
+    {
+
+    }
+
     private void SendTextToPad()
     {
         keypad.AddToCommand(text.text);

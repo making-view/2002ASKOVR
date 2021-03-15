@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ReportManager : MonoBehaviour
 {
     public GameObject Entries;
+    public GameObject ScoreSystem;
     public Text totalScoreText;
     public Image totalGradeImage;
     public Text messageText;

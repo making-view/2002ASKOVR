@@ -31,6 +31,7 @@ public class JourneyHandler : MonoBehaviour
 
     private BezierSolution.BezierSqauencer sequencer;
     private AudioSource narrator;
+    [SerializeField] GameObject mapMenu = null;
     [SerializeField] List<JourneyEvent> journey = null;
 
     private int currentEvent = 0;
@@ -44,10 +45,16 @@ public class JourneyHandler : MonoBehaviour
     void Start()
     {
         narrator = GetComponent<AudioSource>();
-        targetEvent = journey.Count + 1;
+        //targetEvent = journey.Count + 1;
+        targetEvent = GetEventnum("ExplorationPause");
         Debug.Log("target event set to: " + targetEvent);
 
         initialized = true;
+    }
+
+    private void Update()
+    {
+        mapMenu.SetActive(targetEvent <= currentEvent);
     }
 
     //Sets the amount of events to play during PlayFrom(int i) mode
@@ -62,6 +69,13 @@ public class JourneyHandler : MonoBehaviour
         StopEvent();
 
         currentEvent = GetEventnum(eventName);
+
+        if (eventName.Equals("LowerMap"))
+        {
+            Debug.LogWarning("I'm a dirty fraud");
+            targetEvent = journey.Count;
+        }
+
         targetEvent = currentEvent + nEvents;
 
         if (currentEvent <= targetEvent && targetEvent < journey.Count + 1)
@@ -73,7 +87,7 @@ public class JourneyHandler : MonoBehaviour
 
     public void BeginPlay(int eventnum)
     {
-
+        StopAllCoroutines();
         StopCoroutine(PlayEvent());
         StopEvent();
 
@@ -85,6 +99,7 @@ public class JourneyHandler : MonoBehaviour
 
     public void BeginPlay(string eventname)
     {
+        StopAllCoroutines();
         StopCoroutine(PlayEvent());
         StopEvent();
 
@@ -163,6 +178,7 @@ public class JourneyHandler : MonoBehaviour
         else
         {
             done = true;
+            mapMenu.SetActive(true);
             //make exploration or reset available?
             //ReloadScene();
         }

@@ -7,7 +7,9 @@ public class ToPoint : MonoBehaviour
     [SerializeField] GameObject cameraRig = null;
 
 
-    [SerializeField] bool testOnStart = false;
+    [SerializeField] bool runOnStart = false;
+    [SerializeField] [Range(0.0f, 3.0f)] float delay = 1.0f;
+
     [SerializeField] public bool shouldFade = true;
     [Tooltip("Total time for fade-transition to happen")]
     [SerializeField] public float moveTimer = 1.5f;
@@ -21,8 +23,18 @@ public class ToPoint : MonoBehaviour
     {
         CheckforRequiredComponents();
 
-        if (testOnStart)
-            StartTransition();
+        if (runOnStart)
+            StartDelayed();
+    }
+
+    public void StartDelayed()
+    {
+        StartCoroutine(DelayedStart());
+    }
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(delay);
+        StartTransition();
     }
 
     //looks for needed scripts in children and variables in script
