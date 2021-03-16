@@ -99,7 +99,7 @@ public class VRVideoTrigger : MonoBehaviour
     {
         fading = true;
 
-        var fade = FindObjectOfType<OVRScreenFade>();
+        var fade = cameraRig.GetComponentInChildren<OVRScreenFade>();
 
         fade.fadeColor = Color.black;
         fade.fadeTime = 1.0f;
@@ -125,7 +125,9 @@ public class VRVideoTrigger : MonoBehaviour
         fading = false;
 
         //wait for duration of video - duration of fades
-        yield return new WaitForSeconds((float)mediaPlayer.Info.GetDuration() - 4.4f);
+        yield return new WaitForSeconds((float)mediaPlayer.Info.GetDuration() - 2.2f);
+
+
         StopVideo();
     }
 
@@ -133,7 +135,8 @@ public class VRVideoTrigger : MonoBehaviour
     {
         fading = true;
 
-        var fade = FindObjectOfType<OVRScreenFade>();
+        //var fade = FindObjectOfType<OVRScreenFade>();
+        var fade = cameraRig.GetComponentInChildren<OVRScreenFade>();
 
         fade.fadeColor = Color.black;
         fade.fadeTime = 1.0f;

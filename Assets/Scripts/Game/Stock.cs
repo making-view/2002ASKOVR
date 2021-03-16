@@ -435,6 +435,9 @@ public class Stock : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        if (collision.gameObject.layer.Equals(14))
+            return;
+
         if (collision.collider is BoxCollider && otherColliders.Contains(collision.collider as BoxCollider))
         {
             otherColliders.Remove(collision.collider as BoxCollider);

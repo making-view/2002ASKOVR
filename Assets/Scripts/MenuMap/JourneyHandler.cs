@@ -54,7 +54,8 @@ public class JourneyHandler : MonoBehaviour
 
     private void Update()
     {
-        mapMenu.SetActive(targetEvent <= currentEvent);
+        //hackfraud disgusting
+        mapMenu.SetActive(targetEvent <= currentEvent || journey[currentEvent].name.Equals("ExplorationPause"));
     }
 
     //Sets the amount of events to play during PlayFrom(int i) mode
@@ -93,7 +94,7 @@ public class JourneyHandler : MonoBehaviour
 
         currentEvent = eventnum;
 
-        if (journey.Count > currentEvent + 1)
+        if (journey.Count > currentEvent)
             StartCoroutine(PlayEvent());
     }
 
@@ -183,10 +184,12 @@ public class JourneyHandler : MonoBehaviour
             //ReloadScene();
         }
 
+        if (journey[currentEvent].name.Equals("ExplorationPause"))
+            mapMenu.SetActive(true);
+
         if (journey[currentEvent].particles != null)
             journey[currentEvent].particles.Stop();
     }
-
 
     public void ReloadScene()
     {
